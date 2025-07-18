@@ -7,28 +7,20 @@ import Pdf from 'react-native-pdf';
 import CustomButton from './CustomButton';
 import { Delete } from '../Axios/AxiosInterceptorFunction';
 import { useSelector } from 'react-redux';
-// import RNFetchBlob from 'react-native-fs';
+import RNFetchBlob from 'react-native-blob-util';
 import { ToastAndroid } from 'react-native';
+import CustomText from './CustomText';
+import Color from '../Assets/Utilities/Color';
 
 
 
 const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse, index }) => {
-  console.log("🚀 ~ file: PDFView.js:14 ~ PDFView ~ uri:", fileResponse[index]?.uri)
-  console.log("🚀 ~ file: PDFView.js:12 ~ PDFView ~ id:", index)
-  // console.log("🚀 ~ file: PDFView.js:12 ~ PDFView ~ index:", index)
   // const [selectedIndex, setIndex] = useState(index);
-  // console.log("🚀 ~ file: PDFView.js:13 ~ PDFView ~ selectedIndex:", selectedIndex)
   // console.log('selectedIndex',selectedIndex);
   const token = useSelector((state) => state.authReducer.token)
-  console.log('selected File', fileResponse[index])
-
-  // console.log('🚀 ~ file: PDFView.js:9 ~ PDFView ~ uri:', uri);
   const [listModalVisible, setListModalVisible] = useState(false);
 
-
-
   const checkPermission = async () => {
-
     // Function to check the platform
     // If iOS then start downloading
     // If Android then ask for permission
@@ -47,7 +39,6 @@ const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse
               'App needs access to your storage to download Photos',
           }
         );
-        //  console.log("🚀 ~ file: AddImagesContainer.js:78 ~ checkPermission ~ granted:", granted)
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           // Once user grant the permission start downloading
           console.log('Storage Permission Granted.');
@@ -64,63 +55,57 @@ const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse
     }
   };
 
-  // const downloadPDF = () => {
-  //   // Main function to download the image
+  const downloadPDF = () => {
+    // Main function to download the image
 
-  //   // To add the time suffix in filename
-  //   let date = new Date();
-  //   // Image URL which we want to download
-  //   let doc_URL = fileResponse[index]?.uri;
-  //   console.log("🚀 ~ file: PDFView.js:66 ~ downloadPDF ~ doc_URL:", doc_URL)
+    // To add the time suffix in filename
+    let date = new Date();
+    // Image URL which we want to download
+    let doc_URL = fileResponse[index]?.uri;
 
+    // Getting the extention of the file
+    let ext = getExtention(doc_URL);
+    ext = '.' + ext[0];
+    console.log('got extension', ext);
+    // Get config and fs from RNFetchBlob
+    // config: To pass the downloading related options
+    // fs: Directory path where we want our image to download
+    const { config, fs } = RNFetchBlob;
+    let PictureDir = fs.dirs.DownloadDir;
+    let options = {
+      fileCache: true,
+      addAndroidDownloads: {
+        // Related to the Android only
+        useDownloadManager: true,
+        notification: true,
+        path:
+          PictureDir +
+          '/document' +
+          Math.floor(date.getTime() + date.getSeconds() / 2) +
+          ext,
+        description: 'Document',
+      },
+    };
+    config(options)
+      .fetch('GET', doc_URL)
+      .then(res => {
+        setListModalVisible(false),
+          // Showing alert after successful downloading
 
-  //   // Getting the extention of the file
-  //   let ext = getExtention(doc_URL);
-  //   ext = '.' + ext[0];
-  //   console.log('got extension', ext);
-  //   // Get config and fs from RNFetchBlob
-  //   // config: To pass the downloading related options
-  //   // fs: Directory path where we want our image to download
-  //   const { config, fs } = RNFetchBlob;
-  //   let PictureDir = fs.dirs.DownloadDir;
-  //   console.log("🚀 ~ file: AddImagesContainer.js:130 ~ downloadImage ~ PictureDir:", PictureDir)
-  //   let options = {
-  //     fileCache: true,
-  //     addAndroidDownloads: {
-  //       // Related to the Android only
-  //       useDownloadManager: true,
-  //       notification: true,
-  //       path:
-  //         PictureDir +
-  //         '/document' +
-  //         Math.floor(date.getTime() + date.getSeconds() / 2) +
-  //         ext,
-  //       description: 'Document',
-  //     },
-  //   };
-  //   config(options)
-  //     .fetch('GET', doc_URL)
-  //     .then(res => {
-  //       setListModalVisible(false),
-  //         // Showing alert after successful downloading
-
-  //         // console.log('res -> ', JSON.stringify(res));
-  //         setIsVisible(false)
-  //       Platform.OS == 'android' ? ToastAndroid.show('Document Downloaded', ToastAndroid.SHORT) :
-  //         alert('Document Downloaded');
-  //     })
-  //     .catch(errorMessage => {
-  //       console.log(errorMessage);
-  //     });
-  // };
+          // console.log('res -> ', JSON.stringify(res));
+          setIsVisible(false)
+        Platform.OS == 'android' ? ToastAndroid.show('Document Downloaded', ToastAndroid.SHORT) :
+          alert('Document Downloaded');
+      })
+      .catch(errorMessage => {
+        console.log(errorMessage);
+      });
+  };
   const getExtention = filename => {
     // To get the file extension
     return /[.]/.exec(filename) ?
       /[^.]+$/.exec(filename) : undefined;
   };
-
-
-
 
   const deletePDF = async (id) => {
     const url = `document/delete/${id}`;
@@ -151,26 +136,27 @@ const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse
           backgroundColor: 'white',
         }}>
         <View style={styles.container}>
-          <Pdf
-            source={{
-              // uri: 'content://com.android.providers.media.documents/document/document%3A1000084194',
-              uri: fileResponse[index]?.uri,
-            }}
-            style={styles.pdf}
-            onLoadComplete={(numberOfPages, filePath) => {
-              console.log(`Number of pages: ${numberOfPages}`);
-            }}
-            onPageChanged={(page, numberOfPages) => {
-              console.log(`Current page: ${page}`);
-            }}
-            onError={error => {
-              console.log(error);
-            }}
-            onPressLink={uri => {
-              console.log(`Link pressed: ${uri}`);
-            }}
-            trustAllCerts={false}
-          />
+          {fileResponse[index]?.uri ? (
+            <Pdf
+              source={{ uri: fileResponse[index]?.uri, cache: true }}
+              style={styles.pdf}
+              onLoadComplete={(numberOfPages, filePath) => {
+                console.log(`Number of pages: ${numberOfPages}`);
+              }}
+              onPageChanged={(page, numberOfPages) => {
+                console.log(`Current page: ${page}`);
+              }}
+              onError={error => {
+                console.log('PDF Load Error:', error);
+              }}
+              onPressLink={uri => {
+                console.log(`Link pressed: ${uri}`);
+              }}
+              trustAllCerts={false}
+            />
+          ) : (
+            <CustomText>Loading PDF...</CustomText>
+          )}
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <CustomButton
               text={'Download'}
@@ -179,12 +165,10 @@ const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse
               height={windowHeight * 0.06}
               marginTop={moderateScale(30, 0.3)}
               marginRight={moderateScale(5, 0.3)}
-              // marginRight={moderateScale(10,0.3)}
               onPress={() => {
                 checkPermission()
-                //setIsVisible(false);
               }}
-              bgColor={Color.themeColor}
+              bgColor={Color.themeBlue}
               borderRadius={moderateScale(10, 0.3)}
             />
 
@@ -211,7 +195,7 @@ const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse
                 setFileResponse(newArray)
                 setIsVisible(false);
               }}
-              bgColor={Color.themeColor}
+              bgColor={Color.themeBlue}
               borderRadius={moderateScale(10, 0.3)}
             />
             <CustomButton
@@ -225,7 +209,7 @@ const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse
               onPress={() => {
                 setIsVisible(false);
               }}
-              bgColor={Color.themeColor}
+              bgColor={Color.themeBlue}
               borderRadius={moderateScale(10, 0.3)}
             />
           </View>

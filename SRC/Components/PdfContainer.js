@@ -6,9 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Color from '../Assets/Utilities/Color';
 import { windowHeight, windowWidth } from '../Utillity/utils';
 import CustomText from './CustomText';
-
-
-
+import CustomImage from './CustomImage';
 
 const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedPDFIndex }) => {
   // console.log("🚀 ~ file: PdfContainer.js:18 ~ PdfContainer ~ index:", index)
@@ -27,16 +25,11 @@ const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedP
   // }
 
 
-
-
-
   // useEffect(() => {
 
   //   getPng()
 
-
   // }, [])
-
 
 
 
@@ -47,64 +40,51 @@ const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedP
           setSelectedPdf(item)
           setShow(true);
           setSelectedPDFIndex(index);
-
         }}
         activeOpacity={0.8}
         style={styles.addImageContainer}>
-        <Icon
+        <View style={{
+          width: moderateScale(80, 0.6),
+          height: moderateScale(80, 0.6),
+          alignSelf: "center"
+        }}>
+          <CustomImage style={{
+            width: '100%',
+            height: '100%',
+          }} source={{ uri: 'https://resume-builder.cstmpanel.com/uploads/storage/thumbnail/c6bee683cf0977982f616cda1f39dba2PayMefirst.png' }} />
+        </View>
+        {/* <Icon
           name={'pdffile1'}
           as={AntDesign}
           size={moderateScale(50, 0.9)}
-          color={Color.themeColor}
+          color={Color.themeBlue}
           style={styles.icon}
-        />
-        {/* <CustomImage
-        onPress={() => {
-          setSelectedPdf(item)
-          setShow(!show);
-          setSelectedPDFIndex(index);
-         
-          
-        }}
-        source={{uri: thumbnailForHere?.uri}}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
         /> */}
         <View
           style={{
             width: '100%',
-            height: '40%',
+            height: '35%',
             position: 'absolute',
             zIndex: 1,
-            bottom: moderateScale(5, 0.6),
-            backgroundColor: 'rgba(255,255,255,0.7)',
+            bottom: moderateScale(0, 0.6),
+            backgroundColor: Color.lightGrey,
             alignItems: 'center',
             flexDirection: 'row',
             paddingHorizontal: moderateScale(3, 0.6),
+            borderEndEndRadius: moderateScale(5, 0.9),
+            borderBottomLeftRadius: moderateScale(5, 0.6)
           }}>
-          {/* <Icon
-          name={'pdffile1'}
-          as={AntDesign}
-          size={moderateScale(22, 0.6)}
-          color={Color.themeColor}
-          /> */}
           <CustomText
             numberOfLines={2}
             style={{
               fontSize: moderateScale(12, 0.6),
-              width: '70%',
-              // marginLeft: moderateScale(5, 0.3),
+              width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-
             }}>
             {item?.name}
           </CustomText>
         </View>
-
-
       </TouchableOpacity>
 
     </>
@@ -117,19 +97,10 @@ const styles = ScaledSheet.create({
   addImageContainer: {
     width: windowWidth * 0.33,
     backgroundColor: Color.white,
-    height: windowHeight * 0.15,
+    height: windowHeight * 0.16,
     marginRight: moderateScale(2, 0.3),
-    marginTop: moderateScale(2, 0.3),
-    // shadowColor: Color.themeColor,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 4,
-    // },
-    // shadowOpacity: 0.32,
-    // shadowRadius: 5.46,
-
-    // elevation: 9,
-    // overflow: 'hidden',
+    marginTop: moderateScale(5, 0.3),
+    borderRadius: moderateScale(5, 0.6)
   },
   container: {
     height: windowHeight * 0.4,
@@ -141,7 +112,7 @@ const styles = ScaledSheet.create({
   },
   icon: {
     marginStart: moderateScale(35, 0.3),
-    marginTop: moderateScale(8, 0.3)
+    marginTop: moderateScale(15, 0.3)
   },
   pdf: {
     flex: 1,

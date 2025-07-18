@@ -1,12 +1,12 @@
 import { Icon } from 'native-base';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Linking, PermissionsAndroid, Platform, ToastAndroid, View } from 'react-native';
 import ImageView from 'react-native-image-viewing';
 import Modal from 'react-native-modal';
 import { moderateScale, ScaledSheet } from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useSelector } from 'react-redux';
-// import RNFetchBlob from 'react-native-fs';
+import RNFetchBlob from 'react-native-blob-util';
 import Color from '../Assets/Utilities/Color';
 import { Delete } from '../Axios/AxiosInterceptorFunction';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
@@ -20,10 +20,9 @@ const AddImagesContainer = ({
   style,
   numberOfRows,
 }) => {
+  console.log("🚀 ~ multiImages:", multiImages)
 
   const [selectedIndex, setIndex] = useState(0);
-  // console.log("🚀 ~ file: AddImagesContainer.js:30 ~ selectedIndex:", selectedIndex)
-  // console.log("🚀 ~ file: AddImagesContainer.js:32 ~ selectedIndex:", selectedIndex , multiImages)
   const [visible, setIsVisible] = useState(false);
   const [listModalVisible, setListModalVisible] = useState(false);
   const token = useSelector((state) => state.authReducer.token)
@@ -56,7 +55,6 @@ const AddImagesContainer = ({
     { label: 'Close', onPress: () => { setListModalVisible(false), setIsVisible(false) } },
   ];
 
-  //Download Image functions
   const checkPermission = async () => {
 
     // Function to check the platform
@@ -101,56 +99,56 @@ const AddImagesContainer = ({
     }
   }
 
-  // const downloadImage = () => {
-  //   // Main function to download the image
+  const downloadImage = () => {
+    // Main function to download the image
 
-  //   // To add the time suffix in filename
-  //   let date = new Date();
-  //   // Image URL which we want to download
-  //   let image_URL = multiImages[selectedIndex]?.uri;  
-  //     // console.log("🚀 ~ file: AddImagesContainer.js:116 ~ downloadImage ~ image_URL:", image_URL)
-  //     // const image = multiImages[selectedIndex];
-  //     // if (typeof image.uri !== 'string') {
-  //     //   console.log('Invalid image URI');
-  //     //   return;
-  //     // }
-  //   // Getting the extention of the file
-  //   let ext = getExtention(image_URL);
-  //   ext = '.' + ext[0];
-  //   // Get config and fs from RNFetchBlob
-  //   // config: To pass the downloading related options
-  //   // fs: Directory path where we want our image to download
-  //   // const { config, fs } = RNFetchBlob;
-  //   let PictureDir = fs.dirs.PictureDir;
-  //   // console.log("🚀 ~ file: AddImagesContainer.js:130 ~ downloadImage ~ PictureDir:", PictureDir)
-  //   let options = {
-  //     fileCache: true,
-  //     addAndroidDownloads: {
-  //       // Related to the Android only
-  //       useDownloadManager: true,
-  //       notification: true,
-  //       path:
-  //         PictureDir +
-  //         '/image_' + 
-  //         Math.floor(date.getTime() + date.getSeconds() / 2) +
-  //         ext,
-  //       description: 'Image',
-  //     },
-  //   };
-  //   config(options)
-  //     .fetch('GET', image_URL)
-  //     .then(res => {
-  //       setListModalVisible(false),
-  //       setIsVisible(false)
-  //       // Showing alert after successful downloading
-  //       // console.log('res -> ', JSON.stringify(res));
-  //      Platform.OS == 'android' ? ToastAndroid.show('Image Downloaded',ToastAndroid.SHORT) :
-  //       alert('Image Downloaded');
-  //     })
-  //     .catch(errorMessage => {
-  //       console.log(errorMessage);
-  //     });
-  // };
+    // To add the time suffix in filename
+    let date = new Date();
+    // Image URL which we want to download
+    let image_URL = multiImages[selectedIndex]?.uri;
+    // console.log("🚀 ~ file: AddImagesContainer.js:116 ~ downloadImage ~ image_URL:", image_URL)
+    // const image = multiImages[selectedIndex];
+    // if (typeof image.uri !== 'string') {
+    //   console.log('Invalid image URI');
+    //   return;
+    // }
+    // Getting the extention of the file
+    let ext = getExtention(image_URL);
+    ext = '.' + ext[0];
+    // Get config and fs from RNFetchBlob
+    // config: To pass the downloading related options
+    // fs: Directory path where we want our image to download
+    const { config, fs } = RNFetchBlob;
+    let PictureDir = fs.dirs.PictureDir;
+    // console.log("🚀 ~ file: AddImagesContainer.js:130 ~ downloadImage ~ PictureDir:", PictureDir)
+    let options = {
+      fileCache: true,
+      addAndroidDownloads: {
+        // Related to the Android only
+        useDownloadManager: true,
+        notification: true,
+        path:
+          PictureDir +
+          '/image_' +
+          Math.floor(date.getTime() + date.getSeconds() / 2) +
+          ext,
+        description: 'Image',
+      },
+    };
+    config(options)
+      .fetch('GET', image_URL)
+      .then(res => {
+        setListModalVisible(false),
+          setIsVisible(false)
+        // Showing alert after successful downloading
+        // console.log('res -> ', JSON.stringify(res));
+        Platform.OS == 'android' ? ToastAndroid.show('Image Downloaded', ToastAndroid.SHORT) :
+          alert('Image Downloaded');
+      })
+      .catch(errorMessage => {
+        console.log(errorMessage);
+      });
+  };
 
   const getExtention = filename => {
     // To get the file extension
@@ -169,9 +167,6 @@ const AddImagesContainer = ({
     }
   }
 
-  // const incrementCount = useCallback(() => {
-  //   setIndex(prev=>prev+1);
-  // }, []);
 
 
   return (
@@ -184,11 +179,9 @@ const AddImagesContainer = ({
         contentContainerStyle={{
           paddingBottom: moderateScale(20, 0.6)
         }}
-        // keyExtractor={}
         renderItem={({ item, index }) => {
           return (
             <View style={[styles.addImageContainer, style]} key={index} >
-
               <CustomImage
                 source={{ uri: item?.uri }}
                 style={{
@@ -210,9 +203,6 @@ const AddImagesContainer = ({
           )
         }}
       />
-
-
-
 
       <ImageView
         imageIndex={selectedIndex}
@@ -301,20 +291,21 @@ export default AddImagesContainer;
 
 const styles = ScaledSheet.create({
   addImageContainer: {
-    width: windowWidth * 0.33,
+    width: windowWidth * 0.32,
     backgroundColor: Color.white,
-    height: windowHeight * 0.15,
-    marginRight: moderateScale(2, 0.3),
-    marginTop: moderateScale(2, 0.3),
-    shadowColor: Color.themeColor,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.32,
-    shadowRadius: 5.46,
+    height: windowHeight * 0.14,
+    marginRight: moderateScale(3, 0.3),
+    borderRadius: moderateScale(10, 0.6),
+    marginTop: moderateScale(5, 0.3),
+    // shadowColor: Color.grey,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 4,
+    // },
+    // shadowOpacity: 0.32,
+    // shadowRadius: 5.46,
 
-    elevation: 9,
+    // elevation: 9,
     overflow: 'hidden',
   },
 

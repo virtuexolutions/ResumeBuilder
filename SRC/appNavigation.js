@@ -97,7 +97,7 @@ const AppNavigator = () => {
           <RootNav.Screen name="FinalBlogPost" component={FinalBlogPost} />
           <RootNav.Screen name="ChecklistForm" component={ChecklistForm} />
           <RootNav.Screen name="SurveyForm" component={SurvaryForm} />
-          {/* <RootNav.Screen name="LoggedInScreen" component={LoggedInScreen} /> */}
+          {/* <RootNav.Screen name="Ewallet" component={Ewallet} /> */}
           <RootNav.Screen
             name="OnboardingScreen"
             component={OnboardingScreen}

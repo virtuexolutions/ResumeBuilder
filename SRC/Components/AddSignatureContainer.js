@@ -1,26 +1,30 @@
-import React, { useState } from 'react';
-import { Linking, PermissionsAndroid, View } from 'react-native';
+import { StyleSheet, Text, View, PermissionsAndroid, Linking } from 'react-native';
+import React, { useCallback, useState } from 'react';
 
-import { Icon } from 'native-base';
-import { FlatList } from 'react-native';
 import { moderateScale, ScaledSheet } from 'react-native-size-matters';
+import { FlatList } from 'react-native';
+import { Icon } from 'native-base';
 
 import Color from '../Assets/Utilities/Color';
 
-import { TouchableOpacity } from 'react-native';
-import Entypo from 'react-native-vector-icons/Entypo';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
+import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { TouchableOpacity } from 'react-native';
 
-import { Platform, ToastAndroid } from 'react-native';
 import ImageView from 'react-native-image-viewing';
-import Modal from 'react-native-modal';
-// import RNFetchBlob from 'react-native-fs';
 import CustomText from './CustomText';
 import NullDataComponent from './NullDataComponent';
+import Modal from 'react-native-modal';
+import RNFetchBlob from 'react-native-blob-util';
+import { Platform } from 'react-native';
+import { ToastAndroid } from 'react-native';
 
-import { useSelector } from 'react-redux';
-import { Delete } from '../Axios/AxiosInterceptorFunction';
 import ImageContainer from './ImageContainer';
+import { Delete } from '../Axios/AxiosInterceptorFunction';
+import { useSelector } from 'react-redux';
+import CustomImage from './CustomImage';
+import { baseUrl, imageUrl } from '../Config';
 
 const AddSignatureContainer = ({
   signatureImages,
@@ -31,8 +35,6 @@ const AddSignatureContainer = ({
   const token = useSelector((state) => state.authReducer.token)
 
   const [selectedIndex, setIndex] = useState(0);
-  // console.log("🚀 ~ file: AddSignatureContainer.js:30 ~ selectedIndex:", selectedIndex)
-  // console.log("🚀 ~ file: AddSignatureContainer.js:32 ~ selectedIndex:", selectedIndex , signatureImages)
   const [visible, setIsVisible] = useState(false);
   const [listModalVisible, setListModalVisible] = useState(false);
 
@@ -53,7 +55,6 @@ const AddSignatureContainer = ({
         let newArray = [...signatureImages];
         newArray.splice(selectedIndex, 1);
         deleteSignature(signatureImages[selectedIndex].id)
-        //   console.log("🚀 ~ file: AddImagesContainer.js:39 ~ newArray:", newArray)
         setSignatureImages(newArray);
         setListModalVisible(false);
         setIsVisible(false);
@@ -74,7 +75,6 @@ const AddSignatureContainer = ({
   }
 
 
-  //Download Image functions
   const checkPermission = async () => {
 
     // Function to check the platform
@@ -94,7 +94,6 @@ const AddSignatureContainer = ({
               'App needs access to your storage to download Photos',
           }
         );
-        //  console.log("🚀 ~ file: AddImagesContainer.js:78 ~ checkPermission ~ granted:", granted)
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           // Once user grant the permission start downloading
           // console.log('Storage Permission Granted.');
@@ -119,67 +118,67 @@ const AddSignatureContainer = ({
     }
   }
 
-  // const downloadSignature = () => {
-  //   // Main function to download the image
+  const downloadSignature = () => {
+    // Main function to download the image
 
-  //   // To add the time suffix in filename
-  //   let date = new Date();
-  //   // Image URL which we want to download
-  //   let image_URL = signatureImages[selectedIndex]?.uri;
-  //   let imagePath = image_URL.split('data:image/png;base64,',2)    
-  // //   console.log('imageURl=>>>>>>>>>> ',imagePath)
-  //   const dirs = RNFetchBlob.fs.dirs;
-  //   const filePath =
-  //        dirs.DownloadDir +
-  //         '/' +
-  //         'signture' +
-  //         new Date().getMilliseconds() +
-  //         '.png';
-  //       RNFetchBlob.fs
-  //         .writeFile(filePath, imagePath[1], 'base64')
-  //         .then(() => {
-  //           // setSignatureImage(filePath);
-  //           // console.log('Successfuly saved to' + filePath);
-  //           setListModalVisible(false);
-  //           setIsVisible(false);
-  //           Platform.OS == 'android' ? ToastAndroid.show('Signature Downloaded',ToastAndroid.SHORT) :
-  //                 alert('Signature Downloaded');
-  //         })
-  //         .catch(errorMessage => {
-  //           console.log(errorMessage);
-  //         });
-  //   // Getting the extention of the file
-  // //   let ext = getExtention(image_URL);
-  // //   ext = '.' + ext[0];
-  // //   // Get config and fs from RNFetchBlob
-  // //   // config: To pass the downloading related options
-  // //   // fs: Directory path where we want our image to download
-  // //   const { config, fs } = RNFetchBlob;
-  // //   let PictureDir = fs.dirs.PictureDir;
-  // //   let options = {
-  // //     fileCache: true,
-  // //     addAndroidDownloads: {
-  // //       // Related to the Android only
-  // //       useDownloadManager: true,
-  // //       notification: true,
-  // //       path:
-  // //         PictureDir +
-  // //         '/image_' + 
-  // //         Math.floor(date.getTime() + date.getSeconds() / 2) +
-  // //         ext,
-  // //       description: 'Signature',
-  // //     },
-  // //   };
-  // //   config(options)
-  // //     .fetch('GET', image_URL)
-  // //     .then(res => {
-  // //       setListModalVisible(false),
-  // //       // Showing alert after successful downloading
-  // //     //  console.log('res -> ', JSON.stringify(res));
-  // //      Platform.OS == 'android' ? ToastAndroid.show('Image Downloaded Successfully') :
-  // //       alert('Image Downloaded Successfully.');
-  // //     });
-  // };
+    // To add the time suffix in filename
+    let date = new Date();
+    // Image URL which we want to download
+    let image_URL = signatureImages[selectedIndex]?.uri;
+    let imagePath = image_URL.split('data:image/png;base64,', 2)
+    //   console.log('imageURl=>>>>>>>>>> ',imagePath)
+    const dirs = RNFetchBlob.fs.dirs;
+    const filePath =
+      dirs.DownloadDir +
+      '/' +
+      'signture' +
+      new Date().getMilliseconds() +
+      '.png';
+    RNFetchBlob.fs
+      .writeFile(filePath, imagePath[1], 'base64')
+      .then(() => {
+        // setSignatureImage(filePath);
+        // console.log('Successfuly saved to' + filePath);
+        setListModalVisible(false);
+        setIsVisible(false);
+        Platform.OS == 'android' ? ToastAndroid.show('Signature Downloaded', ToastAndroid.SHORT) :
+          alert('Signature Downloaded');
+      })
+      .catch(errorMessage => {
+        console.log(errorMessage);
+      });
+    // Getting the extention of the file
+    //   let ext = getExtention(image_URL);
+    //   ext = '.' + ext[0];
+    //   // Get config and fs from RNFetchBlob
+    //   // config: To pass the downloading related options
+    //   // fs: Directory path where we want our image to download
+    //   const { config, fs } = RNFetchBlob;
+    //   let PictureDir = fs.dirs.PictureDir;
+    //   let options = {
+    //     fileCache: true,
+    //     addAndroidDownloads: {
+    //       // Related to the Android only
+    //       useDownloadManager: true,
+    //       notification: true,
+    //       path:
+    //         PictureDir +
+    //         '/image_' + 
+    //         Math.floor(date.getTime() + date.getSeconds() / 2) +
+    //         ext,
+    //       description: 'Signature',
+    //     },
+    //   };
+    //   config(options)
+    //     .fetch('GET', image_URL)
+    //     .then(res => {
+    //       setListModalVisible(false),
+    //       // Showing alert after successful downloading
+    //     //  console.log('res -> ', JSON.stringify(res));
+    //      Platform.OS == 'android' ? ToastAndroid.show('Image Downloaded Successfully') :
+    //       alert('Image Downloaded Successfully.');
+    //     });
+  };
 
   const getExtention = filename => {
     // To get the file extension
@@ -195,60 +194,40 @@ const AddSignatureContainer = ({
   return (
     <>
       <FlatList
-        numColumns={1}
+        numColumns={3}
         nestedScrollEnabled={true}
         data={signatureImages}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: moderateScale(20, 0.6)
+          paddingBottom: moderateScale(20, 0.6),
         }}
-        // keyExtractor={}
         renderItem={({ item, index }) => {
+          console.log("🚀 ~ item:", item)
           return (
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => {
-              setIndex(index);
-              setIsVisible(true);
-            }}>
-              <ImageContainer
-                item={item}
+            <View style={[styles.addImageContainer, style]} key={index} >
+              <View style={styles.header}>
+                <Icon name="picture-o" as={FontAwesome} style={styles.icon}
+                  size={moderateScale(16, 0.6)}
+                />
+                <CustomText style={styles.name}>{item?.name}</CustomText>
+              </View>
+              <CustomImage
+                source={{ uri: `${item?.uri}` }}
+                style={{
+                  width: '100%',
+                  height: '72%',
+                }}
+                onPress={() => {
+                  setIndex(index);
+                  setIsVisible(true);
+                }}
                 key={index}
               />
-            </TouchableOpacity>
-            //   <View style={[styles.addImageContainer, style]} key={index} >
-            //     <View style={styles.header}>
-            //         <Icon name="picture-o" as={FontAwesome} style={styles.icon} />
-            //         <CustomText style={styles.name}>{item?.name}</CustomText>
-            //     </View>
 
-            //     <CustomImage
-            //       source={{uri  : item?.signature}}
-            //       style={{
-            //         width: '100%',
-            //         height: '80%',
-            //       }}
-            //       onPress={() => {
-            //         setIndex(index);
-            //         setIsVisible(true);
-            //       }}
-
-            //       key={index}
-            //     />
-            //      <View style={styles.footer}>
-            //         <CustomText style={styles.date}>{item?.date}</CustomText>
-            //     </View>
-
-            //           {/* <Icon
-            //             name={''}
-            //             as={AntDesign}
-            //             size={15}
-            //             color={Color.themeColor}
-            //             style={{zIndex:2}}
-            //             />
-            //          <CustomText style={styles.customText} >{item.name}</CustomText> */}
-            //          {/* <CustomText style={{position:'absolute',zIndex:1, bottom:5,right:5, color:Color.themeColor, fontSize:moderateScale(12,0.6)}}>Date</CustomText>  */}
-
-
-            //   </View>
+              <View style={styles.footer}>
+                <CustomText style={styles.date}>{item?.date}</CustomText>
+              </View>
+            </View>
           );
         }}
         ListEmptyComponent={() => {
@@ -258,9 +237,6 @@ const AddSignatureContainer = ({
         }}
       />
 
-
-
-
       <ImageView
         imageIndex={selectedIndex}
         images={signatureImages}
@@ -269,7 +245,6 @@ const AddSignatureContainer = ({
           setIsVisible(false);
         }}
         key={selectedIndex}
-
         HeaderComponent={() => {
           return (
             <View style={styles.header}>
@@ -313,7 +288,6 @@ const AddSignatureContainer = ({
         style={{
           justifyContent: 'flex-start',
         }}
-
       >
         <View style={styles.statusModal}>
           {statusArray.map((item, index) => {
@@ -321,7 +295,6 @@ const AddSignatureContainer = ({
               <View
                 key={index}
               >
-
                 <CustomText
                   onPress={item?.onPress}
                   style={{
@@ -346,24 +319,15 @@ export default AddSignatureContainer;
 
 const styles = ScaledSheet.create({
   addImageContainer: {
-    width: windowWidth * 0.33,
+    width: windowWidth * 0.3,
     backgroundColor: Color.white,
     height: windowHeight * 0.15,
-    marginRight: moderateScale(2, 0.3),
-    marginTop: moderateScale(2, 0.3),
-    //shadowColor: Color.themeColor,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.32,
-    shadowRadius: 5.46,
-    elevation: 9,
+    marginRight: moderateScale(6, 0.3),
+    marginTop: moderateScale(10, 0.3),
     overflow: 'hidden',
     marginBottom: moderateScale(2, 0.3),
     borderRadius: 10,
   },
-
 
   text: {
     fontSize: moderateScale(20, 0.6),
@@ -399,11 +363,11 @@ const styles = ScaledSheet.create({
     borderTopStartRadius: 5,
     zIndex: 1,
     bottom: 1,
-    borderColor: Color.themeColor,
+    borderColor: Color.themeBlue,
     backgroundColor: 'transparent',
     borderRadius: 7,
     borderTopWidth: 2,
-    color: Color.themeColor,
+    color: Color.themeBlue,
     width: '100%',
     fontSize: moderateScale(10, 0.6),
     padding: 6,
@@ -416,21 +380,21 @@ const styles = ScaledSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: 1,
+    // zIndex: 1,
     alignItems: 'center',
     // borderRadius:10,
     // padding: moderateScale(10,0.6),
     // height:10,
     // bottom:1,
-    borderTopColor: Color.themeColor,
-    borderTopWidth: 2,
+    borderTopColor: Color.themeBlue,
+    borderTopWidth: 0.5,
     // position:'absolute',
     // width:'100%',
     // zIndex:1,
   },
   date: {
     fontSize: moderateScale(12, 0.6),
-    color: Color.themeColor,
+    color: Color.themeBlue,
     zIndex: 2,
     bottom: 1,
     fontWeight: 'bold',
@@ -440,20 +404,18 @@ const styles = ScaledSheet.create({
     padding: moderateScale(4, 0.6),
     flexDirection: 'row',
     alignItems: 'center',
-    // borderBottomWidth:2,
-    // borderBottomColor:Color.themeColor,
-    // borderRadius:10,
     zIndex: 1,
   },
   icon: {
     marginRight: moderateScale(10, 0.3),
-    color: Color.themeColor,
-
+    color: Color.themeBlue,
+    width: moderateScale(20, 0.6),
+    height: moderateScale(20, 0.6)
   },
   name: {
     fontSize: moderateScale(12, 0.6),
     fontWeight: 'bold',
-    color: Color.themeColor,
+    color: Color.themeBlue,
   },
 
 });
