@@ -31,15 +31,11 @@ const Dashboard = ({ navigation, route }) => {
     const [numberOfEmployees, setnumberOfEmployees] = useState(0);
     const [numberOfDepartment, setnumberOfDepartment] = useState(0);
     const [numberOfDocuments, setnumberOfDocuments] = useState(0);
-    console.log("🚀 ~ Dashboard ~ numberOfDocuments:", numberOfDocuments)
-    console.log("🚀 ~ Dashboard ~ numberOfDepartment:", numberOfDepartment)
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('Dashboard')
     const userData = useSelector(state => state.commonReducer.userData);
     const token = useSelector(state => state.authReducer.token);
-    console.log("🚀 ~ Dashboard ~ token:", token)
 
-    console.log("🚀 ~ Dashboard ~ userData:", userData)
     const pieData = [
         { value: numberOfEmployees, color: '#6366F1', text: numberOfEmployees },
         { value: numberOfDepartment, color: '#2DD4BF', text: numberOfDepartment },
@@ -54,7 +50,6 @@ const Dashboard = ({ navigation, route }) => {
     const getDetails = async () => {
         const url = 'auth/company_detail'
         const response = await Get(url, token)
-        console.log("🚀 ~ getDetails ~ response:", response?.data?.company_detail)
         if (response != undefined) {
             setnumberOfDepartment(response?.data?.company_detail?.departments.length)
             setnumberOfEmployees(response?.data?.company_detail?.employee.length)

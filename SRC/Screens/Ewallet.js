@@ -45,7 +45,7 @@ const Ewallet = () => {
     const [selectedIndex, setSelectedItem] = useState('photo');
     const [showMultiImageModal, setShowMultiImageModal] = useState(false);
     const [multiImages, setMultiImages] = useState([]);
-    const [signatureImage, setSignatureImage] = useState('');
+    const [signatureImage, setSignatureImage] = useState([]);
     const [fileResponse, setFileResponse] = useState([]);
 
     const appState = useRef(AppState.currentState);
@@ -130,10 +130,10 @@ const Ewallet = () => {
     }, []);
 
     useEffect(() => {
-        if (Object.keys(image).length > 0) {
-            setMultiImages(prev => [...prev, image]);
-            sendImage();
-        }
+        // if (Object.keys(image).length > 0) {
+        //     setMultiImages(prev => [...prev, image]);
+        // }
+        sendImage();
     }, [image]);
 
     useEffect(() => {
@@ -161,6 +161,7 @@ const Ewallet = () => {
         if (resposne != undefined) {
             console.log(resposne?.data);
             Platform.OS == 'android' ? ToastAndroid.show('Image Added', ToastAndroid.SHORT) : alert('Image Added')
+            setMultiImages(prev => [...prev, image]);
         }
 
     };
@@ -292,7 +293,7 @@ const Ewallet = () => {
         setImageLoading(true)
         if (response != undefined) {
             setImageLoading(false)
-            //  return console.log( 'images data ====================>',response?.data)
+            console.log('images data ====================>', response?.data)
             setMultiImages(response?.data?.image);
         }
     };
@@ -393,7 +394,6 @@ const Ewallet = () => {
                         fontSize={moderateScale(12, 0.3)}
                     />
                 </View>
-
             </View>
             {selectedIndex == 'photo' ? (
                 <>
@@ -404,7 +404,6 @@ const Ewallet = () => {
                             setMultiImages={setMultiImages}
                             numberOfRows={3}
                         />
-
                     }
                 </>
             ) :
@@ -423,18 +422,26 @@ const Ewallet = () => {
                             showsVerticalScrollIndicator={false}
                             contentContainerStyle={{
                                 paddingBottom: moderateScale(20, 0.6),
+                                alignItems: fileResponse.flat().length === 1 ? 'flex-start' : 'center',
                             }}
                             renderItem={({ item, index }) => {
+                                const isSingleItem = fileResponse.flat().length === 1;
                                 return (
-                                    <PdfContainer
-                                        key={index}
-                                        item={item}
-                                        setSelectedPdf={setSelectedPdf}
-                                        setShow={setShow}
-                                        show={show}
-                                        index={index}
-                                        setSelectedPDFIndex={setSelectedPDFIndex}
-                                    />
+                                    <View style={{
+                                        width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
+                                        flexDirection: 'row',
+                                        justifyContent: isSingleItem ? 'flex-start' : 'center',
+                                    }}>
+                                        <PdfContainer
+                                            key={index}
+                                            item={item}
+                                            setSelectedPdf={setSelectedPdf}
+                                            setShow={setShow}
+                                            show={show}
+                                            index={index}
+                                            setSelectedPDFIndex={setSelectedPDFIndex}
+                                        />
+                                    </View>
                                 );
                             }}
                             ListEmptyComponent={() => {

@@ -21,6 +21,8 @@ const AddEmployees = () => {
   console.log("🚀 ~ AddEmployees ~ employee:", employee)
   const [loading, setLoading] = useState(false)
   const userData = useSelector(state => state.commonReducer.userData);
+  const [search, setSearch] = useState('')
+  const [filteredEmployee, setFilteredEmployee] = useState([]);
 
   console.log("🚀 ~ AddEmployees ~ employee:", employee)
   useEffect(() => {
@@ -41,6 +43,17 @@ const AddEmployees = () => {
       setLoading(false)
     }
   }
+  const handleSearch = () => {
+    if (search.trim() === '') {
+      setFilteredDepartments(employee);
+    } else {
+      const filtered = employee.filter(item =>
+        item?.full_name?.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredEmployee(filtered);
+    }
+  };
+
 
 
   const employee_list = [
@@ -98,8 +111,8 @@ const AddEmployees = () => {
             iconName={'search1'}
             iconType={AntDesign}
             color={Color.veryLightGray}
-            // setText={setEmail}
-            // value={email}
+            setText={setSearch}
+            value={search}
             placeholder={'Search Employees'}
             placeholderColor={Color.veryLightGray}
             viewWidth={0.7}
@@ -115,9 +128,7 @@ const AddEmployees = () => {
             borderRadius={moderateScale(10, 0.3)}
             textColor={Color.white}
             bgColor={Color.themeBlue}
-            onPress={() => {
-              Login()
-            }}
+            onPress={handleSearch}
           />
         </View>
         {

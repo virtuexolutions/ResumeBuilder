@@ -21,7 +21,7 @@ import { Platform } from 'react-native';
 import { ToastAndroid } from 'react-native';
 
 import ImageContainer from './ImageContainer';
-import { Delete } from '../Axios/AxiosInterceptorFunction';
+import { Delete, Post } from '../Axios/AxiosInterceptorFunction';
 import { useSelector } from 'react-redux';
 import CustomImage from './CustomImage';
 import { baseUrl, imageUrl } from '../Config';
@@ -66,10 +66,10 @@ const AddSignatureContainer = ({
   ];
 
   const deleteSignature = async (id) => {
-    const url = `signature/delete/${id}`;
-    const response = await Delete(url, {}, apiHeader(token));
+    const url = `auth/signature/${id}`;
+    const response = await Post(url, {}, apiHeader(token));
+    console.log("🚀 ~ deleteSignature ~ response:", response?.data)
     if (response != undefined) {
-      // console.log(response?.data)
       Platform.OS == 'android' ? ToastAndroid.show('Signature Deleted', ToastAndroid.SHORT) : alert('Signature Deleted')
     }
   }
@@ -200,32 +200,39 @@ const AddSignatureContainer = ({
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: moderateScale(20, 0.6),
+          alignItems: signatureImages.length === 1 ? 'flex-start' : 'center',
         }}
         renderItem={({ item, index }) => {
-          console.log("🚀 ~ item:", item)
+          const isSingleItem = signatureImages.length === 1;
           return (
-            <View style={[styles.addImageContainer, style]} key={index} >
-              <View style={styles.header}>
-                <Icon name="picture-o" as={FontAwesome} style={styles.icon}
-                  size={moderateScale(16, 0.6)}
+            <View style={{
+              width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
+              flexDirection: 'row',
+              justifyContent: isSingleItem ? 'flex-start' : 'center',
+            }}>
+              <View style={[styles.addImageContainer, style]} key={index} >
+                <View style={styles.header}>
+                  <Icon name="picture-o" as={FontAwesome} style={styles.icon}
+                    size={moderateScale(16, 0.6)}
+                  />
+                  <CustomText style={styles.name}>{item?.name}</CustomText>
+                </View>
+                <CustomImage
+                  source={{ uri: `${item?.uri}` }}
+                  style={{
+                    width: '100%',
+                    height: '72%',
+                  }}
+                  onPress={() => {
+                    setIndex(index);
+                    setIsVisible(true);
+                  }}
+                  key={index}
                 />
-                <CustomText style={styles.name}>{item?.name}</CustomText>
-              </View>
-              <CustomImage
-                source={{ uri: `${item?.uri}` }}
-                style={{
-                  width: '100%',
-                  height: '72%',
-                }}
-                onPress={() => {
-                  setIndex(index);
-                  setIsVisible(true);
-                }}
-                key={index}
-              />
 
-              <View style={styles.footer}>
-                <CustomText style={styles.date}>{item?.date}</CustomText>
+                <View style={styles.footer}>
+                  <CustomText style={styles.date}>{item?.date}</CustomText>
+                </View>
               </View>
             </View>
           );
@@ -244,6 +251,7 @@ const AddSignatureContainer = ({
         onRequestClose={() => {
           setIsVisible(false);
         }}
+        backgroundColor={Color.white}
         key={selectedIndex}
         HeaderComponent={() => {
           return (
@@ -252,10 +260,10 @@ const AddSignatureContainer = ({
                 name={'dots-three-vertical'}
                 as={Entypo}
                 size={moderateScale(20, 0.6)}
-                color={Color.white}
+                color={Color.black}
                 style={{
                   width: windowWidth * 0.98,
-                  textAlign: 'right'
+                  textAlign: 'right',
                 }}
                 onPress={() => {
                   setListModalVisible(true)
@@ -264,15 +272,6 @@ const AddSignatureContainer = ({
             </View>
           )
         }}
-      // onImageIndexChange={index => incrementCount}
-      // FooterComponent={() => (
-      //   <View
-      //     style={{ width: windowWidth , paddingBottom : moderateScale(10,0.6)}}>
-      //     <Text style={styles.text}>{`${selectedIndex + 1}/${
-      //       multiImages.length
-      //     }`}</Text>
-      //   </View>
-      // )}
       />
       <Modal
         isVisible={listModalVisible}
@@ -289,7 +288,9 @@ const AddSignatureContainer = ({
           justifyContent: 'flex-start',
         }}
       >
-        <View style={styles.statusModal}>
+        <View style={[styles.statusModal, {
+          backgroundColor: Color.white
+        }]}>
           {statusArray.map((item, index) => {
             return (
               <View
@@ -301,7 +302,7 @@ const AddSignatureContainer = ({
                     borderColor: Color.themeBlack,
                     lineHeight: moderateScale(25, 0.3),
                     marginTop: moderateScale(10, 0.3),
-                    color: Color.white,
+                    color: Color.black,
                   }}
                 >
                   {item?.label}

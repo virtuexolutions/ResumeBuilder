@@ -51,6 +51,7 @@ import ProfileDetails from './Screens/ProfileDetails';
 import CompanyNavigator from './navigators/CompanyNavigator';
 import EmployeeNavigator from './navigators/EmployeeNavigator';
 import LoggedInScreen from './Screens/LoggedInScreen';
+import SubCategory from './Screens/SubCategory';
 // import SurvaryForm from './Screens/SurvaryForm';
 // import EditSurveyForm from './Screens/EditSurveyForm';
 
@@ -133,6 +134,7 @@ const AppNavigator = () => {
           <RootNav.Screen name="ChecklistScreen" component={ChecklistScreen} />
           <RootNav.Screen name="AddDepartment" component={AddDepartment} />
           <RootNav.Screen name="CheckOutScreen" component={CheckOutScreen} />
+          <RootNav.Screen name="SubCategory" component={SubCategory} />
           <RootNav.Screen
             name="FinalCoverLetter"
             component={FinalCoverLetter}

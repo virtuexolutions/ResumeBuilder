@@ -42,7 +42,6 @@ const CompanyDetails = () => {
 
     const onPressSubmit = async () => {
         const url = 'auth/add_company'
-
         const body = {
             company_name: company_name,
             business_type: bussiness_type,
@@ -271,7 +270,7 @@ const styles = StyleSheet.create({
     },
     main_view: {
         paddingVertical: moderateScale(10, 0.6),
-        paddingHorizontal: moderateScale(15, 0.6)
+        // paddingHorizontal: moderateScale(15, 0.6)
     },
     search_bar_view: {
         width: windowWidth * 0.94,

@@ -8,7 +8,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import { useSelector } from 'react-redux';
 import RNFetchBlob from 'react-native-blob-util';
 import Color from '../Assets/Utilities/Color';
-import { Delete } from '../Axios/AxiosInterceptorFunction';
+import { Delete, Post } from '../Axios/AxiosInterceptorFunction';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import CustomImage from './CustomImage';
 import CustomText from './CustomText';
@@ -20,7 +20,6 @@ const AddImagesContainer = ({
   style,
   numberOfRows,
 }) => {
-  console.log("🚀 ~ multiImages:", multiImages)
 
   const [selectedIndex, setIndex] = useState(0);
   const [visible, setIsVisible] = useState(false);
@@ -157,8 +156,8 @@ const AddImagesContainer = ({
   };
 
   const deleteImage = async (id) => {
-    const url = `image/delete/${id}`;
-    const response = await Delete(url, {}, apiHeader(token));
+    const url = `auth/image/${id}`;
+    const response = await Post(url, {}, apiHeader(token));
     if (response != undefined) {
       console.log('image Deleted=======>>>>>>>', response?.data)
       Platform.OS == 'android' ? ToastAndroid.show('Image Deleted', ToastAndroid.SHORT) : alert('Image Deleted')
@@ -166,8 +165,6 @@ const AddImagesContainer = ({
 
     }
   }
-
-
 
   return (
     <>
@@ -177,23 +174,31 @@ const AddImagesContainer = ({
         data={multiImages}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: moderateScale(20, 0.6)
+          paddingBottom: moderateScale(20, 0.6),
+          alignItems: multiImages.length === 1 ? 'flex-start' : 'center',
         }}
         renderItem={({ item, index }) => {
+          const isSingleItem = multiImages.length === 1;
           return (
-            <View style={[styles.addImageContainer, style]} key={index} >
-              <CustomImage
-                source={{ uri: item?.uri }}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                }}
-                onPress={() => {
-                  setIndex(index);
-                  setIsVisible(true);
-                }}
-                key={index}
-              />
+            <View style={{
+              width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
+              flexDirection: 'row',
+              justifyContent: isSingleItem ? 'flex-start' : 'center',
+            }}>
+              <View style={[styles.addImageContainer, style]} key={index} >
+                <CustomImage
+                  source={{ uri: item?.uri }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  onPress={() => {
+                    setIndex(index);
+                    setIsVisible(true);
+                  }}
+                  key={index}
+                />
+              </View>
             </View>
           );
         }}
@@ -212,7 +217,6 @@ const AddImagesContainer = ({
           setIsVisible(false);
         }}
         key={selectedIndex}
-
         HeaderComponent={() => {
           return (
             <View style={styles.header}>
@@ -221,7 +225,6 @@ const AddImagesContainer = ({
                 as={Entypo}
                 size={moderateScale(20, 0.6)}
                 color={Color.white}
-
                 style={{
                   width: windowWidth * 0.98,
                   textAlign: 'right'
@@ -266,7 +269,6 @@ const AddImagesContainer = ({
                 key={index}
 
               >
-
                 <CustomText
                   onPress={item?.onPress}
                   style={{
@@ -291,7 +293,7 @@ export default AddImagesContainer;
 
 const styles = ScaledSheet.create({
   addImageContainer: {
-    width: windowWidth * 0.32,
+    width: windowWidth * 0.3,
     backgroundColor: Color.white,
     height: windowHeight * 0.14,
     marginRight: moderateScale(3, 0.3),

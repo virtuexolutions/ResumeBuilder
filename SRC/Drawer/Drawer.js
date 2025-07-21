@@ -41,7 +41,7 @@ const Drawer = React.memo((props) => {
       name: 'Company Details',
       onPress: () => {
         // setIsModalVisible(true);
-        // navigation.navigate('CompanyDetails');
+        navigation.navigate('Details');
       },
       iconName: 'building',
       iconType: FontAwesome6

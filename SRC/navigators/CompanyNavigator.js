@@ -10,6 +10,7 @@ import ProfileDetails from '../Screens/ProfileDetails';
 import CompanyDetails from '../Screens/CompanyDetails';
 import Tamplates from '../Screens/Tamplates';
 import Ewallet from '../Screens/Ewallet';
+import Details from '../Screens/Details';
 
 const DrawerNavigation = createDrawerNavigator();
 
@@ -26,7 +27,8 @@ const CompanyNavigator = () => {
             <DrawerNavigation.Screen name="Department" component={Department} />
             <DrawerNavigation.Screen name="AddEmployees" component={AddEmployees} />
             <DrawerNavigation.Screen name="AddDepartment" component={AddDepartment} />
-            <DrawerNavigation.Screen name="CompanyDetails" component={CompanyDetails} />
+            <DrawerNavigation.Screen name="Details" component={Details} />
+            {/* <DrawerNavigation.Screen name="CompanyDetails" component={CompanyDetails} /> */}
             <DrawerNavigation.Screen name="Tamplates" component={Tamplates} />
             <DrawerNavigation.Screen name="Ewallet" component={Ewallet} />
         </DrawerNavigation.Navigator>

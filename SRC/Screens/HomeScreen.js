@@ -41,29 +41,6 @@ const HomeScreen = ({ navigation, route }) => {
     const token = useSelector(state => state.authReducer.token);
     console.log("🚀 ~ HomeScreen ~ token:", token)
 
-    const documents = [
-        {
-            id: '1',
-            title: 'Welcome Aboard!',
-            date: '2025-05-26',
-            status: 'new',
-            assignedTo: 'me',
-        },
-        {
-            id: '2',
-            title: 'select_date_textly Survey',
-            date: '2025-05-25',
-            status: 'seen',
-            assignedTo: 'me',
-        },
-        {
-            id: '3',
-            title: 'Compliance Training',
-            date: '2025-04-15',
-            status: 'new',
-            assignedTo: 'everyone',
-        },
-    ];
     useEffect(() => {
         getDocs()
     }, [])
