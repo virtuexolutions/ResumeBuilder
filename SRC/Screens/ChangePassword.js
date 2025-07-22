@@ -1,182 +1,124 @@
-import React, {useState} from 'react';
-import Color from '../Assets/Utilities/Color';
-import {apiHeader, windowHeight, windowWidth} from '../Utillity/utils';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  ImageBackground,
-  Platform,
-  ToastAndroid,
   Alert,
+  Platform,
+  ScrollView,
+  ToastAndroid,
+  View
 } from 'react-native';
-import CustomText from '../Components/CustomText';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
+import Feather from 'react-native-vector-icons/Feather';
+import { useSelector } from 'react-redux';
+import Color from '../Assets/Utilities/Color';
+import { Post } from '../Axios/AxiosInterceptorFunction';
 import CustomButton from '../Components/CustomButton';
+import CustomText from '../Components/CustomText';
+import Header from '../Components/Header';
 import TextInputWithTitle from '../Components/TextInputWithTitle';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import navigationService from '../navigationService';
-import {Icon} from 'native-base';
-import {ScaledSheet, moderateScale} from 'react-native-size-matters';
-import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
-import {Formik} from 'formik';
-import {changePasswordSchema} from '../Constant/schema';
-import {Post} from '../Axios/AxiosInterceptorFunction';
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 
 const ChangePassword = () => {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
-  const {user_type} = useSelector(state => state.authReducer);
+  const { user_type } = useSelector(state => state.authReducer);
   const token = useSelector(state => state.authReducer.token);
+  const [password, setPassword] = useState('');
+  const [pre_password, setPrePassword] = useState('');
+  const [confirm_password, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false)
 
-  const handleReset = async values => {
+  const handleReset = async () => {
     const url = 'auth/change_password';
     const body = {
-      current_password: values.currentPassword,
-      new_password: values.newPassword,
-      confirm_password: values.confirmNewPassword,
+      current_password: pre_password,
+      new_password: password,
+      confirm_password: confirm_password,
     };
     setIsLoading(true);
     const response = await Post(url, body, apiHeader(token));
     setIsLoading(false);
     if (response?.data != undefined) {
+      setIsLoading(false);
       Platform.OS == 'android'
         ? ToastAndroid.show('change password uccessfully', ToastAndroid.SHORT)
         : Alert.alert('change password uccessfully');
-      navigationService.navigate('Home');
     }
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={0.8}
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
+      <Header showBack={true} />
+      <View style={styles.main_view}>
+        <CustomText isBold style={styles.heading}>Create A New Password</CustomText>
+        <CustomText style={styles.sub_heading}>Your new password must be different from previous use password.</CustomText>
+        <View style={{ marginTop: moderateScale(15, 0.6) }} />
+        <TextInputWithTitle
+          title={"Enter previous Password : "}
+          iconName={'lock'}
+          iconType={Feather}
+          color={Color.veryLightGray}
+          setText={setPrePassword}
+          value={pre_password}
+          placeholder={'previous Password'}
+          placeholderColor={Color.veryLightGray}
+          viewWidth={0.9}
+          viewHeight={0.060}
+          border={1}
+          borderRadius={moderateScale(10, 0.6)}
+          borderColor={Color.themeBlue}
+          secureText={true}
+        />
+
+        <TextInputWithTitle
+          title={"Enter New Password : "}
+          iconName={'lock'}
+          iconType={Feather}
+          color={Color.veryLightGray}
+          setText={setPassword}
+          value={password}
+          placeholder={'New Password'}
+          placeholderColor={Color.veryLightGray}
+          viewWidth={0.9}
+          viewHeight={0.060}
+          border={1}
+          borderRadius={moderateScale(10, 0.6)}
+          borderColor={Color.themeBlue}
+          secureText={true}
+        />
+
+        <TextInputWithTitle
+          title={"Confirm New Password"}
+          iconName={'lock'}
+          iconType={Feather}
+          setText={setConfirmPassword}
+          value={confirm_password}
+          color={Color.veryLightGray}
+          placeholder={'Confirm password'}
+          placeholderColor={Color.veryLightGray}
+          viewWidth={0.9}
+          viewHeight={0.060}
+          border={1}
+          borderRadius={moderateScale(10, 0.6)}
+          borderColor={Color.themeBlue}
+          secureText={true}
+        />
+        <CustomText style={styles.sub_heading}>Both Password must be match.</CustomText>
+        <CustomButton
+          text={loading ? <ActivityIndicator style={styles.indicatorStyle}
+            size="small"
+            color={Color.white} /> : 'Reset Password'}
+          width={windowWidth * 0.9}
+          height={windowHeight * 0.055}
+          borderRadius={moderateScale(10, 0.3)}
+          textColor={Color.white}
+          bgColor={Color.themeBlue}
+          marginTop={moderateScale(20, 0.6)}
           onPress={() => {
-            navigation.goBack();
+            handleReset()
           }}
-          style={styles.back}>
-          <Icon
-            name="arrowleft"
-            as={AntDesign}
-            style={styles.icon2}
-            color={Color.white}
-            size={moderateScale(20, 0.3)}
-            onPress={() => {
-              navigation.goBack();
-            }}
-          />
-        </TouchableOpacity>
-        <CustomText style={styles.headert}>change password</CustomText>
-      </View>
-      <View style={styles.main_container}>
-        {/* <CustomText style={styles.txt5}>Change Password</CustomText> */}
-        <Formik
-          validationSchema={changePasswordSchema}
-          initialValues={{
-            currentPassword: '',
-            newPassword: '',
-            confirmNewPassword: '',
-          }}
-          onSubmit={handleReset}>
-          {({handleChange, handleSubmit, values, errors, touched}) => {
-            return (
-              <View style={styles.text_input}>
-                <TextInputWithTitle
-                  title={'current Password *'}
-                  placeholder={'Current Password'}
-                  setText={handleChange('currentPassword')}
-                  value={values.currentPassword}
-                  secureText={true}
-                  viewHeight={0.06}
-                  viewWidth={0.8}
-                  inputWidth={0.75}
-                  border={1}
-                  borderRadius={moderateScale(30, 0.3)}
-                  borderColor={'#000'}
-                  backgroundColor={Color.white}
-                  marginTop={moderateScale(10, 0.3)}
-                  color={Color.black}
-                  placeholderColor={Color.veryLightGray}
-                />
-                {touched.currentPassword && errors.currentPassword && (
-                  <CustomText style={styles.schemaText}>
-                    {errors.currentPassword}
-                  </CustomText>
-                )}
-                <TextInputWithTitle
-                  title={'new password *'}
-                  titleText={'New Password'}
-                  placeholder={'New Password'}
-                  setText={handleChange('newPassword')}
-                  value={values.newPassword}
-                  secureText={true}
-                  viewHeight={0.06}
-                  viewWidth={0.8}
-                  inputWidth={0.75}
-                  border={1}
-                  borderRadius={moderateScale(30, 0.3)}
-                  borderColor={'#000'}
-                  backgroundColor={Color.white}
-                  marginTop={moderateScale(10, 0.3)}
-                  color={Color.black}
-                  placeholderColor={Color.veryLightGray}
-                />
-                {touched.newPassword && errors.newPassword && (
-                  <CustomText style={styles.schemaText}>
-                    {errors.newPassword}
-                  </CustomText>
-                )}
-                <TextInputWithTitle
-                  title={'confirm new password *'}
-                  titleText={'Confirm your new password'}
-                  placeholder={'Confirm your new password'}
-                  setText={handleChange('confirmNewPassword')}
-                  value={values.confirmNewPassword}
-                  secureText={true}
-                  viewHeight={0.06}
-                  viewWidth={0.8}
-                  inputWidth={0.75}
-                  border={1}
-                  borderRadius={moderateScale(30, 0.3)}
-                  borderColor={'#000'}
-                  backgroundColor={Color.white}
-                  marginTop={moderateScale(10, 0.3)}
-                  color={Color.black}
-                  placeholderColor={Color.veryLightGray}
-                />
-                {touched.confirmNewPassword && errors.confirmNewPassword && (
-                  <CustomText style={styles.schemaText}>
-                    {errors.confirmNewPassword}
-                  </CustomText>
-                )}
-                <CustomButton
-                  onPress={handleSubmit}
-                  text={
-                    isLoading ? (
-                      <ActivityIndicator size={'small'} color={Color.white} />
-                    ) : (
-                      'RESET'
-                    )
-                  }
-                  fontSize={moderateScale(12, 0.3)}
-                  textColor={Color.white}
-                  borderRadius={moderateScale(30, 0.3)}
-                  width={windowWidth * 0.8}
-                  height={windowHeight * 0.065}
-                  marginTop={moderateScale(20, 0.3)}
-                  bgColor={
-                    user_type === 'Rider' ? Color.darkBlue : Color.btn_Color
-                  }
-                  isBold
-                  elevation
-                />
-              </View>
-            );
-          }}
-        </Formik>
+        />
       </View>
     </ScrollView>
   );
@@ -184,64 +126,22 @@ const ChangePassword = () => {
 
 export default ChangePassword;
 const styles = ScaledSheet.create({
-  main_container: {
+  container: {
+    width: windowWidth,
     height: windowHeight,
-    width: windowWidth,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    justifyContent: 'center',
+    backgroundColor: '#F9F9F9',
+    paddingTop: moderateScale(10, 0.6),
   },
-  txt5: {
-    textAlign: 'center',
-    fontSize: moderateScale(24, 0.6),
-    fontWeight: 'bold',
-    width: windowWidth * 0.85,
-    color: Color.themeBlack,
-    marginVertical: moderateScale(25, 0.3),
+  main_view: {
+    paddingHorizontal: moderateScale(15, 0.6),
   },
-  text_input: {
-    alignItems: 'center',
-    borderWidth: 1,
-    width: windowWidth * 0.9,
-    borderColor: Color.mediumGray,
-    height: windowHeight * 0.52,
-    borderRadius: 20,
-    paddingTop: windowHeight * 0.03,
-    paddingHorizontal: moderateScale(20, 0.6),
-  },
-  back: {
-    width: moderateScale(35, 0.6),
-    height: moderateScale(35, 0.6),
-    borderRadius: moderateScale(5, 0.6),
-    borderWidth: 0.5,
-    borderColor: '#FFFFFF',
-    // position: 'absolute',
-    // left: moderateScale(10, 0.6),
-    // top: moderateScale(10, 0.6),
-    zIndex: 1,
-    margin: 5,
-    alignItems: 'center',
-    backgroundColor: Color.themeBlack,
-    justifyContent: 'center',
-  },
-  schemaText: {
-    fontSize: moderateScale(10, 0.6),
-    color: 'red',
-    alignSelf: 'flex-start',
-    // backgroundColor: 'red',
-  },
-  header: {
-    flexDirection: 'row',
-    width: windowWidth,
-    backgroundColor: 'white',
-    paddingHorizontal: moderateScale(10, 0.6),
-    paddingTop: moderateScale(5, 0.3),
-  },
-  headert: {
+  heading: {
     fontSize: moderateScale(18, 0.6),
-    color: Color.black,
-    width: windowWidth * 0.8,
-    textAlign: 'center',
-    marginTop: moderateScale(8, 0.6),
   },
+  sub_heading: {
+    fontSize: moderateScale(14, 0.6),
+    marginTop: moderateScale(10, 0.6),
+    textTransform: 'none',
+    color: Color.veryLightGray
+  }
 });

@@ -25,7 +25,7 @@ const Drawer = React.memo((props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const userData = useSelector(state => state.commonReducer.userData);
   console.log("🚀 ~ Drawer ~ userData user_type:", user_type, userData)
-  
+
   const adminData = [
     {
       id: 1,
@@ -112,16 +112,15 @@ const Drawer = React.memo((props) => {
       iconName: 'person',
       iconType: MaterialIcons
     },
-    {
-      id: 3,
-      name: 'Documents',
-      onPress: () => {
-        // setIsModalVisible(true);
-        // navigation.navigate('Tamplates');
-      },
-      iconName: 'filetext1',
-      iconType: AntDesign
-    },
+    // {
+    //   id: 3,
+    //   name: 'Documents',
+    //   onPress: () => {
+    //     navigation.navigate('Documents');
+    //   },
+    //   iconName: 'filetext1',
+    //   iconType: AntDesign
+    // },
     {
       id: 4,
       name: 'Notifications ',
@@ -135,7 +134,7 @@ const Drawer = React.memo((props) => {
       id: 5,
       name: 'Settings',
       onPress: () => {
-        // navigation.navigate('CompanyDetails');
+        navigation.navigate('Setting');
       },
       iconName: 'settings',
       iconType: MaterialIcons
@@ -150,7 +149,7 @@ const Drawer = React.memo((props) => {
       iconType: Foundation
     },
   ];
-  
+
   return (
     <ScreenBoiler
       statusBarBackgroundColor={Color.themeBlue}
