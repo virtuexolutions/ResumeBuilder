@@ -12,6 +12,7 @@ import Tamplates from '../Screens/Tamplates';
 import Ewallet from '../Screens/Ewallet';
 import Details from '../Screens/Details';
 import Setting from '../Screens/Setting';
+import Notification from '../Screens/Notification';
 
 const DrawerNavigation = createDrawerNavigator();
 
@@ -33,6 +34,7 @@ const CompanyNavigator = () => {
             <DrawerNavigation.Screen name="Tamplates" component={Tamplates} />
             <DrawerNavigation.Screen name="Ewallet" component={Ewallet} />
             <DrawerNavigation.Screen name="Setting" component={Setting} />
+            <DrawerNavigation.Screen name="Notification" component={Notification} />
         </DrawerNavigation.Navigator>
     );
 };

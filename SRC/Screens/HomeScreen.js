@@ -24,13 +24,14 @@ import { Get } from '../Axios/AxiosInterceptorFunction';
 import CustomImage from '../Components/CustomImage';
 import { baseUrl } from '../Config';
 import navigationService from '../navigationService';
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 
 
 const HomeScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
     const fromSignup = route?.params?.fromSignup;
     const userData = useSelector(state => state.commonReducer.userData);
-    console.log("🚀 ~ HomeScreen ~ userData:", userData)
     dayjs.extend(advancedFormat);
     dayjs.locale('en');
     const todayFormatted = dayjs().format('dddd , D MMMM YYYY');
@@ -40,7 +41,9 @@ const HomeScreen = ({ navigation, route }) => {
     console.log("🚀 ~ HomeScreen ~ docs:", docs)
     const token = useSelector(state => state.authReducer.token);
     console.log("🚀 ~ HomeScreen ~ token:", token)
-
+    const [date, setDate] = useState(new Date());
+    console.log("🚀 ~ HomeScreen ~ date:", date)
+    const [open, setOpen] = useState(false);
     useEffect(() => {
         getDocs()
     }, [])
@@ -50,7 +53,6 @@ const HomeScreen = ({ navigation, route }) => {
         const url = `auth/employee/${userData?.employee_detail?.id}`
         setLoading(true)
         const response = await Get(url, token)
-        console.log("🚀 ~ getDepartments ~ responsdde:", response?.data)
         setLoading(false)
         if (response?.data != undefined) {
             setLoading(false)
@@ -60,7 +62,6 @@ const HomeScreen = ({ navigation, route }) => {
             setLoading(false)
         }
     }
-
 
     const onPressCard = async (data) => {
         console.log("🚀 ~ onPressCard ~ data:", data)
@@ -73,17 +74,17 @@ const HomeScreen = ({ navigation, route }) => {
                 <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} />
                 <View style={styles.main_view}>
                     <CustomText style={styles.welcomeText}>{`Hello ${userData?.employee_detail?.full_name}`}</CustomText>
-                    <CustomText style={styles.heading}>{userData?.department[0]?.department_name}</CustomText>
-                    <CustomText isBold style={styles.date}>{todayFormatted}</CustomText>
-                    <View style={styles.select_date_view}>
+                    <CustomText style={styles.heading}>{userData?.employee_detail?.department?.department_name}</CustomText>
+                    <CustomText isBold style={styles.date}>{"Today, " + todayFormatted}</CustomText>
+                    <TouchableOpacity onPress={() => setOpen(true)} style={styles.select_date_view}>
                         <View style={styles.icon_view}>
                             <Icon name='calendar' as={Entypo} size={moderateScale(25, 0.3)}
                                 color={Color.themeBlue} />
                         </View>
-                        <CustomText style={styles.select_date_text}>Choose Date</CustomText>
+                        <CustomText style={styles.select_date_text}>{date ? moment(date).format('DD MMM YYYY') : 'Choose Date'}</CustomText>
                         <Icon name='chevron-right' as={Entypo} size={moderateScale(25, 0.3)}
                             color={Color.white} />
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.main_view}>
@@ -132,8 +133,20 @@ const HomeScreen = ({ navigation, route }) => {
                         }}
                     />
                 )
-
                 }
+                <DatePicker
+                    modal
+                    open={open}
+                    date={date}
+                    onConfirm={date => {
+                        setOpen(false);
+                        setDate(date);
+                    }}
+                    mode="date"
+                    onCancel={() => {
+                        setOpen(false);
+                    }}
+                />
             </View>
         </SafeAreaView>
     );
@@ -145,7 +158,6 @@ const styles = StyleSheet.create({
     container: {
         width: windowWidth,
         height: windowHeight,
-        backgroundColor: Color.white,
         paddingHorizontal: moderateScale(15, 0.3),
         // paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
@@ -217,7 +229,7 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: moderateScale(18, 0.6),
         color: Color.grey,
-        top: -15
+        top: -12
     },
     text: {
         fontSize: moderateScale(15, 0.6),

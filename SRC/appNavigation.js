@@ -52,6 +52,11 @@ import CompanyNavigator from './navigators/CompanyNavigator';
 import EmployeeNavigator from './navigators/EmployeeNavigator';
 import LoggedInScreen from './Screens/LoggedInScreen';
 import SubCategory from './Screens/SubCategory';
+import EditProfile from './Screens/EditProfile';
+import PrivacyPolicy from './Screens/PrivacyPolicy';
+import Help from './Screens/Help';
+import TermsAndConditions from './Screens/TermsAndConditions';
+import Notification from './Screens/Notification';
 // import SurvaryForm from './Screens/SurvaryForm';
 // import EditSurveyForm from './Screens/EditSurveyForm';
 
@@ -121,6 +126,9 @@ const AppNavigator = () => {
           <RootNav.Screen name="CompanyDetails" component={CompanyDetails} />
           <RootNav.Screen name="AddEmployeeDetails" component={AddEmployeeDetails} />
           <RootNav.Screen name="Categories" component={Categories} />
+          <RootNav.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+          <RootNav.Screen name="Help" component={Help} />
+          <RootNav.Screen name="TermsAndConditions" component={TermsAndConditions} />
           <RootNav.Screen
             name="CustomerSurveyForm"
             component={CustomerSurveyForm}
@@ -135,6 +143,7 @@ const AppNavigator = () => {
           <RootNav.Screen name="AddDepartment" component={AddDepartment} />
           <RootNav.Screen name="CheckOutScreen" component={CheckOutScreen} />
           <RootNav.Screen name="SubCategory" component={SubCategory} />
+          <RootNav.Screen name="EditProfile" component={EditProfile} />
           <RootNav.Screen
             name="FinalCoverLetter"
             component={FinalCoverLetter}

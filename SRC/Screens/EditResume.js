@@ -629,7 +629,6 @@ const styles = StyleSheet.create({
         paddingVertical: moderateScale(15, 0.6)
     },
     btn_view: {
-
         width: windowWidth * 0.93,
         backgroundColor: Color.white,
         paddingVertical: moderateScale(12, 0.6),

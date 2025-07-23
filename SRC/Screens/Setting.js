@@ -31,12 +31,12 @@ const Setting = () => {
                     <Icon as={MaterialIcons} name='person' color={Color.themeBlue} size={moderateScale(25, 0.6)} />
                     <CustomText isBold style={styles.sub_heading}>Account</CustomText>
                 </View>
-                <View style={[styles.row_view, {
+                <TouchableOpacity onPress={() => navigationService.navigate('EditProfile')} style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>
                     <CustomText style={styles.categories_text}>Edit Profile</CustomText>
                     <Icon as={Feather} name='chevron-right' color={Color.veryLightGray} size={moderateScale(25, 0.6)} />
-                </View>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigationService.navigate('ChangePassword')} style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>
@@ -74,30 +74,30 @@ const Setting = () => {
                     <Icon as={Feather} name='file-plus' color={Color.themeBlue} size={moderateScale(25, 0.6)} />
                     <CustomText isBold style={styles.sub_heading}>More</CustomText>
                 </View>
-                <View style={[styles.row_view, {
+                <TouchableOpacity onPress={() => navigationService.navigate('PrivacyPolicy')} style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>
                     <CustomText style={styles.categories_text}>Privacy policy</CustomText>
                     <Icon as={Feather} name='chevron-right' color={Color.veryLightGray} size={moderateScale(25, 0.6)} />
-                </View>
-                <View style={[styles.row_view, {
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigationService.navigate('Help')} style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>
                     <CustomText style={styles.categories_text}>Help</CustomText>
                     <Icon as={Feather} name='chevron-right' color={Color.veryLightGray} size={moderateScale(25, 0.6)} />
-                </View>
+                </TouchableOpacity>
                 <View style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>
                     <CustomText style={styles.categories_text}>FAQ</CustomText>
                     <Icon as={Feather} name='chevron-right' color={Color.veryLightGray} size={moderateScale(25, 0.6)} />
                 </View>
-                <View style={[styles.row_view, {
+                <TouchableOpacity onPress={() => navigationService.navigate('TermsAndConditions')} style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>
                     <CustomText style={styles.categories_text}>Terms And Services</CustomText>
                     <Icon as={Feather} name='chevron-right' color={Color.veryLightGray} size={moderateScale(25, 0.6)} />
-                </View>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
@@ -113,8 +113,7 @@ const styles = StyleSheet.create({
         paddingTop: moderateScale(10, 0.6),
     },
     main_view: {
-        // paddingVertical: moderateScale(10, 0.6),
-        paddingHorizontal: moderateScale(10, 0.6),
+        paddingHorizontal: moderateScale(15, 0.6),
     },
     heading: {
         fontSize: moderateScale(28, 0.6),

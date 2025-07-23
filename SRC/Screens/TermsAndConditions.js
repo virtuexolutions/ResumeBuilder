@@ -1,67 +1,27 @@
 import React from 'react';
-import {ScrollView, TouchableOpacity, View} from 'react-native';
-import {ScaledSheet, moderateScale} from 'react-native-size-matters';
+import { SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import Color from '../Assets/Utilities/Color';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Icon} from 'native-base';
-import {windowWidth} from '../Utillity/utils';
-import {useNavigation} from '@react-navigation/native';
+import { Icon } from 'native-base';
+import { windowHeight, windowWidth } from '../Utillity/utils';
+import { useNavigation } from '@react-navigation/native';
 
 const TermsAndConditions = () => {
   const navigation = useNavigation();
 
   return (
-    <>
-      <View
-        style={{
-          flexDirection: 'row',
-          width: windowWidth,
-          backgroundColor: 'white',
-          paddingHorizontal: moderateScale(10, 0.6),
-          paddingTop : moderateScale(5,.3)
-        }}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            navigation.goBack();
-          }}
-          style={styles.back}>
-          <Icon
-            name="arrowleft"
-            as={AntDesign}
-            style={styles.icon2}
-            color={Color.white}
-            size={moderateScale(20, 0.3)}
-            onPress={() => {
-              navigation.goBack();
-            }}
-          />
-        </TouchableOpacity>
-        <CustomText
-          style={{
-            fontSize: moderateScale(18, 0.6),
-            color: Color.black,
-            width: windowWidth * 0.8,
-            textAlign: 'center',
-            paddingTop: moderateScale(8, 0.6),
-          }}>
-          Terms & condition
-        </CustomText>
-      </View>
-
+    <SafeAreaView
+      style={styles.main_container}>
+      <Header showBack={true} title={'Terms and condition'} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
           backgroundColor: 'white',
-          // marginTop: windowHeight * 0.1,
         }}
-        contentContainerStyle={
-          {
-            // padding : moderateScale(10,0.6),
-          }
-        }>
+      >
         <CustomText
           style={{
             marginTop: moderateScale(30, 0.3),
@@ -76,7 +36,7 @@ const TermsAndConditions = () => {
           }
         </CustomText>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 
@@ -97,5 +57,11 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     backgroundColor: Color.themeBlack,
     justifyContent: 'center',
+  },
+  main_container: {
+    width: windowWidth,
+    height: windowHeight,
+    backgroundColor: '#F9F9F9',
+    paddingTop: moderateScale(10, 0.6),
   },
 });

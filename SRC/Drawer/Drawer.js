@@ -90,6 +90,15 @@ const Drawer = React.memo((props) => {
       iconName: 'wallet',
       iconType: AntDesign
     },
+    {
+      id: 7,
+      name: 'Notifications ',
+      onPress: () => {
+        navigation.navigate('Notification');
+      },
+      iconName: 'notifications',
+      iconType: MaterialIcons
+    },
   ];
 
   const employeeDrawerData = [
@@ -125,7 +134,7 @@ const Drawer = React.memo((props) => {
       id: 4,
       name: 'Notifications ',
       onPress: () => {
-        // navigation.navigate('Department');
+        navigation.navigate('Notification');
       },
       iconName: 'notifications',
       iconType: MaterialIcons

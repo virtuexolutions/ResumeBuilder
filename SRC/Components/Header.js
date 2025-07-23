@@ -46,7 +46,8 @@ const Header = props => {
     onPressPlus,
     isRight,
     isShadow = true,
-    rightText
+    rightText,
+    backgroundColor
     // fromDrawer
   } = props;
 
@@ -80,13 +81,13 @@ const Header = props => {
 
   return (
     <>
-      <CustomStatusBar />
+      <CustomStatusBar backgroundColor={backgroundColor ? backgroundColor : 'transparent'} />
       <View
         style={[
           styles.header2,
           {
             backgroundColor: headerColor ? headerColor : 'transparent',
-          }.style && style,
+          }, style && style,
           height && {
             height: height,
           }, isShadow && {
@@ -226,13 +227,13 @@ const styles = ScaledSheet.create({
   },
   header2: {
     width: windowWidth,
-    // height: windowHeight * 0.13,
+    // height: windowHeight * 0.1,
     // backgroundColor: '',
     // justifyContent: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: moderateScale(10, 0.3),
-    paddingVertical: moderateScale(22, 0.3),
+    paddingVertical: moderateScale(20, 0.3),
     alignItems: 'center',
     // backgroundColor: 'red',
 
