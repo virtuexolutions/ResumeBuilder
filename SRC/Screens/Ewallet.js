@@ -35,6 +35,7 @@ import moment from 'moment';
 import { ActivityIndicator } from 'react-native';
 import * as DocumentPicker from '@react-native-documents/picker';
 import PdfContainer from '../Components/PdfContainer';
+import ListEmphtyComponent from '../Components/ListEmphtyComponent';
 
 const Ewallet = () => {
     const isFocused = useIsFocused();
@@ -57,6 +58,7 @@ const Ewallet = () => {
     const [selectedPdf, setSelectedPdf] = useState('');
     const [show, setShow] = useState(false);
     const [image, setImage] = useState({});
+    console.log("🚀 ~ Ewallet ~ image:", image)
     const [signature, setSignature] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [signModalVisible, setSignModalVisible] = useState(false);
@@ -85,8 +87,6 @@ const Ewallet = () => {
         // setAppStateVisible(appState.current);
         console.log("AppState", appState.current);
     };
-
-
 
     useEffect(() => {
         if (selectedIndex == 'photo') {
@@ -130,11 +130,11 @@ const Ewallet = () => {
     }, []);
 
     useEffect(() => {
-        // if (Object.keys(image).length > 0) {
-        //     setMultiImages(prev => [...prev, image]);
-        // }
-        sendImage();
+        if (image && image.uri) {
+            sendImage();
+        }
     }, [image]);
+
 
     useEffect(() => {
         const subscription = AppState.addEventListener("change", _handleAppStateChange);
@@ -222,15 +222,7 @@ const Ewallet = () => {
                 } else {
                     alert('PDF Added');
                 }
-
-                setFileResponse((prev) => [
-                    ...prev,
-                    {
-                        name: fileName,
-                        type: fileType,
-                        uri: fileUri,
-                    },
-                ]);
+                getDocs()
             }
         } catch (err) {
             setIsLoading(false);
@@ -270,15 +262,7 @@ const Ewallet = () => {
                 } else {
                     alert('Signature Added');
                 }
-                setSignatureImage(prev => [
-                    ...prev,
-                    {
-                        id: Math.random(),
-                        uri: `data:image/jpeg;base64,${base64Image}`,
-                        name: name,
-                        date: moment().format('ll'),
-                    },
-                ]);
+                getSignature()
             }
         } catch (error) {
             setIsLoading(false);
@@ -288,28 +272,38 @@ const Ewallet = () => {
     };
 
     const getPhotos = async () => {
-        const url = 'auth/image/index ';
-        const response = await Get(url, token);
-        setImageLoading(true)
-        if (response != undefined) {
-            setImageLoading(false)
-            console.log('images data ====================>', response?.data)
-            setMultiImages(response?.data?.image);
+        try {
+
+            const url = 'auth/image/index';
+            const response = await Get(url, token);
+            setImageLoading(true)
+            if (response != undefined) {
+                setImageLoading(false)
+                setMultiImages(response?.data?.image);
+            }
+        } catch (err) {
+            console.log(err, 'errrrrrrrrrrrrrrrrrrrrrrrrrrrorrrrr')
         }
     };
 
     const getDocs = async () => {
         const url = 'auth/document/index';
+        setDocumentLoading(true)
         const response = await Get(url, token);
+        setDocumentLoading(false)
         if (response != undefined) {
+            setDocumentLoading(false)
             setFileResponse(response?.data?.Document);
         }
     };
 
     const getSignature = async () => {
         const url = 'auth/signature/index';
+        setsignatureLoading(true)
         const response = await Get(url, token);
+        setsignatureLoading(false)
         if (response != undefined) {
+            setsignatureLoading(false)
             setSignatureImage(response?.data?.Signature);
         }
     };
@@ -407,49 +401,59 @@ const Ewallet = () => {
                     }
                 </>
             ) :
-                selectedIndex == 'file-signature' ? (
-                    <AddSignatureContainer
-                        loading={signature_loading}
-                        signatureImages={signatureImage}
-                        setSignatureImages={setSignatureImage}
-                        numberOfRows={3}
-                    />) : (
-                    <>
-                        <FlatList
-                            numColumns={3}
-                            nestedScrollEnabled={true}
-                            data={fileResponse.flat()}
-                            showsVerticalScrollIndicator={false}
-                            contentContainerStyle={{
-                                paddingBottom: moderateScale(20, 0.6),
-                                alignItems: fileResponse.flat().length === 1 ? 'flex-start' : 'center',
-                            }}
-                            renderItem={({ item, index }) => {
-                                const isSingleItem = fileResponse.flat().length === 1;
-                                return (
-                                    <View style={{
-                                        width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
-                                        flexDirection: 'row',
-                                        justifyContent: isSingleItem ? 'flex-start' : 'center',
-                                    }}>
-                                        <PdfContainer
-                                            key={index}
-                                            item={item}
-                                            setSelectedPdf={setSelectedPdf}
-                                            setShow={setShow}
-                                            show={show}
-                                            index={index}
-                                            setSelectedPDFIndex={setSelectedPDFIndex}
-                                        />
-                                    </View>
-                                );
-                            }}
-                            ListEmptyComponent={() => {
-                                return <NullDataComponent title={'No PDF Uploaded Yet'} />;
-                            }}
-                        />
-                    </>
-                )
+                <>
+                    {signature_loading ? <ActivityIndicator size="small"
+                        color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} />
+                        :
+                        <>
+                            {
+                                selectedIndex == 'file-signature' ? (
+                                    <AddSignatureContainer
+                                        signatureImages={signatureImage}
+                                        setSignatureImages={setSignatureImage}
+                                        numberOfRows={3}
+                                    />) : (
+                                    <>
+                                        {document_loading ? <ActivityIndicator size="small"
+                                            color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> : (
+                                            <FlatList
+                                                numColumns={3}
+                                                nestedScrollEnabled={true}
+                                                data={fileResponse.flat()}
+                                                showsVerticalScrollIndicator={false}
+                                                contentContainerStyle={{
+                                                    paddingBottom: moderateScale(20, 0.6),
+                                                    alignItems: fileResponse.flat().length === 1 ? 'flex-start' : 'center',
+                                                }}
+                                                renderItem={({ item, index }) => {
+                                                    const isSingleItem = fileResponse.flat().length === 1;
+                                                    return (
+                                                        <View style={{
+                                                            width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
+                                                            flexDirection: 'row',
+                                                            justifyContent: isSingleItem ? 'flex-start' : 'center', marginRight: moderateScale(10, 0.6)
+                                                        }}>
+                                                            <PdfContainer
+                                                                key={index}
+                                                                item={item}
+                                                                setSelectedPdf={setSelectedPdf}
+                                                                setShow={setShow}
+                                                                show={show}
+                                                                index={index}
+                                                                setSelectedPDFIndex={setSelectedPDFIndex}
+                                                            />
+                                                        </View>
+                                                    );
+                                                }}
+                                                ListEmptyComponent={<ListEmphtyComponent />}
+                                            />
+                                        )}
+                                    </>
+                                )
+                            }
+                        </>
+                    }
+                </>
             }
             <ImagePickerModal
                 show={showMultiImageModal}
@@ -513,7 +517,6 @@ const Ewallet = () => {
                             marginBottom: moderateScale(110, 0.3),
                             marginHorizontal: 5,
                             color: 'black',
-
                         }}
                         placeholder="Enter signature name"
                         placeholderTextColor="gray"

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Dimensions,
@@ -13,16 +13,16 @@ import {
   // Modal,
   Button,
 } from 'react-native';
-import {moderateScale, ScaledSheet} from 'react-native-size-matters';
-import {Icon} from 'native-base';
+import { moderateScale, ScaledSheet } from 'react-native-size-matters';
+import { Icon } from 'native-base';
 import Modal from 'react-native-modal';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Entypo from 'react-native-vector-icons/Entypo';
 // import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomText from '../Components/CustomText';
-import {windowHeight, windowWidth} from '../Utillity/utils';
+import { windowHeight, windowWidth } from '../Utillity/utils';
 import Color from '../Assets/Utilities/Color';
-import {color} from 'native-base/lib/typescript/theme/styled-system';
+import { color } from 'native-base/lib/typescript/theme/styled-system';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const requestCameraPermission = async () => {
@@ -45,7 +45,7 @@ const requestCameraPermission = async () => {
 };
 
 const ImagePickerModal = props => {
-  let {show, setShow, setFileObject, setMultiImages, crop} = props;
+  let { show, setShow, setFileObject, setMultiImages, crop } = props;
 
   const openGallery = () => {
     let options = {
@@ -279,7 +279,7 @@ const styles = ScaledSheet.create({
     borderTopWidth: 2,
   },
   modalContentBtn: {
-    backgroundColor: Color.themeBlack,
+    backgroundColor: Color.themeBlue,
     alignItems: 'center',
     paddingHorizontal: windowWidth * 0.08,
     paddingVertical: windowHeight * 0.02,
@@ -291,7 +291,7 @@ const styles = ScaledSheet.create({
     fontSize: moderateScale(12, 0.3),
   },
   modalCancelBtn: {
-    backgroundColor: Color.themeBlack,
+    backgroundColor: Color.themeBlue,
     paddingVertical: windowHeight * 0.008,
     width: windowWidth * 0.2,
     alignItems: 'center',

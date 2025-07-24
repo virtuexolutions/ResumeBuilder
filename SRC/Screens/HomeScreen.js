@@ -26,6 +26,7 @@ import { baseUrl } from '../Config';
 import navigationService from '../navigationService';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
+import ListEmphtyComponent from '../Components/ListEmphtyComponent';
 
 
 const HomeScreen = ({ navigation, route }) => {
@@ -70,83 +71,87 @@ const HomeScreen = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header_view}>
-                <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} />
-                <View style={styles.main_view}>
-                    <CustomText style={styles.welcomeText}>{`Hello ${userData?.employee_detail?.full_name}`}</CustomText>
-                    <CustomText style={styles.heading}>{userData?.employee_detail?.department?.department_name}</CustomText>
-                    <CustomText isBold style={styles.date}>{"Today, " + todayFormatted}</CustomText>
-                    <TouchableOpacity onPress={() => setOpen(true)} style={styles.select_date_view}>
-                        <View style={styles.icon_view}>
-                            <Icon name='calendar' as={Entypo} size={moderateScale(25, 0.3)}
-                                color={Color.themeBlue} />
-                        </View>
-                        <CustomText style={styles.select_date_text}>{date ? moment(date).format('DD MMM YYYY') : 'Choose Date'}</CustomText>
-                        <Icon name='chevron-right' as={Entypo} size={moderateScale(25, 0.3)}
-                            color={Color.white} />
-                    </TouchableOpacity>
+            <View>
+                <View style={styles.header_view}>
+                    <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} />
+                    <View style={styles.main_view}>
+                        <CustomText style={styles.welcomeText}>{`Hello ${userData?.employee_detail?.full_name}`}</CustomText>
+                        <CustomText style={styles.heading}>{userData?.employee_detail?.department?.department_name}</CustomText>
+                        <CustomText isBold style={styles.date}>{"Today, " + todayFormatted}</CustomText>
+                        <TouchableOpacity onPress={() => setOpen(true)} style={styles.select_date_view}>
+                            <View style={styles.icon_view}>
+                                <Icon name='calendar' as={Entypo} size={moderateScale(25, 0.3)}
+                                    color={Color.themeBlue} />
+                            </View>
+                            <CustomText style={styles.select_date_text}>{date ? moment(date).format('DD MMM YYYY') : 'Choose Date'}</CustomText>
+                            <Icon name='chevron-right' as={Entypo} size={moderateScale(25, 0.3)}
+                                color={Color.white} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <View style={styles.main_view}>
-                <View style={styles.text_view}>
-                    <CustomText style={[styles.date, { color: Color.themeBlue, top: 0 }]} isBold>Documents</CustomText>
-                    <CustomText style={styles.des}>see All</CustomText>
-                </View>
-                {loading ? <ActivityIndicator size={'small'} color={Color.themeBlue} style={{ marginTop: moderateScale(10, 0.6) }} /> : (
-                    <FlatList
-                        data={docs}
-                        keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
-                        ListEmptyComponent={
-                            <CustomText style={styles.noDataText}>No Documents Found</CustomText>
-                        }
-                        renderItem={({ item }) => {
-                            console.log("🚀 ~ Documents ~ item:", item?.assignable?.template?.image)
-                            return (
-                                <TouchableOpacity
-                                    onPress={() =>
-                                        onPressCard(item)
-                                    }
-                                    style={styles.card}>
-                                    <View style={[styles.card_image]}>
-                                        <CustomImage
-                                            source={{ uri: `${baseUrl}${item?.assignable?.template?.image}` }}
-                                            style={{
-                                                height: '100%',
-                                                width: '100%',
-                                                borderRadius: moderateScale(4, 0.6),
-                                            }}
-                                        />
-                                    </View>
-                                    <View style={{ marginLeft: moderateScale(10, 0.6), marginTop: moderateScale(10, 0.6), width: '70%' }}>
-                                        <CustomText style={styles.list_heading}>
-                                            {item?.assignable?.subject}
-                                        </CustomText>
-                                        <CustomText numberOfLines={1} style={styles.list_description}>
-                                            {item?.assignable?.tamplate_description}
-                                        </CustomText>
-                                        <CustomText numberOfLines={1} style={styles.card_date}>
-                                            {item?.assignable?.date}
-                                        </CustomText>
-                                    </View>
-                                </TouchableOpacity>
-                            );
+                <View style={[styles.main_view, {
+                    backgroundColor: Color.white,
+                    width: windowWidth,
+                    height: windowHeight
+                }]}>
+                    <View style={styles.text_view}>
+                        <CustomText style={[styles.date, { color: Color.themeBlue, top: 0 }]} isBold>Documents</CustomText>
+                        <CustomText style={styles.des}>see All</CustomText>
+                    </View>
+                    {loading ? <ActivityIndicator size={'small'} color={Color.themeBlue} style={{ marginTop: moderateScale(10, 0.6) }} /> : (
+                        <FlatList
+                            data={docs}
+                            keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
+                            ListEmptyComponent={<ListEmphtyComponent />}
+                            renderItem={({ item }) => {
+                                console.log("🚀 ~ Documents ~ item:", item?.assignable?.template?.image)
+                                return (
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            onPressCard(item)
+                                        }
+                                        style={styles.card}>
+                                        <View style={[styles.card_image]}>
+                                            <CustomImage
+                                                source={{ uri: `${baseUrl}${item?.assignable?.template?.image}` }}
+                                                style={{
+                                                    height: '100%',
+                                                    width: '100%',
+                                                    borderRadius: moderateScale(4, 0.6),
+                                                }}
+                                            />
+                                        </View>
+                                        <View style={{ marginLeft: moderateScale(10, 0.6), marginTop: moderateScale(10, 0.6), width: '70%' }}>
+                                            <CustomText style={styles.list_heading}>
+                                                {item?.assignable?.subject}
+                                            </CustomText>
+                                            <CustomText numberOfLines={1} style={styles.list_description}>
+                                                {item?.assignable?.tamplate_description}
+                                            </CustomText>
+                                            <CustomText numberOfLines={1} style={styles.card_date}>
+                                                {item?.assignable?.date}
+                                            </CustomText>
+                                        </View>
+                                    </TouchableOpacity>
+                                );
+                            }}
+                        />
+                    )
+                    }
+                    <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        onConfirm={date => {
+                            setOpen(false);
+                            setDate(date);
+                        }}
+                        mode="date"
+                        onCancel={() => {
+                            setOpen(false);
                         }}
                     />
-                )
-                }
-                <DatePicker
-                    modal
-                    open={open}
-                    date={date}
-                    onConfirm={date => {
-                        setOpen(false);
-                        setDate(date);
-                    }}
-                    mode="date"
-                    onCancel={() => {
-                        setOpen(false);
-                    }}
-                />
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -161,8 +166,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: moderateScale(15, 0.3),
         // paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
-        paddingTop: moderateScale(10, 0.6),
-        // justifyContent : 'center'
+        // paddingTop: moderateScale(10, 0.6),
+        // justifyContent : 'center',
+        // backgroundColor: Color.themeBlue
     },
     des: {
         fontSize: moderateScale(12, 0.6),
@@ -170,7 +176,7 @@ const styles = StyleSheet.create({
     },
     main_view: {
         paddingVertical: moderateScale(10, 0.6),
-        paddingHorizontal: moderateScale(15, 0.6)
+        paddingHorizontal: moderateScale(15, 0.6),
     },
     heading_sub_view: {
         paddingHorizontal: moderateScale(15, 0.6),
@@ -229,7 +235,7 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: moderateScale(18, 0.6),
         color: Color.grey,
-        top: -12
+        // top: -12
     },
     text: {
         fontSize: moderateScale(15, 0.6),
@@ -252,10 +258,9 @@ const styles = StyleSheet.create({
     date: {
         fontSize: moderateScale(18, 0.6),
         color: Color.white,
-        top: -15
     },
     card_date: {
-        fontSize: moderateScale(10, 0.6),
+        fontSize: moderateScale(12, 0.6),
         color: Color.themeBlue,
         width: '100%',
         textAlign: 'right'
@@ -291,7 +296,7 @@ const styles = StyleSheet.create({
         width: windowWidth * 0.9
     },
     card: {
-        width: windowWidth * 0.95,
+        width: windowWidth * 0.9,
         backgroundColor: Color.lightGrey,
         height: windowWidth * 0.25,
         borderRadius: moderateScale(10, 0.6),
@@ -299,7 +304,15 @@ const styles = StyleSheet.create({
         alignItems: 'center', paddingHorizontal: moderateScale(5, 0.6),
         flexDirection: 'row',
         marginBottom: moderateScale(10, 0.6),
-        marginTop: moderateScale(10, 0.6)
+        marginTop: moderateScale(10, 0.6),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.30,
+        shadowRadius: 4.65,
+        elevation: 8,
     },
     card_image: {
         height: windowHeight * 0.10,
@@ -307,11 +320,11 @@ const styles = StyleSheet.create({
         borderRadius: moderateScale(10, 0.6),
     },
     list_description: {
-        fontSize: moderateScale(11, 0.6),
+        fontSize: moderateScale(12, 0.6),
         color: Color.veryLightGray,
     },
     list_heading: {
-        fontSize: moderateScale(12, 0.6),
+        fontSize: moderateScale(14, 0.6),
         color: Color.grey,
     },
     noDataText: {

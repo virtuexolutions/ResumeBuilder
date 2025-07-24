@@ -144,13 +144,15 @@ const EditProfile = () => {
               color={Color.veryLightGray}
               setText={setPhoneNumber}
               value={phoneNumber}
-              placeholder={userData?.phone}
+              placeholder={userData?.phone ? userData?.phone : 'phone number'}
               placeholderColor={Color.veryLightGray}
               viewWidth={0.9}
               viewHeight={0.060}
               border={1}
               borderRadius={moderateScale(10, 0.6)}
               borderColor={Color.themeBlue}
+              keyboardType={'numeric'}
+
             />
             <TextInputWithTitle
               title={"Email Address : "}
@@ -175,7 +177,7 @@ const EditProfile = () => {
               color={Color.veryLightGray}
               setText={setAddress}
               value={address}
-              placeholder={userData?.address}
+              placeholder={userData?.address ? userData?.address : 'Address'}
               placeholderColor={Color.veryLightGray}
               viewWidth={0.9}
               viewHeight={0.060}
@@ -190,7 +192,7 @@ const EditProfile = () => {
               color={Color.veryLightGray}
               setText={setDateOfBirth}
               value={dateofBirth}
-              placeholder={userData?.date_of_birth}
+              placeholder={userData?.date_of_birth ? userData?.date_of_birth : "Date of Birth"}
               placeholderColor={Color.veryLightGray}
               viewWidth={0.9}
               viewHeight={0.060}

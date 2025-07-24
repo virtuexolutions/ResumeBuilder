@@ -8,3 +8,13 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+
+-keep class com.reactnativedocumentpicker.** { *; }
+-keep class androidx.documentfile.provider.DocumentFile { *; }
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+-keep class com.rnfs.** { *; }
+-keep class com.reactnativedocumentpicker.** { *; }
+-keep class com.facebook.react.modules.network.** { *; }

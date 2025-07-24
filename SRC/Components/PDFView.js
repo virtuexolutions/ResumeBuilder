@@ -5,7 +5,7 @@ import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import Modal from 'react-native-modal';
 import Pdf from 'react-native-pdf';
 import CustomButton from './CustomButton';
-import { Delete } from '../Axios/AxiosInterceptorFunction';
+import { Delete, Post } from '../Axios/AxiosInterceptorFunction';
 import { useSelector } from 'react-redux';
 import RNFetchBlob from 'react-native-blob-util';
 import { ToastAndroid } from 'react-native';
@@ -15,45 +15,87 @@ import Color from '../Assets/Utilities/Color';
 
 
 const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse, index }) => {
+  console.log("🚀 ~ PDFView ~ fileResponse:", fileResponse[index]?.uri)
   // const [selectedIndex, setIndex] = useState(index);
   // console.log('selectedIndex',selectedIndex);
   const token = useSelector((state) => state.authReducer.token)
   const [listModalVisible, setListModalVisible] = useState(false);
 
   const checkPermission = async () => {
-    // Function to check the platform
-    // If iOS then start downloading
-    // If Android then ask for permission
-    console.log('check permissions')
-
     if (Platform.OS === 'ios') {
       downloadPDF();
     } else {
       try {
-        // console.log('heererere')
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Storage Permission Required',
-            message:
-              'App needs access to your storage to download Photos',
+        const sdk = Platform.Version;
+
+        if (sdk >= 33) {
+          const result = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES
+          );
+          if (result === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log('Permission granted for READ_MEDIA_IMAGES');
+            downloadPDF();
+          } else {
+            OpenSetting()
+            console.log('Permission denied');
           }
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          // Once user grant the permission start downloading
-          console.log('Storage Permission Granted.');
-          downloadPDF();
+
         } else {
-          // OpenSetting()
-          // If permission denied then show alert
-          alert('Storage Permission Not Granted');
+          const result = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+              title: 'Storage Access Required',
+              message: 'App needs access to your storage to save images',
+            },
+          );
+
+          if (result === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log('Permission granted for WRITE_EXTERNAL_STORAGE');
+            downloadImage();
+          } else {
+            OpenSetting()
+            console.log('Permission denied');
+          }
         }
       } catch (err) {
-        // To handle permission related exception
         console.warn(err);
       }
-    }
-  };
+    };
+  }
+  // const checkPermission = async () => {
+  //   // Function to check the platform
+  //   // If iOS then start downloading
+  //   // If Android then ask for permission
+  //   console.log('check permissions')
+
+  //   if (Platform.OS === 'ios') {
+  //     downloadPDF();
+  //   } else {
+  //     try {
+  //       // console.log('heererere')
+  //       const granted = await PermissionsAndroid.request(
+  //         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+  //         {
+  //           title: 'Storage Permission Required',
+  //           message:
+  //             'App needs access to your storage to download Photos',
+  //         }
+  //       );
+  //       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+  //         // Once user grant the permission start downloading
+  //         console.log('Storage Permission Granted.');
+  //         downloadPDF();
+  //       } else {
+  //         // OpenSetting()
+  //         // If permission denied then show alert
+  //         alert('Storage Permission Not Granted');
+  //       }
+  //     } catch (err) {
+  //       // To handle permission related exception
+  //       console.warn(err);
+  //     }
+  //   }
+  // };
 
   const downloadPDF = () => {
     // Main function to download the image
@@ -108,8 +150,8 @@ const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse
   };
 
   const deletePDF = async (id) => {
-    const url = `document/delete/${id}`;
-    const response = await Delete(url, {}, apiHeader(token));
+    const url = `auth/document/${id}`;
+    const response = await Post(url, {}, apiHeader(token));
     if (response != undefined) {
       console.log(response?.data)
       if (response?.data?.success) {

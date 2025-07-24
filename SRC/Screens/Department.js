@@ -13,6 +13,7 @@ import { Get } from '../Axios/AxiosInterceptorFunction'
 import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/core'
 import CustomText from '../Components/CustomText'
+import ListEmphtyComponent from '../Components/ListEmphtyComponent'
 
 const Department = () => {
     const isFocused = useIsFocused()
@@ -93,7 +94,7 @@ const Department = () => {
                     <FlatList
                         data={filteredDepartments}
                         keyExtractor={(item) => item?.id}
-                        ListEmptyComponent={<CustomText style={{ textAlign: 'center', marginTop: moderateScale(20, 0.6), color: Color.red }}>no Data found</CustomText>}
+                        ListEmptyComponent={<ListEmphtyComponent />}
                         renderItem={(({ item }) => {
                             const nameInitial = (item?.department_name || ' ')[0]?.toUpperCase() || '?';
                             return (

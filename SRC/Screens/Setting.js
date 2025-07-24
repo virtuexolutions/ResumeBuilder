@@ -16,6 +16,7 @@ const Setting = () => {
     const isFocused = useIsFocused()
     const token = useSelector(state => state.authReducer.token);
     const userData = useSelector(state => state.commonReducer.userData);
+    const user_type = useSelector(state => state.authReducer.role)
 
     return (
         <SafeAreaView style={styles.container}>
@@ -31,10 +32,10 @@ const Setting = () => {
                     <Icon as={MaterialIcons} name='person' color={Color.themeBlue} size={moderateScale(25, 0.6)} />
                     <CustomText isBold style={styles.sub_heading}>Account</CustomText>
                 </View>
-                <TouchableOpacity onPress={() => navigationService.navigate('EditProfile')} style={[styles.row_view, {
+                <TouchableOpacity onPress={() => navigationService.navigate(user_type === 'Company' ? 'CompanyDetails' : 'EditProfile')} style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>
-                    <CustomText style={styles.categories_text}>Edit Profile</CustomText>
+                    <CustomText style={styles.categories_text}>{user_type === 'Company' ? 'Edit Company Details' : 'Edit Profile'}</CustomText>
                     <Icon as={Feather} name='chevron-right' color={Color.veryLightGray} size={moderateScale(25, 0.6)} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigationService.navigate('ChangePassword')} style={[styles.row_view, {
@@ -52,12 +53,12 @@ const Setting = () => {
                     <Icon as={MaterialIcons} name='notifications' color={Color.themeBlue} size={moderateScale(25, 0.6)} />
                     <CustomText isBold style={styles.sub_heading}>Notifications</CustomText>
                 </View>
-                <View style={[styles.row_view, {
+                <TouchableOpacity onPress={() => navigationService.navigate('Notification')} style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>
                     <CustomText style={styles.categories_text}>Notifications</CustomText>
                     <Icon as={Feather} name='chevron-right' color={Color.veryLightGray} size={moderateScale(25, 0.6)} />
-                </View>
+                </TouchableOpacity>
                 <View style={[styles.row_view, {
                     marginTop: moderateScale(15, 0.6),
                 }]}>

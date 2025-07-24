@@ -23,10 +23,8 @@ import FormWrapper from '../Components/FormWrapper'
 const CompanyDetails = () => {
     const dispatch = useDispatch();
     const token = useSelector(state => state.authReducer.token);
-    console.log("🚀 ~ CompanyDetails ~ token:", token)
     const [showModal, setShowModal] = useState(false)
     const [image, setImage] = useState(null)
-    console.log("🚀 ~ CompanyDetails ~ image:", image)
     const [company_name, setCompanyName] = useState('')
     const [bussiness_type, setBussinessType] = useState('')
     const [industry, setIndustry] = useState('')
@@ -38,27 +36,34 @@ const CompanyDetails = () => {
     const [tax_verification_number, setVerificationNumber] = useState('')
     const [loading, setLoading] = useState(false)
     const userData = useSelector(state => state.commonReducer.userData);
-    console.log("🚀 ~ CompanyDetails ~ userData:", userData)
 
     const onPressSubmit = async () => {
+        const formData = new FormData();
+
         const url = 'auth/add_company'
-        const body = {
-            company_name: company_name,
-            business_type: bussiness_type,
-            industry: industry,
-            company_number: contact_number,
-            business_email_address: email,
-            business_phone_number: contact_number,
-            website_url: website_url,
-            company_address: company_address,
-            company_logo: image?.uri,
-            number_of_employees: number_of_employees,
-            tax_identification_number: 0,
+
+        formData.append('company_name', company_name ? company_name : userData?.company_detail?.company_name);
+        formData.append('business_type', bussiness_type ? bussiness_type : userData?.company_detail?.business_type);
+        formData.append('industry', industry ? industry : userData?.company_detail?.industry);
+        formData.append('company_number', contact_number ? contact_number : userData?.company_detail?.company_number);
+        formData.append('business_email_address', email ? email : userData?.company_detail?.business_email_address);
+        formData.append('business_phone_number', contact_number ? contact_number : userData?.company_detail?.company_number);
+        formData.append('website_url', website_url ? website_url : userData?.company_detail?.website_url);
+        formData.append('company_address', company_address ? company_address : userData?.company_detail?.company_address);
+        formData.append('number_of_employees', number_of_employees ? number_of_employees : userData?.company_detail?.number_of_employees);
+        formData.append('tax_identification_number', 0);
+
+        if (image?.uri) {
+            formData.append('company_logo', {
+                uri: image.uri,
+                name: image.fileName || 'photo.jpg',
+                type: image.type || 'image/jpeg',
+            });
         }
-        console.log("🚀 ~ onPressSubmit ~ body:", body)
+
         setLoading(true)
-        const response = await Post(url, body, apiHeader(token))
-        console.log("🚀 CompanyDetails ~ onPressSubmit ~ response:", response?.data)
+        const response = await Post(url, formData, apiHeader(token, true))
+        console.log("🚀 ~ onPressSubmit ~ response:", response?.data)
         if (response != undefined) {
             Platform.OS == 'android'
                 ? ToastAndroid.show('Company added Successfully', ToastAndroid.SHORT)
@@ -98,7 +103,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setCompanyName}
                             value={company_name}
-                            placeholder={'company Name'}
+                            placeholder={userData?.company_detail?.company_name ? userData?.company_detail?.company_name : 'company Name'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
                             viewHeight={0.060}
@@ -115,7 +120,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setBussinessType}
                             value={bussiness_type}
-                            placeholder={'Email bussiness type'}
+                            placeholder={userData?.company_detail?.business_type ? userData?.company_detail?.business_type : 'Email bussiness type'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
                             viewHeight={0.060}
@@ -130,7 +135,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setIndustry}
                             value={industry}
-                            placeholder={'industry'}
+                            placeholder={userData?.company_detail?.industry ? userData?.company_detail?.industry : 'industry'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
 
@@ -146,7 +151,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setCoontactNumber}
                             value={contact_number}
-                            placeholder={'company contact Number'}
+                            placeholder={userData?.company_detail?.company_number ? userData?.company_detail?.company_number : 'company contact Number'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
                             viewHeight={0.060}
@@ -161,7 +166,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setEmail}
                             value={email}
-                            placeholder={'email address'}
+                            placeholder={userData?.company_detail?.business_email_address ? userData?.company_detail?.business_email_address : 'email address'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
                             viewHeight={0.060}
@@ -176,7 +181,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setWebsiteUrl}
                             value={website_url}
-                            placeholder={'website url'}
+                            placeholder={userData?.company_detail?.website_url ? userData?.company_detail?.website_url : 'website url'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
                             viewHeight={0.060}
@@ -191,7 +196,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setCompanyAddress}
                             value={company_address}
-                            placeholder={'company address'}
+                            placeholder={userData?.company_detail?.company_address ? userData?.company_detail?.company_address : 'company address'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
 
@@ -207,7 +212,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setNumberOfEmployees}
                             value={number_of_employees}
-                            placeholder={'number of employees'}
+                            placeholder={userData?.company_detail?.number_of_employees ? userData?.company_detail?.number_of_employees : 'number of employees'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
                             viewHeight={0.060}

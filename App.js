@@ -17,6 +17,8 @@ import {
   requestWritePermission,
 } from './SRC/Utillity/utils';
 import AppNavigator from './SRC/appNavigation';
+import { Platform } from 'react-native';
+import { PermissionsAndroid } from 'react-native';
 
 const App = () => {
 
@@ -40,7 +42,9 @@ const MainContainer = () => {
       await requestWritePermission();
     }
     GetPermission();
+
   }, []);
+  console.log("Platform Version:", Platform.Version);
 
   const [isloading] = useloader(true);
   if (isloading == true) {

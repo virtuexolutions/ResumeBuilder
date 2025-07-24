@@ -7,6 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,16 +17,16 @@ import CustomText from '../Components/CustomText';
 import ScreenBoiler from '../Components/ScreenBoiler';
 import { setUserLogoutAuth } from '../Store/slices/auth';
 import { windowHeight, windowWidth } from '../Utillity/utils';
+import { baseUrl } from '../Config';
 
 const Drawer = React.memo((props) => {
   const { navigation } = props;
   const dispatch = useDispatch();
   const user_type = useSelector(state => state.authReducer.role)
-  console.log("🚀 ~ Drawer ~ user_type:", user_type)
   const [isModalVisible, setIsModalVisible] = useState(false);
   const userData = useSelector(state => state.commonReducer.userData);
-  console.log("🚀 ~ Drawer ~ userData user_type:", user_type, userData)
-
+  console.log("🚀 ~ userData:", user_type, userData)
+  console.log(`${baseUrl}/${userData?.employee_detail?.photo}`, '==========================')
   const adminData = [
     {
       id: 1,
@@ -40,7 +41,6 @@ const Drawer = React.memo((props) => {
       id: 2,
       name: 'Company Details',
       onPress: () => {
-        // setIsModalVisible(true);
         navigation.navigate('Details');
       },
       iconName: 'building',
@@ -66,14 +66,6 @@ const Drawer = React.memo((props) => {
     },
     {
       id: 4,
-      name: 'Categories',
-      onPress: () => {
-      },
-      iconName: 'folder',
-      iconType: Foundation
-    },
-    {
-      id: 4,
       name: 'Document',
       onPress: () => {
         navigation.navigate('Documents');
@@ -83,13 +75,14 @@ const Drawer = React.memo((props) => {
     },
     {
       id: 6,
-      name: 'Wallet',
+      name: 'E-Wallet',
       onPress: () => {
         navigation.navigate('Ewallet');
       },
       iconName: 'wallet',
       iconType: AntDesign
     },
+
     {
       id: 7,
       name: 'Notifications ',
@@ -97,6 +90,15 @@ const Drawer = React.memo((props) => {
         navigation.navigate('Notification');
       },
       iconName: 'notifications',
+      iconType: MaterialIcons
+    },
+    {
+      id: 8,
+      name: 'Settings',
+      onPress: () => {
+        navigation.navigate('Setting');
+      },
+      iconName: 'settings',
       iconType: MaterialIcons
     },
   ];
@@ -150,7 +152,7 @@ const Drawer = React.memo((props) => {
     },
     {
       id: 6,
-      name: 'Wallet',
+      name: 'E-Wallet',
       onPress: () => {
         navigation.navigate('Ewallet');
       },
@@ -171,10 +173,21 @@ const Drawer = React.memo((props) => {
           borderRadius: windowWidth,
           marginTop: moderateScale(16, 0.6)
         }}>
-          <CustomImage source={require('../Assets/Images/no_image.jpg')} style={styles.image} />
+          <CustomImage
+            source={
+              user_type === 'Company'
+                ? userData?.company_detail?.company_logo != null
+                  ? { uri: `${baseUrl}${userData.company_detail.company_logo}` }
+                  : require('../Assets/Images/no_image.jpg')
+                : userData?.employee_detail?.photo != null
+                  ? { uri: `${baseUrl}/${userData.employee_detail.photo}` }
+                  : require('../Assets/Images/no_image.jpg')
+            }
+            style={styles.image}
+          />
         </View>
-        <CustomText style={styles.heading_text}>{userData?.name}</CustomText>
-        <CustomText style={styles.heading_text}>{userData?.email}</CustomText>
+        <CustomText isBold style={styles.heading_text}>{userData?.name || userData?.employee_detail?.full_name}</CustomText>
+        <CustomText style={styles.heading_text}>{userData?.email || userData?.employee_detail?.employee_email}</CustomText>
       </View>
 
       <View
@@ -267,7 +280,7 @@ const styles = StyleSheet.create({
     borderRadius: windowHeight,
   },
   heading_text: {
-    fontSize: moderateScale(12, 0.6),
+    fontSize: moderateScale(15, 0.6),
     // textTransform: 'uppercase',
     color: Color.white
   },

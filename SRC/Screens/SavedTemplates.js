@@ -21,6 +21,7 @@ import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import navigationService from '../navigationService';
 import { windowHeight, windowWidth } from '../Utillity/utils';
+import ListEmphtyComponent from '../Components/ListEmphtyComponent';
 
 const SavedTemplates = () => {
     const isFocused = useIsFocused()
@@ -215,12 +216,7 @@ const SavedTemplates = () => {
                             ListFooterComponent={() => {
                                 return <View style={{ height: windowHeight * 0.2 }} />;
                             }}
-                            ListEmptyComponent={<CustomText style={{
-                                fontSize: moderateScale(13, 0.6),
-                                color: Color.red,
-                                textAlign: "center",
-                                marginTop: moderateScale(20, 0.6)
-                            }}>no data Found</CustomText>}
+                            ListEmptyComponent={<ListEmphtyComponent/>}
                             renderItem={({ item, index }) => {
                                 console.log(item, 'itemmmmmmmmmmmmmm')
                                 return (

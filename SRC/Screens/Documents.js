@@ -19,6 +19,7 @@ import { windowHeight, windowWidth } from '../Utillity/utils';
 import { Get } from '../Axios/AxiosInterceptorFunction';
 import CustomImage from '../Components/CustomImage';
 import { baseUrl } from '../Config';
+import ListEmphtyComponent from '../Components/ListEmphtyComponent';
 
 const Documents = () => {
     const isFocused = useIsFocused();
@@ -101,7 +102,7 @@ const Documents = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header hideUser={false} showBack={true} title={'Documents'} />
+            <Header hideUser={false} showBack={false} title={'Documents'} />
             <View style={styles.main_view}>
                 <View style={{
                     height: windowWidth * 0.16
@@ -142,8 +143,7 @@ const Documents = () => {
                     <FlatList
                         data={getDataByCategory()}
                         keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
-                        ListEmptyComponent={
-                            <CustomText style={styles.noDataText}>No Data Found</CustomText>
+                        ListEmptyComponent={<ListEmphtyComponent />
                         }
                         renderItem={({ item }) => {
                             console.log("🚀 ~ Documents ~ item:", item)

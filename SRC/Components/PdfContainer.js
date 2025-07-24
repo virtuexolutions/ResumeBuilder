@@ -53,13 +53,6 @@ const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedP
             height: '100%',
           }} source={{ uri: 'https://resume-builder.cstmpanel.com/uploads/storage/thumbnail/c6bee683cf0977982f616cda1f39dba2PayMefirst.png' }} />
         </View>
-        {/* <Icon
-          name={'pdffile1'}
-          as={AntDesign}
-          size={moderateScale(50, 0.9)}
-          color={Color.themeBlue}
-          style={styles.icon}
-        /> */}
         <View
           style={{
             width: '100%',

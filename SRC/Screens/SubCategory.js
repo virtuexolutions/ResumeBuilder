@@ -11,6 +11,7 @@ import Header from '../Components/Header'
 import { baseUrl } from '../Config'
 import navigationService from '../navigationService'
 import { windowHeight, windowWidth } from '../Utillity/utils'
+import ListEmphtyComponent from '../Components/ListEmphtyComponent'
 
 const SubCategory = () => {
     const isFocused = useIsFocused()
@@ -56,9 +57,7 @@ const SubCategory = () => {
                     <FlatList
                         data={emailData}
                         keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
-                        ListEmptyComponent={
-                            <CustomText style={styles.noDataText}>No Data Found</CustomText>
-                        }
+                        ListEmptyComponent={<ListEmphtyComponent/>}
                         renderItem={({ item }) => {
                             console.log("🚀 ~ Documents ~ item:", item)
                             const nameInitial = (item?.Documents_name || ' ')[0]?.toUpperCase() || '?';

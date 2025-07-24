@@ -33,6 +33,7 @@ import navigationService from '../navigationService';
 const ProfileDetails = () => {
     const dispatch = useDispatch();
     const userData = useSelector(state => state.commonReducer.userData);
+    console.log("🚀 ~ ProfileDetails ~ userData:", userData)
     const token = useSelector(state => state.authReducer.token);
 
     const PointsView = ({ name, index }) => {
@@ -58,13 +59,13 @@ const ProfileDetails = () => {
     return (
         <SafeAreaView style={styles.container}>
             <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} backgroundColor={Color.themeBlue} />
-            <ScrollView style={{ width: windowWidth, height: windowHeight * 0.9 }}>
+            <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
                 <View style={styles.header_view}>
                     <View style={styles.header_subview}>
                         <View style={styles.profile_view}>
                             <CustomImage source={
-                                userData?.photo
-                                    ? { uri: `${baseUrl}/${userData.photo}` }
+                                userData?.employee_detail?.photo != null
+                                    ? { uri: `${baseUrl}/${userData.employee_detail.photo}` }
                                     : require('../Assets/Images/no_image.jpg')
                             } style={styles.image_style} />
                         </View>
@@ -129,7 +130,6 @@ const ProfileDetails = () => {
                     </View>
                     <View style={styles.line} />
                     <CustomText isBold style={styles.heading}>Company Details</CustomText>
-
                     <PointsView name={'Company Name:  ' + userData?.employee_detail?.company?.company_name} />
                     <PointsView name={'Company Email Address:  ' + userData?.employee_detail?.company?.business_email_address} />
                     <PointsView name={'Bussiness Type :  ' + userData?.employee_detail?.company?.business_type} />
@@ -203,11 +203,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     container: {
-        backgroundColor: Color.white,
+        // backgroundColor: Color.themeBlue,
         paddingHorizontal: moderateScale(15, 0.3),
-        paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
-        paddingTop: moderateScale(10, 0.6),
     },
     des: {
         fontSize: moderateScale(12, 0.6),

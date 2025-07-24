@@ -740,6 +740,7 @@ const EditCoverLetter = props => {
                           backgroundColor={Color.lightGrey}
                           setText={setYear}
                           value={year}
+                          keyboardType={'numeric'}
                         />
                       </View>
                     </View>
@@ -757,6 +758,8 @@ const EditCoverLetter = props => {
                       backgroundColor={Color.lightGrey}
                       setText={setphone}
                       value={phone}
+                      keyboardType={'numeric'}
+
                     />
                   </>
                 )}

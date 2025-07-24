@@ -1,7 +1,7 @@
 import React from 'react';
-import {Dimensions, PermissionsAndroid} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {setLoaction} from '../Store/slices/common';
+import { Dimensions, PermissionsAndroid, Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setLoaction } from '../Store/slices/common';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -92,46 +92,73 @@ const requestLocationPermission = async () => {
   }
 };
 
+
 const requestCameraPermission = async () => {
+  if (Platform.OS === 'android') {
+    try {
+      console.log('🔄 Requesting CAMERA permission...');
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Camera Permission',
+          message: 'App needs access to your camera',
+          buttonPositive: 'OK',
+          buttonNegative: 'Cancel',
+        },
+      );
+
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('✅ Camera permission granted');
+      } else if (granted === PermissionsAndroid.RESULTS.DENIED) {
+        console.log('❌ Camera permission denied by user');
+      } else if (granted === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+        console.log('🚫 Camera permission permanently denied');
+        // You can navigate to settings if needed
+      }
+    } catch (err) {
+      console.warn('❗ Permission error:', err);
+    }
+  } else {
+    console.log('✅ iOS does not require runtime camera permission here');
+  }
+};
+
+const requestWritePermission = async () => {
   try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.CAMERA,
-      {
-        title: 'Camera Permission',
-        message:
-          'Breakaway App needs access to your camera ' +
-          'so you can take awesome pictures.',
-      },
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log("🚀 ~ requestCameraPermission ~ granted:", granted)
-      console.log('You can use the Camera');
+    const sdk = Platform.Version;
+
+    if (sdk >= 33) {
+      // Android 13+
+      const result = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES
+      );
+      if (result === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Permission granted for READ_MEDIA_IMAGES');
+      } else {
+        console.log('Permission denied');
+      }
+
     } else {
-      console.log('Camera permission denied');
+      // Android < 13
+      const result = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Access Required',
+          message: 'App needs access to your storage to save images',
+        },
+      );
+
+      if (result === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Permission granted for WRITE_EXTERNAL_STORAGE');
+      } else {
+        console.log('Permission denied');
+      }
     }
   } catch (err) {
     console.warn(err);
   }
 };
 
-const requestWritePermission = async () => {
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      {
-        title: 'Storage Access Required',
-        message: 'This App needs to Access your Storage',
-      },
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('You can use the Storage');
-    } else {
-      console.log('Storage permission denied');
-    }
-  } catch (err) {
-    console.warn(err);
-  }
-};
 
 const apiHeader = (token, isFormData) => {
   if (token && !isFormData) {

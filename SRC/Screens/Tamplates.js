@@ -30,12 +30,8 @@ const Tamplates = () => {
     console.log("🚀 ~ Tamplates ~ token:", token)
     const [loading, setLoading] = useState(false);
     const [dropDown, setDropDown] = useState(false);
-    const [showCategory, setshowCategory] = useState('resume');
-    const [selectedCategoty, setSelectedCategory] = useState({
-        id: 2,
-        text: 'email',
-        subtext: 'tempaletes',
-    });
+    const [showCategory, setshowCategory] = useState('email');
+    const [selectedCategoty, setSelectedCategory] = useState('email');
     console.log("🚀 ~ Tamplates ~ selectedCategoty:", selectedCategoty)
     const [tamplates, setTamplates] = useState([]);
     console.log("🚀 ~ Tamplates ~ tamplates:", tamplates)
@@ -261,28 +257,10 @@ const Tamplates = () => {
                     placeHolder={'search ..'}
                     input={true}
                 />
-                {/* <TouchableOpacity
-                    onPress={() => navigationService.navigate('SavedTemplates')}
-                    style={{
-                        width: windowWidth * 0.12,
-                        height: windowWidth * 0.12,
-                        borderRadius: moderateScale(12, 0.6),
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: Color.white,
-                    }}>
-                    <Icon
-                        name={'save-alt'}
-                        as={MaterialIcons}
-                        size={moderateScale(22, 0.6)}
-                        color={Color.darkBlue}
-                        style={{ alignSelf: 'center' }}
-                    />
-                </TouchableOpacity> */}
             </View>
 
             <CustomText style={styles.h3}>What do you need</CustomText>
-            <View                     
+            <View
                 style={{
                     width: '100%',
                     height: windowHeight * 0.1,
@@ -301,7 +279,7 @@ const Tamplates = () => {
                     showsHorizontalScrollIndicator={false}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity
+                            <TouchableOpacity disabled={item.key === 'email' ? false : true}
                                 onPress={() => {
                                     setSelectedCategory(item?.key);
                                 }}
@@ -355,7 +333,7 @@ const Tamplates = () => {
                 {dropDown && (
                     <View style={styles.con}>
                         {category.map(item => {
-                            return ( 
+                            return (
                                 <View
                                     style={{
                                         flexDirection: 'row',

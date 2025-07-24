@@ -58,8 +58,8 @@ const Notification = () => {
       <View style={styles.main_view}>
         <CustomText isBold style={styles.heading}>Notification</CustomText>
         <FlatList
-          data={[]}
-          ListEmptyComponent={ListEmphtyComponent}
+          data={notification_data}
+          ListEmptyComponent={<ListEmphtyComponent />}
           renderItem={(({ item }) => {
             return (
               <NotificationView data={item} />
