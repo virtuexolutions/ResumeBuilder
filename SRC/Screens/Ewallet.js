@@ -2,6 +2,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/core';
 import { Icon } from 'native-base';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+    Alert,
     AppState,
     BackHandler,
     FlatList,
@@ -29,7 +30,7 @@ import Header from '../Components/Header';
 import ImagePickerModal from '../Components/ImagePickerModal';
 import NullDataComponent from '../Components/NullDataComponent';
 import PDFView from '../Components/PDFView';
-import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
+import { apiHeader, requestWritePermission, windowHeight, windowWidth } from '../Utillity/utils';
 import { Get, Post } from '../Axios/AxiosInterceptorFunction';
 import moment from 'moment';
 import { ActivityIndicator } from 'react-native';
@@ -174,19 +175,15 @@ const Ewallet = () => {
         const fileType = file.type || 'application/octet-stream';
         const fileUri = file.uri;
 
-        let thumbnailUri = '';
-        let thumbnailName = '';
-        let thumbnailType = '';
+        // let thumbnailUri = '';
+        // let thumbnailName = '';
+        // let thumbnailType = '';
 
-        if (fileType.includes('image')) {
-            thumbnailUri = fileUri;
-            thumbnailName = fileName;
-            thumbnailType = fileType.split('/')[1];
-        } else if (fileType.includes('pdf')) {
-            thumbnailUri = Image.resolveAssetSource(require('../Assets/Images/thumnail_image.png')).uri;
-            thumbnailName = 'pdf_thumbnail.png';
-            thumbnailType = 'png';
-        }
+        // if (fileType.includes('pdf')) {
+        //     thumbnailUri = Image.resolveAssetSource(require('../Assets/Images/thumnail_image.png')).uri;
+        //     thumbnailName = 'pdf_thumbnail.png';
+        //     thumbnailType = 'png';
+        // }
 
         formData.append('user_id', userData?.id?.toString());
         formData.append('name', fileName);
@@ -197,45 +194,43 @@ const Ewallet = () => {
             name: fileName,
         });
 
-        formData.append('thumbnail', {
-            uri: thumbnailUri,
-            type: `image/${thumbnailType}`,
-            name: thumbnailName,
-        });
+        // formData.append('thumbnail', {
+        //     uri: thumbnailUri,
+        //     type: `image/${thumbnailType}`,
+        //     name: thumbnailName,
+        // });
 
-        console.log('📦 FormData sending:', {
-            user_id: userData?.id,
-            name: fileName,
-            document: { uri: fileUri, type: fileType, name: fileName },
-            thumbnail: { uri: thumbnailUri, type: `image/${thumbnailType}`, name: thumbnailName },
-        });
+        // console.log('📦 FormData sending:', {
+        //     user_id: userData?.id,
+        //     name: fileName,
+        //     document: { uri: fileUri, type: fileType, name: fileName },
+        //     thumbnail: { uri: thumbnailUri, type: `image/${thumbnailType}`, name: thumbnailName },
+        // });
 
         setIsLoading(true);
-        try {
-            const res = await Post('auth/document', formData, apiHeader(token, true));
-            setIsLoading(false);
+        const res = await Post('auth/document', formData, apiHeader(token, true));
+        setIsLoading(false);
 
-            if (res) {
-                console.log('✅ API success:', res?.data);
-                if (Platform.OS === 'android') {
-                    ToastAndroid.show('Document Added', ToastAndroid.SHORT);
-                } else {
-                    alert('PDF Added');
-                }
-                getDocs()
+        if (res != undefined) {
+            console.log('✅ API success:', res?.data);
+            if (Platform.OS === 'android') {
+                ToastAndroid.show('Document Added', ToastAndroid.SHORT);
+            } else {
+                Alert.alert('PDF Added');
             }
-        } catch (err) {
-            setIsLoading(false);
-            console.error('❌ API error:', err);
+            getDocs()
         }
     };
 
     const handleDocumentSelection = useCallback(async () => {
+        // const permission = await requestWritePermission();
         try {
             const response = await DocumentPicker.pick({
                 allowMultiSelection: false,
-                type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
-            })
+                type: [DocumentPicker.types.pdf],
+            });
+            console.log("🚀 ~ Ewallet ~ response:", response)
+            // Alert.alert('Document Picke krliya ha')
             sendDocument(response);
             console.log('Picked file:', response);
         } catch (err) {
@@ -391,7 +386,7 @@ const Ewallet = () => {
             </View>
             {selectedIndex == 'photo' ? (
                 <>
-                    {image_loading ? <ActivityIndicator size="small"
+                    {image_loading || isLoading ? <ActivityIndicator size="small"
                         color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> :
                         <AddImagesContainer
                             multiImages={multiImages}
@@ -402,7 +397,7 @@ const Ewallet = () => {
                 </>
             ) :
                 <>
-                    {signature_loading ? <ActivityIndicator size="small"
+                    {signature_loading || isLoading ? <ActivityIndicator size="small"
                         color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} />
                         :
                         <>
@@ -414,7 +409,7 @@ const Ewallet = () => {
                                         numberOfRows={3}
                                     />) : (
                                     <>
-                                        {document_loading ? <ActivityIndicator size="small"
+                                        {document_loading || isLoading ? <ActivityIndicator size="small"
                                             color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> : (
                                             <FlatList
                                                 numColumns={3}
@@ -431,7 +426,8 @@ const Ewallet = () => {
                                                         <View style={{
                                                             width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
                                                             flexDirection: 'row',
-                                                            justifyContent: isSingleItem ? 'flex-start' : 'center', marginRight: moderateScale(10, 0.6)
+                                                            justifyContent: isSingleItem ? 'flex-start' : 'center', marginRight: moderateScale(10, 0.6),
+                                                            // paddingHorizontal: moderateScale(10, 0.6)
                                                         }}>
                                                             <PdfContainer
                                                                 key={index}
@@ -531,7 +527,7 @@ const Ewallet = () => {
                             height={windowHeight * 0.06}
                             marginBottom={moderateScale(20, 0.3)}
                             onPress={handleSave}
-                            bgColor={Color.themeColor}
+                            bgColor={Color.themeBlue}
                             borderRadius={moderateScale(10, 0.3)}
                         />
                     ) : (
@@ -544,7 +540,7 @@ const Ewallet = () => {
                             onPress={() => {
                                 setSignModalVisible(false);
                             }}
-                            bgColor={Color.themeColor}
+                            bgColor={Color.themeBlue}
                             borderRadius={moderateScale(10, 0.3)}
                         />
                     )}

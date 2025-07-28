@@ -62,8 +62,7 @@ const StartScreen = ({ navigation, route }) => {
                     width: windowWidth * 0.6
                 }}
                 onPress={() => {
-                    dispatch(SetUserRole('Company'))
-                    navigationService.navigate('LoginScreen')
+                    navigationService.navigate('LoginScreen', { type: 'Company' })
                 }}
             />
             <CustomButton
@@ -81,8 +80,7 @@ const StartScreen = ({ navigation, route }) => {
                     borderColor: Color.themeBlue
                 }}
                 onPress={() => {
-                    dispatch(SetUserRole('Employee'))
-                    navigationService.navigate('LoginScreen')
+                    navigationService.navigate('LoginScreen', { type: 'employee' })
                 }}
             />
         </SafeAreaView>

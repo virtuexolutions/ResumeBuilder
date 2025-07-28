@@ -90,17 +90,7 @@ const Header = props => {
           }, style && style,
           height && {
             height: height,
-          }, isShadow && {
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 11,
-            },
-            shadowOpacity: 0.55,
-            shadowRadius: 14.78,
-
-            elevation: 22,
-          }
+          },
         ]}
       >
         <View
@@ -227,15 +217,11 @@ const styles = ScaledSheet.create({
   },
   header2: {
     width: windowWidth,
-    // height: windowHeight * 0.1,
-    // backgroundColor: '',
-    // justifyContent: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: moderateScale(10, 0.3),
     paddingVertical: moderateScale(20, 0.3),
     alignItems: 'center',
-    // backgroundColor: 'red',
 
   },
   notificationCircle: {

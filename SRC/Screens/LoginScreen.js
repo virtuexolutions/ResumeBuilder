@@ -17,14 +17,15 @@ import CustomButton from '../Components/CustomButton';
 import CustomText from '../Components/CustomText';
 import TextInputWithTitle from '../Components/TextInputWithTitle';
 import navigationService from '../navigationService';
-import { setUserToken } from '../Store/slices/auth';
+import { SetUserRole, setUserToken } from '../Store/slices/auth';
 import { setUserData } from '../Store/slices/common';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import CustomImage from '../Components/CustomImage';
 
 const LoginScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const fromSignup = route?.params?.fromSignup;
+  const type = route?.params?.type;
+  console.log("🚀 ~ LoginScreen ~ type:", type)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -37,40 +38,51 @@ const LoginScreen = ({ navigation, route }) => {
       email: email,
       password: password,
     };
-    console.log("🚀 ~ Login ~ body:", body)
+    console.log("🚀 ~ Login ~ body:", body);
+
     for (let key in body) {
       if (body[key] == "") {
         return ToastAndroid.show(`${key} is required`, ToastAndroid.SHORT);
       }
     }
+
     setIsLoading(true);
     const response = await Post(url, body, apiHeader());
-    console.log("🚀 ~ Login ~ response:", response?.data?.user_info)
     setIsLoading(false);
-    if (response != undefined) {
-      dispatch(setUserData(response?.data?.user_info));
+
+    const user = response?.data?.user_info;
+    console.log("🚀 ~ Login ~ response:", user);
+
+    if (response !== undefined && user) {
+      const userRoles = user.roles || [];
+
+      const roleMap = {
+        company: "company",
+        employee: "user",
+      };
+
+      const matchedRole = userRoles.find(
+        (role) => role.name.toLowerCase() === roleMap[type]?.toLowerCase()
+      );
+
+      if (!matchedRole) {
+        return ToastAndroid.show(
+          `You are not authorized as a ${type}`,
+          ToastAndroid.SHORT
+        );
+      }
+
+      dispatch(SetUserRole(type));
+      dispatch(setUserData(user));
       dispatch(setUserToken({ token: response?.data?.token }));
     }
-  }
+  };
+
 
   return (
     <SafeAreaView style={[styles.container, {
       backgroundColor: Color.white
     }]}>
-      {fromSignup && <Icon
-        onPress={() => {
-          navigationService.goback();
-        }}
-        as={Ionicons}
-        name="arrow-back"
-        size={moderateScale(25, 0.3)}
-        color={Color.blue}
-        style={{
-          position: 'absolute',
-          top: moderateScale(20, 0.3),
-          left: moderateScale(10, 0.3),
-        }}
-      />}
       <View style={{
         width: windowWidth * 0.6,
         height: windowWidth * 0.35,
@@ -139,7 +151,7 @@ const LoginScreen = ({ navigation, route }) => {
           Login()
         }}
       />
-      {user_type === 'Employee' ? <></>
+      {type === 'employee' ? <></>
         :
         <>
           <CustomText style={{

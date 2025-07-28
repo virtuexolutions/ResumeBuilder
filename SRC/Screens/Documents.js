@@ -115,6 +115,7 @@ const Documents = () => {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item }) => (
                             <TouchableOpacity
+                                disabled={item.text === 'email' ? false : true}
                                 onPress={() => setSelectedCategory(item.text)}
                                 style={[
                                     styles.btn,

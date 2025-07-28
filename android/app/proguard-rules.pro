@@ -9,12 +9,13 @@
 
 # Add any project specific keep options here:
 
--keep class com.reactnativedocumentpicker.** { *; }
 -keep class androidx.documentfile.provider.DocumentFile { *; }
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;
 }
 
+-keep class com.facebook.react.bridge.** { *; }
 -keep class com.rnfs.** { *; }
 -keep class com.reactnativedocumentpicker.** { *; }
--keep class com.facebook.react.modules.network.** { *; }
+-dontwarn com.facebook.react.**
+-dontwarn okhttp3.**

@@ -51,7 +51,7 @@ const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedP
           <CustomImage style={{
             width: '100%',
             height: '100%',
-          }} source={{ uri: 'https://resume-builder.cstmpanel.com/uploads/storage/thumbnail/c6bee683cf0977982f616cda1f39dba2PayMefirst.png' }} />
+          }} source={require('../Assets/Images/thumnail_image.png')} />
         </View>
         <View
           style={{

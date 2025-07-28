@@ -67,17 +67,6 @@ const WalkThroughScreen = props => {
           </CustomText>
           <CustomText style={styles.subText}>{item?.text}</CustomText>
         </View>
-        {/* <CustomText
-          style={{
-            fontSize: moderateScale(11, 0.6),
-            position: 'absolute',
-            bottom: '46%',
-            width: '80%',
-            textAlign: 'center',
-            marginHorizontal: moderateScale(50, 0.3),
-          }}>
-          {item?.text}
-        </CustomText> */}
       </ImageBackground>
     );
   };
@@ -85,11 +74,6 @@ const WalkThroughScreen = props => {
   const RenderNextBtn = () => {
     return (
       <TouchableOpacity
-        // onPress={onPress}
-        // onPress={() =>{
-        //   slidesref.current.goToSlide(activeindex + 1)
-
-        // }}
         style={{
           height: windowHeight * 0.09,
           width: windowHeight * 0.09,
@@ -116,24 +100,15 @@ const WalkThroughScreen = props => {
   const RenderDoneBtn = () => {
     return (
       <View style={{
-        // backgroundColor:"red", 
-        // zIndex:1, 
-        // right:moderateScale(130,0.2),
-        top: moderateScale(12, 0.2), width: windowWidth * 0.2,
+        top: moderateScale(8, 0.2), width: windowWidth * 0.2,
         paddingVertical: moderateScale(12, 0.2),
         borderRadius: (windowWidth * 0.2) / 2,
         justifyContent: "center",
         alignItems: "center",
         borderWidth: 1,
         borderColor: Color.white,
-        // position:"absolute",
-
-
-        // paddingHorizontal:moderateScale(4,0.3),
-        // height: windowWidth * 0.1
       }
       }>
-
         <CustomText
           onPress={() => {
             dispatch(setWalkThrough(true));

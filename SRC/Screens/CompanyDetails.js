@@ -158,6 +158,7 @@ const CompanyDetails = () => {
                             border={1}
                             borderRadius={moderateScale(10, 0.6)}
                             borderColor={Color.themeBlue}
+                            keyboardType={'numeric'}
                         />
                         <TextInputWithTitle
                             title={"Enter Bussiness Email Address : "}
@@ -181,7 +182,7 @@ const CompanyDetails = () => {
                             color={Color.veryLightGray}
                             setText={setWebsiteUrl}
                             value={website_url}
-                            placeholder={userData?.company_detail?.website_url ? userData?.company_detail?.website_url : 'website url'}
+                            placeholder={'website url'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
                             viewHeight={0.060}
@@ -219,6 +220,7 @@ const CompanyDetails = () => {
                             border={1}
                             borderRadius={moderateScale(10, 0.6)}
                             borderColor={Color.themeBlue}
+                            keyboardType={'numeric'}
                         />
                         {/* <TextInputWithTitle
                         title={"Enter tax indentification number"}
