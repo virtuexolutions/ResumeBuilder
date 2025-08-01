@@ -80,7 +80,7 @@ const StartScreen = ({ navigation, route }) => {
                     borderColor: Color.themeBlue
                 }}
                 onPress={() => {
-                    navigationService.navigate('LoginScreen', { type: 'employee' })
+                    navigationService.navigate('LoginScreen', { type: 'Employee' })
                 }}
             />
         </SafeAreaView>

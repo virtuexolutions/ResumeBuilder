@@ -54,24 +54,6 @@ const LoginScreen = ({ navigation, route }) => {
     console.log("🚀 ~ Login ~ response:", user);
 
     if (response !== undefined && user) {
-      const userRoles = user.roles || [];
-
-      const roleMap = {
-        company: "company",
-        employee: "user",
-      };
-
-      const matchedRole = userRoles.find(
-        (role) => role.name.toLowerCase() === roleMap[type]?.toLowerCase()
-      );
-
-      if (!matchedRole) {
-        return ToastAndroid.show(
-          `You are not authorized as a ${type}`,
-          ToastAndroid.SHORT
-        );
-      }
-
       dispatch(SetUserRole(type));
       dispatch(setUserData(user));
       dispatch(setUserToken({ token: response?.data?.token }));
