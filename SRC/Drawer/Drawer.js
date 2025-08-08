@@ -25,8 +25,7 @@ const Drawer = React.memo((props) => {
   const user_type = useSelector(state => state.authReducer.role)
   const [isModalVisible, setIsModalVisible] = useState(false);
   const userData = useSelector(state => state.commonReducer.userData);
-  console.log("🚀 ~ userData:", user_type, userData)
-  console.log(`${baseUrl}/${userData?.employee_detail?.photo}`, '==========================')
+  
   const adminData = [
     {
       id: 1,
@@ -48,7 +47,7 @@ const Drawer = React.memo((props) => {
     },
     {
       id: 2,
-      name: 'Tamplates',
+      name: 'Templates',
       onPress: () => {
         navigation.navigate('Tamplates');
       },

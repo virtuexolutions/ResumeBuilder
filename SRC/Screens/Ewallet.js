@@ -427,7 +427,6 @@ const Ewallet = () => {
                                                             width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
                                                             flexDirection: 'row',
                                                             justifyContent: isSingleItem ? 'flex-start' : 'center', marginRight: moderateScale(10, 0.6),
-                                                            // paddingHorizontal: moderateScale(10, 0.6)
                                                         }}>
                                                             <PdfContainer
                                                                 key={index}
@@ -454,7 +453,7 @@ const Ewallet = () => {
             <ImagePickerModal
                 show={showMultiImageModal}
                 setShow={setShowMultiImageModal}
-                // setMultiImages={setMultiImages}
+                setMultiImages={setMultiImages}
                 setFileObject={setImage}
             />
             <PDFView

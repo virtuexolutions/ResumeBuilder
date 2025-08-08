@@ -88,7 +88,6 @@ const VerifyNumber = props => {
     console.log(code);
     const response = await Post(url, { code: code }, apiHeader());
     setIsLoading(false);
-    console.log("🚀 ~ VerifyOTP ~ response============================== :", response?.data)
     if (response != undefined) {
       Platform.OS == 'android'
         ? ToastAndroid.show(`otp verified`, ToastAndroid.SHORT)

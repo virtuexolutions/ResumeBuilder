@@ -24,7 +24,6 @@ const Header = props => {
   const notification = useSelector(state => state.commonReducer.notification);
   const cartData = useSelector(state => state.commonReducer.cart);
   const navigationN = useNavigation();
-  console.log("🚀 ~ navigationN:", navigationN?.dispatch)
   const [isModalVisible, setModalVisible] = useState(false);
   const {
     title,

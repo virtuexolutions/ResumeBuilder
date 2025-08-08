@@ -20,6 +20,7 @@ import { Get } from '../Axios/AxiosInterceptorFunction';
 import CustomImage from '../Components/CustomImage';
 import { baseUrl } from '../Config';
 import ListEmphtyComponent from '../Components/ListEmphtyComponent';
+import { Icon } from 'native-base';
 
 const Documents = () => {
     const isFocused = useIsFocused();
@@ -163,12 +164,12 @@ const Documents = () => {
                                             }}
                                         />
                                     </View>
-                                    <View style={{ marginLeft: moderateScale(10, 0.6) }}>
+                                    <View style={{ marginLeft: moderateScale(10, 0.6), width: windowWidth * 0.65, }}>
                                         <CustomText style={styles.heading}>
-                                            {item?.tamplate_title}
+                                            {item?.subject}
                                         </CustomText>
-                                        <CustomText numberOfLines={1} style={styles.description}>
-                                            {item?.tamplate_description}
+                                        <CustomText numberOfLines={2} style={styles.description}>
+                                            {item?.details}
                                         </CustomText>
                                     </View>
                                 </TouchableOpacity>
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     card: {
         width: windowWidth * 0.95,
         backgroundColor: Color.lightGrey,
-        height: windowWidth * 0.18,
+        height: windowWidth * 0.2,
         borderRadius: moderateScale(10, 0.6),
         justifyContent: 'flex-start',
         alignItems: 'center', paddingHorizontal: moderateScale(5, 0.6),
@@ -226,12 +227,12 @@ const styles = StyleSheet.create({
         marginBottom: moderateScale(10, 0.6)
     },
     card_image: {
-        height: windowHeight * 0.07,
+        height: windowHeight * 0.08,
         width: windowWidth * 0.2,
         borderRadius: moderateScale(10, 0.6),
     },
     description: {
-        width: windowWidth * 0.8,
+        width: windowWidth * 0.6,
         fontSize: moderateScale(10, 0.6),
         color: Color.darkGray
     },

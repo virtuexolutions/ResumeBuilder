@@ -21,8 +21,6 @@ import { Platform } from 'react-native';
 import { PermissionsAndroid } from 'react-native';
 import { LogBox } from 'react-native';
 
-LogBox.ignoreAllLogs(); 
-
 const App = () => {
 
   return (

@@ -65,12 +65,9 @@ const AppNavigator = () => {
   const token = useSelector(state => state.authReducer.token);
   const walkThrough = useSelector(state => state.authReducer.userWalkThrough);
   const user_type = useSelector(state => state.authReducer.role)
-  console.log("🚀 ~ AppNavigator ~ user_type:", user_type)
   const RootNav = createNativeStackNavigator();
   const RootNavLogged = createNativeStackNavigator();
   const userData = useSelector(state => state.commonReducer.userData);
-  console.log("🚀 ~ AppNavigator ~ userData:", userData)
-  console.log("🚀 ~ AppNavigatorContainer ~ userData?.company:", userData)
 
   const AppNavigatorContainer = () => {
     const firstScreen =
