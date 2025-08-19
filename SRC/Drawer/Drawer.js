@@ -1,4 +1,4 @@
-import { Icon } from 'native-base';
+import { Icon, Switch } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
@@ -7,7 +7,6 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +17,7 @@ import ScreenBoiler from '../Components/ScreenBoiler';
 import { setUserLogoutAuth } from '../Store/slices/auth';
 import { windowHeight, windowWidth } from '../Utillity/utils';
 import { baseUrl } from '../Config';
+import { setFingerPrint } from '../Store/slices/common';
 
 const Drawer = React.memo((props) => {
   const { navigation } = props;
@@ -25,7 +25,8 @@ const Drawer = React.memo((props) => {
   const user_type = useSelector(state => state.authReducer.role)
   const [isModalVisible, setIsModalVisible] = useState(false);
   const userData = useSelector(state => state.commonReducer.userData);
-  
+  const enabler = useSelector(state => state?.commonReducer?.fingerPrintEnabled)
+
   const adminData = [
     {
       id: 1,
@@ -160,6 +161,10 @@ const Drawer = React.memo((props) => {
     },
   ];
 
+  const toggleSwitch = () => {
+    dispatch(setFingerPrint(!enabler))
+  };
+
   return (
     <ScreenBoiler
       statusBarBackgroundColor={Color.themeBlue}
@@ -219,6 +224,29 @@ const Drawer = React.memo((props) => {
             </TouchableOpacity>
           </>
         ))}
+        <View
+          style={{
+            flexDirection: 'row',
+            marginLeft: moderateScale(15, 0.3),
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Icon name="fingerprint" as={Entypo} size={6} color={'grey'} />
+          <CustomText
+            style={{
+              color: Color.darkGray,
+              width: windowWidth * 0.32,
+            }}>
+            Enable fingerPrint
+          </CustomText>
+          <Switch
+            trackColor={{ false: '#767577', true: Color.themeColor }}
+            thumbColor={enabler ? Color.themeColor : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={enabler}
+          />
+        </View>
       </View>
       <TouchableOpacity
         onPress={() => dispatch(setUserLogoutAuth())

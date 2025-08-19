@@ -33,6 +33,7 @@
     "react-native-gesture-handler": "^2.25.0",
     "react-native-gifted-charts": "^1.4.61",
     "react-native-image-picker": "^8.2.1",
+    "react-native-fingerprint-scanner": "git+https://github.com/hieuvp/react-native-fingerprint-scanner.git#9cecc0db326471c571553ea85f7c016fee2f803d",
     "react-native-image-viewing": "^0.2.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.3",

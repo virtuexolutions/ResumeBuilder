@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { windowHeight, windowWidth } from '../Utillity/utils'
 import Color from '../Assets/Utilities/Color'
 import { moderateScale } from 'react-native-size-matters'
 import CustomText from './CustomText'
 
-const CardComponent = ({ data, image, name, text }) => {
+const CardComponent = ({ data, image, name, text, onPress }) => {
     return (
-        <View style={styles.main_view}>
+        <TouchableOpacity onPress={onPress} style={styles.main_view}>
             <View style={styles.row_view}>
                 <View style={styles.circle}>
                     <CustomText style={styles.initialText}>{image}</CustomText>
@@ -17,7 +17,7 @@ const CardComponent = ({ data, image, name, text }) => {
                     <CustomText style={styles.text}>{text}</CustomText>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

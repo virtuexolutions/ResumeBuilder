@@ -57,12 +57,15 @@ import PrivacyPolicy from './Screens/PrivacyPolicy';
 import Help from './Screens/Help';
 import TermsAndConditions from './Screens/TermsAndConditions';
 import Notification from './Screens/Notification';
+import EmployeeDetails from './Screens/EmployeeDetails';
+import DepartmentDetails from './Screens/DepartmentDetails';
 // import SurvaryForm from './Screens/SurvaryForm';
 // import EditSurveyForm from './Screens/EditSurveyForm';
 
 enableScreens();
 const AppNavigator = () => {
   const token = useSelector(state => state.authReducer.token);
+  console.log(token, '=============================')
   const walkThrough = useSelector(state => state.authReducer.userWalkThrough);
   const user_type = useSelector(state => state.authReducer.role)
   const RootNav = createNativeStackNavigator();
@@ -141,6 +144,9 @@ const AppNavigator = () => {
           <RootNav.Screen name="CheckOutScreen" component={CheckOutScreen} />
           <RootNav.Screen name="SubCategory" component={SubCategory} />
           <RootNav.Screen name="EditProfile" component={EditProfile} />
+          <RootNav.Screen name="LoggedInScreen" component={LoggedInScreen} />
+          <RootNav.Screen name="EmployeeDetails" component={EmployeeDetails} />
+          <RootNav.Screen name="DepartmentDetails" component={DepartmentDetails} />
           <RootNav.Screen
             name="FinalCoverLetter"
             component={FinalCoverLetter}

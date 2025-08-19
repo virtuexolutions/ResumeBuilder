@@ -21,7 +21,6 @@ const SubCategory = () => {
     const [emailData, setEmailData] = useState([]);
 
     useEffect(() => {
-        console.log("useEffect running, isFocused:", isFocused);
         getMailData();
     }, [isFocused]);
 
@@ -29,7 +28,6 @@ const SubCategory = () => {
     const getMailData = async () => {
         setLoading(true);
         const response = await Get('auth/mail', token);
-        console.log("🚀 ~ getMailData ~ response:", response?.data)
         if (response?.data) setEmailData(response.data.data);
         setLoading(false);
     };
@@ -41,7 +39,6 @@ const SubCategory = () => {
             fromSave: true,
         });
     };
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -57,7 +54,7 @@ const SubCategory = () => {
                     <FlatList
                         data={emailData}
                         keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
-                        ListEmptyComponent={<ListEmphtyComponent/>}
+                        ListEmptyComponent={<ListEmphtyComponent />}
                         renderItem={({ item }) => {
                             console.log("🚀 ~ Documents ~ item:", item)
                             const nameInitial = (item?.Documents_name || ' ')[0]?.toUpperCase() || '?';

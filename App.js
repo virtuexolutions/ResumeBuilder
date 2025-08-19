@@ -22,16 +22,13 @@ import { PermissionsAndroid } from 'react-native';
 import { LogBox } from 'react-native';
 
 const App = () => {
-
   return (
-
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NativeBaseProvider>
           <MainContainer />
         </NativeBaseProvider>
       </PersistGate>
-
     </Provider>
   );
 };

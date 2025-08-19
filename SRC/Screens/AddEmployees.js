@@ -146,6 +146,7 @@ const AddEmployees = () => {
                     image={nameInitial}
                     name={item?.full_name}
                     text={item?.designation}
+                    // onPress={() => navigationService.navigate('')}
                   />
                 )
               })}

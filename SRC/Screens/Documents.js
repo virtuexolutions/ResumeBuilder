@@ -11,7 +11,6 @@ import {
 import { moderateScale } from 'react-native-size-matters';
 import { useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
-import CardComponent from '../Components/CardComponent';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import navigationService from '../navigationService';
@@ -20,7 +19,6 @@ import { Get } from '../Axios/AxiosInterceptorFunction';
 import CustomImage from '../Components/CustomImage';
 import { baseUrl } from '../Config';
 import ListEmphtyComponent from '../Components/ListEmphtyComponent';
-import { Icon } from 'native-base';
 
 const Documents = () => {
     const isFocused = useIsFocused();
@@ -52,7 +50,6 @@ const Documents = () => {
     const getMailData = async () => {
         setLoading(true);
         const response = await Get('auth/mail', token);
-        console.log("🚀 ~ getMailData ~ response:", response?.data)
         if (response?.data) setEmailData(response.data.data);
         setLoading(false);
     };
@@ -60,7 +57,6 @@ const Documents = () => {
     const getCoverLetterData = async () => {
         setLoading(true);
         const response = await Get('auth/cover-letter', token);
-        console.log("🚀 ~ getCoverLetterData ~ response:", response?.data)
         if (response?.data) setCoverLetter(response.data.data);
         setLoading(false);
     };
@@ -68,7 +64,6 @@ const Documents = () => {
     const getCareerBlog = async () => {
         setLoading(true);
         const response = await Get('auth/career-blog', token);
-        console.log("🚀 ~ getCareerBlog ~ response:", response?.data)
         if (response?.data) setCareerBlog(response.data.data);
         setLoading(false);
     };
@@ -99,7 +94,6 @@ const Documents = () => {
             default: return [];
         }
     };
-    console.log("🚀 ~ getDataByCategory ~ getDataByCategory:", getDataByCategory())
 
     return (
         <SafeAreaView style={styles.container}>
@@ -148,7 +142,6 @@ const Documents = () => {
                         ListEmptyComponent={<ListEmphtyComponent />
                         }
                         renderItem={({ item }) => {
-                            console.log("🚀 ~ Documents ~ item:", item)
                             const nameInitial = (item?.Documents_name || ' ')[0]?.toUpperCase() || '?';
                             return (
                                 <TouchableOpacity onPress={() =>

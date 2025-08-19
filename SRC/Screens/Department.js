@@ -102,6 +102,7 @@ const Department = () => {
                                     image={nameInitial}
                                     name={item?.department_name}
                                     text={`Number of Employees ${item?.number_of_employees_in_depart}`}
+                                    onPress={() => navigationService.navigate('DepartmentDetails', { data: item })}
                                 />
                             )
                         })}

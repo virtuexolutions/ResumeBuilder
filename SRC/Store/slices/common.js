@@ -17,7 +17,8 @@ const initialState = {
   pickupLocatin: {},
   dropoffLocation: {},
   rideInfo: {},
-  type: ''
+  type: '',
+  fingerPrintEnabled: false,
 };
 
 const CommonSlice = createSlice({
@@ -224,6 +225,10 @@ const CommonSlice = createSlice({
       state.rideInfo = action.payload;
       console.log("🚀 ~ setRideinfo ~ action.payload:", action.payload)
     },
+    setFingerPrint(state, action) {
+      state.fingerPrintEnabled = action?.payload;
+      console.log(state.fingerPrintEnabled)
+    },
   },
 });
 
@@ -255,6 +260,7 @@ export const {
   setDropoffLocation,
   setRideinfo,
   setUserType,
+  setFingerPrint
 } = CommonSlice.actions;
 
 export default CommonSlice.reducer;

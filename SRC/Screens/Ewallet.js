@@ -1,12 +1,14 @@
+import * as DocumentPicker from '@react-native-documents/picker';
 import { useIsFocused, useNavigation } from '@react-navigation/core';
+import moment from 'moment';
 import { Icon } from 'native-base';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+    ActivityIndicator,
     Alert,
     AppState,
     BackHandler,
     FlatList,
-    Image,
     Platform,
     SafeAreaView,
     StyleSheet,
@@ -22,21 +24,18 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
+import { Get, Post } from '../Axios/AxiosInterceptorFunction';
 import AddImagesContainer from '../Components/AddImagesContainer';
 import AddSignatureContainer from '../Components/AddSignatureContainer';
 import CustomButton from '../Components/CustomButton';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import ImagePickerModal from '../Components/ImagePickerModal';
-import NullDataComponent from '../Components/NullDataComponent';
-import PDFView from '../Components/PDFView';
-import { apiHeader, requestWritePermission, windowHeight, windowWidth } from '../Utillity/utils';
-import { Get, Post } from '../Axios/AxiosInterceptorFunction';
-import moment from 'moment';
-import { ActivityIndicator } from 'react-native';
-import * as DocumentPicker from '@react-native-documents/picker';
-import PdfContainer from '../Components/PdfContainer';
 import ListEmphtyComponent from '../Components/ListEmphtyComponent';
+import PdfContainer from '../Components/PdfContainer';
+import PDFView from '../Components/PDFView';
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
+import LoggedInScreen from './LoggedInScreen';
 
 const Ewallet = () => {
     const isFocused = useIsFocused();
@@ -75,6 +74,7 @@ const Ewallet = () => {
             appState.current.match(/inactive|background/) &&
             nextAppState === "active"
         ) {
+            console.log('nextAppState', nextAppState)
             setFingerPrintModal(true)
             console.log('App has come to the foreground!');
 
@@ -99,7 +99,6 @@ const Ewallet = () => {
             getDocs();
         }
     }, [selectedIndex]);
-
 
     // Called after ref.current.readSignature() reads an empty string
     const handleEmpty = () => {
@@ -142,6 +141,14 @@ const Ewallet = () => {
 
         return () => {
             subscription.remove();
+        };
+    }, []);
+
+    useEffect(() => {
+        AppState.addEventListener("change", _handleAppStateChange);
+
+        return () => {
+            AppState.removeEventListener("change", _handleAppStateChange);
         };
     }, []);
 
@@ -545,6 +552,19 @@ const Ewallet = () => {
                     )}
                 </View>
             </Modal>
+
+
+            <Modal style={{
+                justifyContent: "center",
+                alignItems: 'center',
+                margin: 0
+            }}
+                isVisible={enabler && fingerPrintModal}
+                hasBackdrop={true}
+            >
+                <LoggedInScreen setFingerPrintModal={setFingerPrintModal} />
+            </Modal>
+
         </SafeAreaView>
     );
 };
