@@ -74,6 +74,9 @@ const LoginScreen = ({ navigation, route }) => {
           height: '100%'
         }} />
       </View>
+      {type === 'Private' &&
+        <CustomText isBold style={styles.heading}>Login Your private E wallet</CustomText>
+      }
       <TextInputWithTitle
         iconName={'mail'}
         iconType={Ionicons}
@@ -85,7 +88,7 @@ const LoginScreen = ({ navigation, route }) => {
         viewWidth={0.75}
         borderBottomWidth={2}
         borderColor={Color.blue}
-        marginTop={moderateScale(30, 0.3)}
+        marginTop={moderateScale(20, 0.3)}
       />
       <TextInputWithTitle
         iconSize={moderateScale(20, 0.3)}
@@ -144,7 +147,7 @@ const LoginScreen = ({ navigation, route }) => {
           }}>Don’t have an accout ?</CustomText>
           <TouchableOpacity activeOpacity={0.8}>
             <CustomText onPress={() => {
-              navigation.navigate('SignupScreen')
+              navigation.navigate('SignupScreen', { type: type })
             }}
               isBold style={{
                 fontSize: moderateScale(18, 0.3),
@@ -177,4 +180,10 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12, 0.3),
     color: '#333333',
   },
+  heading: {
+    fontSize: moderateScale(20, 0.6),
+    textTransform: "capitalize",
+    marginTop: moderateScale(30, 0.6),
+    color: Color.themeBlue
+  }
 });

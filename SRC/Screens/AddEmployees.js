@@ -104,7 +104,7 @@ const AddEmployees = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header hideUser={false} showBack isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails')} />
+      <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails')} />
       <View style={styles.main_view}>
         <View style={styles.search_bar_view}>
 

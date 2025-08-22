@@ -33,6 +33,7 @@ const HomeScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
     const fromSignup = route?.params?.fromSignup;
     const userData = useSelector(state => state.commonReducer.userData);
+    console.log(userData, 'yserrrrrrrrrrrrrrrrrr')
     dayjs.extend(advancedFormat);
     dayjs.locale('en');
     const todayFormatted = dayjs().format('dddd , D MMMM YYYY');
@@ -45,6 +46,9 @@ const HomeScreen = ({ navigation, route }) => {
     const [date, setDate] = useState(new Date());
     console.log("🚀 ~ HomeScreen ~ date:", date)
     const [open, setOpen] = useState(false);
+    const user_type = useSelector(state => state.authReducer.role)
+    console.log(user_type, 'userrrrrrrrrrrrrrtypeeeeeeeeee')
+
     useEffect(() => {
         getDocs()
     }, [])
@@ -75,8 +79,10 @@ const HomeScreen = ({ navigation, route }) => {
                 <View style={styles.header_view}>
                     <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} />
                     <View style={styles.main_view}>
-                        <CustomText style={styles.welcomeText}>{`Hello ${userData?.employee_detail?.full_name}`}</CustomText>
-                        <CustomText style={styles.heading}>{userData?.employee_detail?.department?.department_name}</CustomText>
+                        <CustomText style={styles.welcomeText}>{user_type === 'Private' ? `Hello ${userData?.name}` : `Hello ${userData?.employee_detail?.full_name}`}</CustomText>
+                        {user_type === 'Private' ? <></> :
+                            <CustomText style={styles.heading}>{userData?.employee_detail?.department?.department_name}</CustomText>
+                        }
                         <CustomText isBold style={styles.date}>{"Today, " + todayFormatted}</CustomText>
                         <TouchableOpacity onPress={() => setOpen(true)} style={styles.select_date_view}>
                             <View style={styles.icon_view}>

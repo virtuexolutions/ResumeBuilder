@@ -123,10 +123,17 @@ const Ewallet = () => {
     };
 
     useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', () => {
+        const backAction = () => {
             BackHandler.exitApp();
             return true;
-        });
+        };
+
+        const subscription = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        );
+
+        return () => subscription.remove();
     }, []);
 
     useEffect(() => {
@@ -145,10 +152,9 @@ const Ewallet = () => {
     }, []);
 
     useEffect(() => {
-        AppState.addEventListener("change", _handleAppStateChange);
-
+        const subscription = AppState.addEventListener("change", _handleAppStateChange);
         return () => {
-            AppState.removeEventListener("change", _handleAppStateChange);
+            subscription.remove();
         };
     }, []);
 
@@ -169,7 +175,6 @@ const Ewallet = () => {
         if (resposne != undefined) {
             console.log(resposne?.data);
             Platform.OS == 'android' ? ToastAndroid.show('Image Added', ToastAndroid.SHORT) : alert('Image Added')
-            setMultiImages(prev => [...prev, image]);
         }
 
     };
@@ -275,9 +280,9 @@ const Ewallet = () => {
 
     const getPhotos = async () => {
         try {
-
             const url = 'auth/image/index';
             const response = await Get(url, token);
+            console.log(response?.data, '==================>')
             setImageLoading(true)
             if (response != undefined) {
                 setImageLoading(false)

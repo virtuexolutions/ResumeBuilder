@@ -59,6 +59,7 @@ import TermsAndConditions from './Screens/TermsAndConditions';
 import Notification from './Screens/Notification';
 import EmployeeDetails from './Screens/EmployeeDetails';
 import DepartmentDetails from './Screens/DepartmentDetails';
+import privateNavigator from './navigators/privateNavigator';
 // import SurvaryForm from './Screens/SurvaryForm';
 // import EditSurveyForm from './Screens/EditSurveyForm';
 
@@ -68,6 +69,7 @@ const AppNavigator = () => {
   console.log(token, '=============================')
   const walkThrough = useSelector(state => state.authReducer.userWalkThrough);
   const user_type = useSelector(state => state.authReducer.role)
+  console.log(user_type, '--------------------->')
   const RootNav = createNativeStackNavigator();
   const RootNavLogged = createNativeStackNavigator();
   const userData = useSelector(state => state.commonReducer.userData);
@@ -87,7 +89,7 @@ const AppNavigator = () => {
         <RootNav.Navigator
           initialRouteName={firstScreen}
           screenOptions={{ headerShown: false }}>
-          <RootNav.Screen name="MyDrawer" component={user_type === 'Company' ? CompanyNavigator : EmployeeNavigator} />
+          <RootNav.Screen name="MyDrawer" component={user_type === 'Company' ? CompanyNavigator : user_type === "Private" ? privateNavigator : EmployeeNavigator} />
           <RootNav.Screen
             name="WalkthroughScreen"
             component={WalkThroughScreen}
@@ -103,7 +105,6 @@ const AppNavigator = () => {
           <RootNav.Screen name="FinalBlogPost" component={FinalBlogPost} />
           <RootNav.Screen name="ChecklistForm" component={ChecklistForm} />
           <RootNav.Screen name="SurveyForm" component={SurvaryForm} />
-          {/* <RootNav.Screen name="Ewallet" component={Ewallet} /> */}
           <RootNav.Screen
             name="OnboardingScreen"
             component={OnboardingScreen}

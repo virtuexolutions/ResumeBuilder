@@ -1,31 +1,30 @@
+import { Icon } from 'native-base';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   ToastAndroid,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import React, { useState } from 'react';
-import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
-import Color from '../Assets/Utilities/Color';
-import { Icon } from 'native-base';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { moderateScale } from 'react-native-size-matters';
-import navigationService from '../navigationService';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useDispatch, useSelector } from 'react-redux';
+import Color from '../Assets/Utilities/Color';
+import { Post } from '../Axios/AxiosInterceptorFunction';
+import CustomButton from '../Components/CustomButton';
+import CustomImage from '../Components/CustomImage';
 import CustomText from '../Components/CustomText';
 import TextInputWithTitle from '../Components/TextInputWithTitle';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import CustomButton from '../Components/CustomButton';
-import { useDispatch, useSelector } from 'react-redux';
 import { setUserToken } from '../Store/slices/auth';
-import { Post } from '../Axios/AxiosInterceptorFunction';
 import { setUserData } from '../Store/slices/common';
-import CustomImage from '../Components/CustomImage';
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 
-const SignupScreen = ({ navigation }) => {
+const SignupScreen = ({ navigation, route }) => {
+  const type = route?.params?.type;
   const dispatch = useDispatch()
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -42,7 +41,8 @@ const SignupScreen = ({ navigation }) => {
       email: email,
       password: password,
       confirm_password: confirmPassword,
-      role: user_type === 'Employee' ? 'user' : 'company'
+      role: type === 'Private' ? 'user' : 'company',
+      private: type === "Private" ? true : false,
     };
     for (let key in body) {
       if (body[key] == "") {
@@ -51,10 +51,12 @@ const SignupScreen = ({ navigation }) => {
     }
     setIsLoading(true);
     const response = await Post(url, body, apiHeader());
+    return console.log('responseeeeeeeeeeeeeeeeeeeeeeee', response?.data?.roles)
     setIsLoading(false);
     if (response != undefined) {
       dispatch(setUserData(response?.data?.user_info));
       dispatch(setUserToken({ token: response?.data?.token }));
+      dispatch(SetUserRole(type));
     }
 
   }
@@ -92,7 +94,7 @@ const SignupScreen = ({ navigation }) => {
           iconType={FontAwesome}
           setText={setUserName}
           value={userName}
-          placeholder={user_type === 'Company' ? 'Type your company' : 'Type your Name'}
+          placeholder={type === 'Company' ? 'Type your company' : 'Type your Name'}
           viewWidth={0.75}
           borderBottomWidth={2}
           color={Color.blue}

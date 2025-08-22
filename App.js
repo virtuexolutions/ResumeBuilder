@@ -6,10 +6,11 @@
  * @flow strict-local
  */
 
+import { NativeBaseProvider } from 'native-base';
 import React, { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { NativeBaseProvider } from 'native-base';
 import SplashScreen from './SRC/Screens/SplashScreen';
 import { persistor, store } from './SRC/Store/index';
 import {
@@ -17,9 +18,6 @@ import {
   requestWritePermission,
 } from './SRC/Utillity/utils';
 import AppNavigator from './SRC/appNavigation';
-import { Platform } from 'react-native';
-import { PermissionsAndroid } from 'react-native';
-import { LogBox } from 'react-native';
 
 const App = () => {
   return (

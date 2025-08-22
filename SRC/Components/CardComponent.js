@@ -4,10 +4,12 @@ import { windowHeight, windowWidth } from '../Utillity/utils'
 import Color from '../Assets/Utilities/Color'
 import { moderateScale } from 'react-native-size-matters'
 import CustomText from './CustomText'
+import { Icon } from 'native-base'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const CardComponent = ({ data, image, name, text, onPress }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={styles.main_view}>
+        <TouchableOpacity onPress={onPress} activeOpacity={0.5} style={styles.main_view}>
             <View style={styles.row_view}>
                 <View style={styles.circle}>
                     <CustomText style={styles.initialText}>{image}</CustomText>
@@ -16,6 +18,15 @@ const CardComponent = ({ data, image, name, text, onPress }) => {
                     <CustomText style={styles.heading}>{name}</CustomText>
                     <CustomText style={styles.text}>{text}</CustomText>
                 </View>
+                <Icon
+                    name={'delete'}
+                    as={AntDesign}
+                    size={moderateScale(20, 0.3)}
+                    style={{
+                        position: 'absolute',
+                        right: 10
+                    }}
+                />
             </View>
         </TouchableOpacity>
     )

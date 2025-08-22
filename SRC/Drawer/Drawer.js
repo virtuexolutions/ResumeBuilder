@@ -161,6 +161,46 @@ const Drawer = React.memo((props) => {
     },
   ];
 
+  const privateWallet = [
+    // {
+    //   id: 1,
+    //   name: 'Home',
+    //   onPress: () => {
+    //     navigation.navigate('HomeScreen');
+    //   },
+    //   iconName: 'home',
+    //   iconType: Entypo
+    // },
+    {
+      id: 2,
+      name: 'E-Wallet',
+      onPress: () => {
+        navigation.navigate('Ewallet');
+      },
+      iconName: 'folder',
+      iconType: Foundation
+    },
+    {
+      id: 3,
+      name: 'Notifications ',
+      onPress: () => {
+        navigation.navigate('Notification');
+      },
+      iconName: 'notifications',
+      iconType: MaterialIcons
+    },
+    {
+      id: 4,
+      name: 'Settings',
+      onPress: () => {
+        navigation.navigate('Setting');
+      },
+      iconName: 'settings',
+      iconType: MaterialIcons
+    },
+
+  ]
+
   const toggleSwitch = () => {
     dispatch(setFingerPrint(!enabler))
   };
@@ -199,7 +239,7 @@ const Drawer = React.memo((props) => {
           height: '60%',
           marginTop: moderateScale(30, 0.6)
         }}>
-        {(user_type === 'Company' ? adminData : employeeDrawerData).map((item, index) => (
+        {(user_type === 'Company' ? adminData : user_type === 'Private' ? privateWallet : employeeDrawerData).map((item, index) => (
           <>
             <TouchableOpacity
               key={item.id}
@@ -240,11 +280,11 @@ const Drawer = React.memo((props) => {
             Enable fingerPrint
           </CustomText>
           <Switch
-            trackColor={{ false: '#767577', true: Color.themeColor }}
-            thumbColor={enabler ? Color.themeColor : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={enabler}
+            isChecked={enabler}
+            onToggle={toggleSwitch}
+            offTrackColor="gray.400"
+            onTrackColor={Color.themeBlue}
+            onThumbColor={enabler ? Color.themeColor : '#f4f3f4'}
           />
         </View>
       </View>
