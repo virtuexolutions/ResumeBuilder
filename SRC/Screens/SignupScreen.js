@@ -51,7 +51,7 @@ const SignupScreen = ({ navigation, route }) => {
     }
     setIsLoading(true);
     const response = await Post(url, body, apiHeader());
-    return console.log('responseeeeeeeeeeeeeeeeeeeeeeee', response?.data?.roles)
+    console.log('responseeeeeeeeeeeeeeeeeeeeeeee', response?.data?.roles)
     setIsLoading(false);
     if (response != undefined) {
       dispatch(setUserData(response?.data?.user_info));

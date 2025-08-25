@@ -20,7 +20,7 @@ import { useIsFocused } from '@react-navigation/core'
 import CustomText from '../Components/CustomText'
 import FormWrapper from '../Components/FormWrapper'
 
-const AddEmployeeDetails = () => {
+const AddEmployeeDetails = (props) => {
     const isFocused = useIsFocused()
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -32,13 +32,10 @@ const AddEmployeeDetails = () => {
     const [joining_date, setJoiningDate] = useState('');
     const [salary, setSalary] = useState(0);
     const token = useSelector(state => state.authReducer.token);
-    console.log("🚀 ~ AddEmployeeDetails ~ token:", token)
     const [loading, setLoading] = useState(false)
     const [departments, setDepartments] = useState({})
     const [selectedCabCategory, setSelectedCabCategory] = useState(null)
-    console.log("🚀 ~ AddEmployeeDetails ~ selectedCabCategory:", selectedCabCategory)
     const userData = useSelector(state => state.commonReducer.userData);
-    console.log("🚀 ~ AddEmployeeDetails ~ userData:", userData)
 
     useEffect(() => {
         getDepartments()

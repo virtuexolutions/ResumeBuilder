@@ -12,19 +12,20 @@ import CustomButton from '../Components/CustomButton'
 import { Post } from '../Axios/AxiosInterceptorFunction'
 import { useSelector } from 'react-redux'
 import navigationService from '../navigationService'
+import { useNavigation } from '@react-navigation/core'
 
-const AddDepartment = () => {
-    const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone1, setPhone1] = useState('');
-    const [numberOfEmployee, setNumberOfEmployee] = useState('');
-    console.log("🚀 ~ AddDepartment ~ numberOfEmployee:", numberOfEmployee)
-    const [employeeId, setEmployeeId] = useState('');
-    const [department_type, setDepartmentType] = useState('');
-    const [lead_name, setLeadName] = useState('');
+const AddDepartment = (props) => {
+    const { isDepartment, data } = props?.route?.params;
+    const [fullName, setFullName] = useState(data?.department_name ? data?.department_name : '');
+    const [email, setEmail] = useState(data?.lead_email_address ? data?.lead_email_address : '');
+    const [phone1, setPhone1] = useState(data?.lead_contact_number ? data?.lead_contact_number : '');
+    const [numberOfEmployee, setNumberOfEmployee] = useState(data?.number_of_employees_in_depart ? data?.number_of_employees_in_depart : '');
+    const [department_type, setDepartmentType] = useState(data?.department_type ? data?.department_type : '');
+    const [lead_name, setLeadName] = useState(data?.lead_full_name ? data?.lead_full_name : '');
     const token = useSelector(state => state.authReducer.token);
     const [loading, setLoading] = useState(false)
     const userData = useSelector(state => state.commonReducer.userData);
+    const navigationN = useNavigation();
 
     const onPressSubmit = async () => {
         const url = 'auth/add_department'
@@ -53,7 +54,35 @@ const AddDepartment = () => {
             setLoading(false)
         }
     }
-
+    const onPressUpdate = async () => {
+        const url = `auth/update_department/${data?.id}`
+        const body = {
+            department_name: fullName,
+            department_type: department_type,
+            lead_full_name: lead_name,
+            lead_email_address: email,
+            lead_contact_number: phone1,
+            number_of_employees_in_depart: numberOfEmployee,
+            company_id: userData?.company_detail?.id
+        }
+        console.log("🚀 ~ onPressUpdate ~ body:", body)
+        setLoading(true)
+        console.log("🚀 ~ onPressUpdate ~ apiHeader(token):", apiHeader(token))
+        const response = await Post(url, body, apiHeader(token))
+        setLoading(false)
+        console.log("🚀 ~ onPressUpdate ~ response:", response?.data)
+        if (response != undefined) {
+            setLoading(false)
+            Platform.OS == 'android'
+                ? ToastAndroid.show('Deparment Update successfully', ToastAndroid.SHORT)
+                : Alert.alert('Deparment Update successfully');
+            navigationN.navigate('MyDrawer', {
+                screen: 'Department',
+            });
+        } else {
+            setLoading(false)
+        }
+    }
     return (
         <SafeAreaView style={styles.container}>
             <Header showBack hideUser={false} />
@@ -157,7 +186,7 @@ const AddDepartment = () => {
                 <CustomButton
                     text={loading ? <ActivityIndicator style={styles.indicatorStyle}
                         size="small"
-                        color={Color.white} /> : 'Submit'}
+                        color={Color.white} /> : isDepartment ? 'Update' : 'Submit'}
                     width={windowWidth * 0.9}
                     height={windowHeight * 0.055}
                     borderRadius={moderateScale(10, 0.3)}
@@ -169,8 +198,8 @@ const AddDepartment = () => {
                         bottom: 10
                     }}
                     onPress={() => {
-                        onPressSubmit()
-                        // Login()
+                        isDepartment ? onPressUpdate() :
+                            onPressSubmit()
                     }}
                 />
             </View>

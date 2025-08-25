@@ -37,6 +37,7 @@ const LoginScreen = ({ navigation, route }) => {
     const body = {
       email: email,
       password: password,
+      private: type === "Private" ? true : false,
     };
     console.log("🚀 ~ Login ~ body:", body);
 

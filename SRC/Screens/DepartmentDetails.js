@@ -1,9 +1,14 @@
 import 'dayjs/locale/en'; // or your preferred locale
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+    Alert,
+    FlatList,
+    Platform,
     // SafeAreaView,
     ScrollView,
     StyleSheet,
+    ToastAndroid,
+    TouchableOpacity,
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,34 +17,48 @@ import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
-import { windowHeight, windowWidth } from '../Utillity/utils';
-
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
+import ListEmphtyComponent from '../Components/ListEmphtyComponent';
+import CustomImage from '../Components/CustomImage';
+import { Icon } from 'native-base';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Post } from '../Axios/AxiosInterceptorFunction';
+import { useNavigation } from '@react-navigation/native';
+import CustomLoading from '../Components/CustomLoading';
 
 const DepartmentDetails = (props) => {
     const data = props?.route?.params?.data;
-    console.log("🚀 ~ DepartmentDetails ~ data:", data)
     const dispatch = useDispatch();
     const userData = useSelector(state => state.commonReducer.userData);
     const token = useSelector(state => state.authReducer.token);
+    const navigationN = useNavigation();
+    const [loading, setLoading] = useState(false)
+    const [showModal, setShowModal] = useState(false)
 
-    const PointsView = ({ name, index }) => {
-        return (
-            <View key={index ? index : ''} style={[styles.row_view, {
-                marginTop: moderateScale(8, 0.6)
-            }]}>
-                <View style={{
-                    width: moderateScale(6, 0.6),
-                    height: moderateScale(6, 0.6),
-                    backgroundColor: Color.themeBlue,
-                    borderRadius: windowWidth,
-                    marginLeft: moderateScale(6, 0.6)
-                }} />
-                <CustomText style={[styles.text, { marginLeft: moderateScale(7, 0.6) }]}>
-                    {name}
-                </CustomText>
-            </View>
-        )
+    const onDelete = async () => {
+        console.log('aaaaaaaaaaaaaaaaaaaaaa')
+        const url = `auth/delete_department/${data?.id}`
+        console.log("Delete URL ===>", url)
+        setLoading(true)
+        const response = await Post(url, {}, apiHeader(token))
+        console.log(response?.data, 'responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+        setLoading(false)
+        if (response != undefined) {
+            setLoading(false)
+            Platform.OS == 'android'
+                ? ToastAndroid.show('Deparment Deleted successfully', ToastAndroid.SHORT)
+                : Alert.alert('Deparment Deleted successfully');
+            navigationN.goBack()
+        } else {
+            setLoading(false)
+        }
     }
+
+    useEffect(() => {
+        setShowModal(loading);
+    }, [loading]);
 
 
     return (
@@ -48,13 +67,89 @@ const DepartmentDetails = (props) => {
             <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
                 <View style={styles.main_view}>
                     <View style={styles.profile_view}>
-
                         <CustomText isBold style={styles.heading}>{data?.department_name}</CustomText>
                         <CustomText style={styles.text}>{data?.department_type}</CustomText>
+                        <View style={[styles.row_view, { marginTop: moderateScale(10, 0.6) }]}>
+                            <TouchableOpacity activeOpacity={0.8} style={styles.icon_view} onPress={() => onDelete()}>
+                                <Icon name='delete-outline' as={MaterialIcons} size={moderateScale(25, 0.6)} color={Color.veryLightGray} />
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={0.8} style={[styles.icon_view, { marginLeft: moderateScale(5, 0.6) }]} onPress={() => navigationN.navigate('AddDepartment', { isDepartment: true, data: data })}>
+                                <Icon name='edit' as={AntDesign} size={moderateScale(25, 0.6)} color={Color.veryLightGray} />
+                            </TouchableOpacity>
+                            <View style={[styles.icon_view, { marginLeft: moderateScale(5, 0.6) }]}>
+                                <Icon name='reader' as={Ionicons} size={moderateScale(25, 0.6)} color={Color.veryLightGray} />
+                            </View>
+                        </View>
                     </View>
-
+                    <CustomText isBold style={styles.sub_heading}>Lead Details</CustomText>
+                    <View style={styles.row_view}>
+                        <CustomText isBold style={styles.view_heading}>Lead Contact number : </CustomText>
+                        <CustomText>{data?.lead_contact_number}</CustomText>
+                    </View>
+                    <View style={styles.row_view}>
+                        <CustomText isBold style={styles.view_heading}>Lead Email Address : </CustomText>
+                        <CustomText>{data?.lead_email_address}</CustomText>
+                    </View>
+                    <View style={styles.row_view}>
+                        <CustomText isBold style={styles.view_heading}>Lead full Name : </CustomText>
+                        <CustomText>{data?.lead_full_name}</CustomText>
+                    </View>
+                    <View style={styles.row_view}>
+                        <CustomText isBold style={styles.view_heading}>Number of Employees : </CustomText>
+                        <CustomText>{data?.number_of_employees_in_depart}</CustomText>
+                    </View>
+                    <CustomText isBold style={styles.sub_heading}>Team Members</CustomText>
+                    <FlatList data={data?.employee}
+                        ListEmptyComponent={() => <ListEmphtyComponent />}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <View style={{
+                                    width: windowWidth * 0.9,
+                                    height: windowWidth * 0.2,
+                                    backgroundColor: Color.lightGrey,
+                                    borderRadius: moderateScale(10, 0.6),
+                                    alignSelf: "center",
+                                    paddingHorizontal: moderateScale(10, 0.6),
+                                    paddingVertical: moderateScale(10, 0.6),
+                                    flexDirection: 'row',
+                                    marginTop: moderateScale(7, 0.6)
+                                }}>
+                                    <View style={{
+                                        width: windowWidth * 0.16,
+                                        height: windowWidth * 0.16,
+                                        backgroundColor: Color.veryLightGray,
+                                        borderRadius: windowWidth
+                                    }}>
+                                        <CustomImage style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            borderRadius: windowWidth
+                                        }} resizeMode={'cover'} source={require('../Assets/Images/no_user_image.png')} />
+                                    </View>
+                                    <View style={{
+                                        marginLeft: moderateScale(10, 0.6),
+                                        justifyContent: 'center'
+                                    }}>
+                                        <View style={styles.row_view}>
+                                            <CustomText style={styles.list_heading}>Employee Name : </CustomText>
+                                            <CustomText isBold>{item?.full_name}</CustomText>
+                                        </View>
+                                        <View style={styles.row_view}>
+                                            <CustomText style={styles.list_heading}>Employee Email : </CustomText>
+                                            <CustomText isBold>{item?.employee_email}</CustomText>
+                                        </View>
+                                        <View style={styles.row_view}>
+                                            <CustomText style={styles.list_heading}>designation : </CustomText>
+                                            <CustomText isBold>{item?.designation}</CustomText>
+                                        </View>
+                                    </View>
+                                </View>
+                            )
+                        }}
+                    />
                 </View>
             </ScrollView>
+            <CustomLoading show={showModal} setShow={setShowModal} />
         </SafeAreaView>
     );
 };
@@ -75,12 +170,22 @@ const styles = StyleSheet.create({
         fontSize: moderateScale(12, 0.6),
         color: Color.veryLightGray
     },
+    view_heading: {
+        fontSize: moderateScale(15, 0.6),
+        color: Color.black
+    },
     main_view: {
         paddingVertical: moderateScale(10, 0.6),
         paddingHorizontal: moderateScale(15, 0.6),
     },
     heading_sub_view: {
         paddingHorizontal: moderateScale(15, 0.6),
+    },
+    sub_heading: {
+        fontSize: moderateScale(22, 0.6),
+        color: Color.themeBlue,
+        marginTop: moderateScale(20, 0.6),
+        marginBottom: moderateScale(7, 0.6)
     },
     welcomeText: {
         fontSize: moderateScale(35, 0.3),
@@ -130,6 +235,10 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: moderateScale(50, 0.6),
         borderBottomEndRadius: moderateScale(50, 0.6),
     },
+    list_heading: {
+        fontSize: moderateScale(12, 0.6),
+        color: Color.grey
+    },
     header_subview: {
         width: windowWidth * 0.9,
         height: windowHeight * 0.22,
@@ -150,13 +259,11 @@ const styles = StyleSheet.create({
     },
     profile_view: {
         width: windowWidth,
-        height: windowWidth * 0.3,
+        height: windowWidth * 0.4,
         backgroundColor: Color.themeBlue,
         alignSelf: 'center',
         alignItems: "center",
         justifyContent: "center",
-        top: 0,
-        position: "absolute"
     },
     image_style: {
         width: '100%',
@@ -169,12 +276,12 @@ const styles = StyleSheet.create({
         top: -55
     },
     icon_view: {
-        width: windowWidth * 0.6,
-        height: windowWidth * 0.2,
-        top: -40,
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        width: moderateScale(40, 0.6),
+        height: moderateScale(40, 0.6),
+        backgroundColor: Color.lightGrey,
+        borderRadius: windowWidth,
+        alignItems: "center",
+        justifyContent: 'center',
     },
     icon: {
         width: windowWidth * 0.12,

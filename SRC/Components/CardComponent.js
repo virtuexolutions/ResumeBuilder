@@ -18,15 +18,6 @@ const CardComponent = ({ data, image, name, text, onPress }) => {
                     <CustomText style={styles.heading}>{name}</CustomText>
                     <CustomText style={styles.text}>{text}</CustomText>
                 </View>
-                <Icon
-                    name={'delete'}
-                    as={AntDesign}
-                    size={moderateScale(20, 0.3)}
-                    style={{
-                        position: 'absolute',
-                        right: 10
-                    }}
-                />
             </View>
         </TouchableOpacity>
     )

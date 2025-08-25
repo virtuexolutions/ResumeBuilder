@@ -44,6 +44,7 @@ const AddEmployees = () => {
       setLoading(false)
     }
   }
+
   const handleSearch = () => {
     if (search.trim() === '') {
       setFilteredDepartments(employee);
@@ -55,59 +56,11 @@ const AddEmployees = () => {
     }
   };
 
-
-
-  const employee_list = [
-    {
-      id: 1,
-      name: 'Adrian',
-      designation: "supervisor",
-    },
-    {
-      id: 2,
-      name: 'Adrian',
-      designation: "supervisor",
-    }, {
-      id: 3,
-      name: 'Adrian',
-      designation: "supervisor",
-    }, {
-      id: 4,
-      name: 'Adrian',
-      designation: "supervisor",
-    }, {
-      id: 5,
-      name: 'Adrian',
-      designation: "supervisor",
-    }, {
-      id: 6,
-      name: 'Adrian',
-      designation: "supervisor",
-    }, {
-      id: 7,
-      name: 'Adrian',
-      designation: "supervisor",
-    }, {
-      id: 8,
-      name: 'Adrian',
-      designation: "supervisor",
-    }, {
-      id: 9,
-      name: 'Adrian',
-      designation: "supervisor",
-    }, {
-      id: 10,
-      name: 'Adrian',
-      designation: "supervisor",
-    },
-  ]
-
   return (
     <SafeAreaView style={styles.container}>
       <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails')} />
       <View style={styles.main_view}>
         <View style={styles.search_bar_view}>
-
           <TextInputWithTitle
             iconName={'search1'}
             iconType={AntDesign}
@@ -146,7 +99,7 @@ const AddEmployees = () => {
                     image={nameInitial}
                     name={item?.full_name}
                     text={item?.designation}
-                    // onPress={() => navigationService.navigate('')}
+                  // onPress={() => navigationService.navigate('DepartmentDetails')}
                   />
                 )
               })}

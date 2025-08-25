@@ -1,7 +1,7 @@
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, SafeAreaView, StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
-import { windowHeight, windowWidth } from '../Utillity/utils'
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
 import Color from '../Assets/Utilities/Color'
 import { moderateScale } from 'react-native-size-matters'
 import TextInputWithTitle from '../Components/TextInputWithTitle'
@@ -9,7 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import CustomButton from '../Components/CustomButton'
 import CardComponent from '../Components/CardComponent'
 import navigationService from '../navigationService'
-import { Get } from '../Axios/AxiosInterceptorFunction'
+import { Get, Post } from '../Axios/AxiosInterceptorFunction'
 import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/core'
 import CustomText from '../Components/CustomText'
@@ -18,9 +18,7 @@ import ListEmphtyComponent from '../Components/ListEmphtyComponent'
 const Department = () => {
     const isFocused = useIsFocused()
     const [departments, setDepartments] = useState([])
-    console.log("🚀 ~ Department ~ departments:", departments)
     const token = useSelector(state => state.authReducer.token);
-    console.log("🚀 ~ Department ~ token:", token)
     const [loading, setLoading] = useState(false)
     const [search, setSearch] = useState('')
     const [filteredDepartments, setFilteredDepartments] = useState([]);
@@ -38,7 +36,6 @@ const Department = () => {
         const url = 'auth/department_list';
         setLoading(true);
         const response = await Get(url, token);
-        console.log("🚀 ~ getDepartments ~ response:", response?.data);
         setLoading(false);
         if (response?.data != undefined) {
             setDepartments(response?.data?.data);
@@ -102,7 +99,7 @@ const Department = () => {
                                     image={nameInitial}
                                     name={item?.department_name}
                                     text={`Number of Employees ${item?.number_of_employees_in_depart}`}
-                                // onPress={() => navigationService.navigate('DepartmentDetails', { data: item })}
+                                    onPress={() => navigationService.navigate('DepartmentDetails', { data: item })}
                                 />
                             )
                         })}
