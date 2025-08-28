@@ -27,6 +27,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Post } from '../Axios/AxiosInterceptorFunction';
 import { useNavigation } from '@react-navigation/native';
 import CustomLoading from '../Components/CustomLoading';
+import { baseUrl } from '../Config';
 
 const EmployeeDetails = (props) => {
     const data = props?.route?.params?.data;
@@ -34,13 +35,14 @@ const EmployeeDetails = (props) => {
     const dispatch = useDispatch();
     const userData = useSelector(state => state.commonReducer.userData);
     const token = useSelector(state => state.authReducer.token);
+    console.log(token, 'asdad')
     const navigationN = useNavigation();
     const [loading, setLoading] = useState(false)
     const [showModal, setShowModal] = useState(false)
 
     const onDelete = async () => {
         console.log('aaaaaaaaaaaaaaaaaaaaaa')
-        const url = `auth/delete_department/${data?.id}`
+        const url = `auth/delete_employee/${data?.id}`
         console.log("Delete URL ===>", url)
         setLoading(true)
         const response = await Post(url, {}, apiHeader(token))
@@ -72,17 +74,17 @@ const EmployeeDetails = (props) => {
                         <View style={{
                             width: windowWidth * 0.2,
                             height: windowWidth * 0.2,
-                            backgroundColor: 'red',
-                            borderRadius: windowWidth
+                            borderRadius: windowWidth * 0.2,
+                            backgroundColor: Color.white
                         }}>
-                            {/* <CustomImage /> */}
+                            <CustomImage style={styles.image_style} source={data?.photo ? { uri: `${baseUrl}/${data?.photo}` } : require('../Assets/Images/no_user_image.png')} />
                         </View>
                         <CustomText isBold style={styles.heading}>{data?.full_name}</CustomText>
                         <View style={[styles.row_view, { marginTop: moderateScale(10, 0.6) }]}>
                             <TouchableOpacity activeOpacity={0.8} style={styles.icon_view} onPress={() => onDelete()}>
                                 <Icon name='delete-outline' as={MaterialIcons} size={moderateScale(25, 0.6)} color={Color.veryLightGray} />
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={0.8} style={[styles.icon_view, { marginLeft: moderateScale(5, 0.6) }]} onPress={() => navigationN.navigate('AddDepartment', { isDepartment: true, data: data })}>
+                            <TouchableOpacity activeOpacity={0.8} style={[styles.icon_view, { marginLeft: moderateScale(5, 0.6) }]} onPress={() => navigationN.navigate('AddEmployeeDetails', { isDetails: true, data: data })}>
                                 <Icon name='edit' as={AntDesign} size={moderateScale(25, 0.6)} color={Color.veryLightGray} />
                             </TouchableOpacity>
                             <View style={[styles.icon_view, { marginLeft: moderateScale(5, 0.6) }]}>
@@ -146,12 +148,18 @@ const EmployeeDetails = (props) => {
                                     key={index}
                                     style={{
                                         padding: moderateScale(10, 0.6),
-                                        backgroundColor: 'red',
+                                        backgroundColor: Color.lightGrey,
                                         width: windowWidth * 0.3,
                                         justifyContent: 'center',
-                                        alignItems: 'center'
+                                        alignItems: 'center',
+                                        borderRadius: moderateScale(12, 0.6),
+                                        borderWidth: 1.5,
+                                        borderColor: Color.veryLightGray
                                     }}>
-                                    <CustomText>{item}</CustomText>
+                                    <CustomText style={{
+                                        fontSize: moderateScale(12, 0.6),
+                                        color: Color.grey
+                                    }}>{item}</CustomText>
                                 </View>
                             )
 
@@ -278,7 +286,7 @@ const styles = StyleSheet.create({
     image_style: {
         width: '100%',
         height: '100%',
-        borderRadius: windowWidth,
+        borderRadius: windowWidth * 0.2,
     },
     text_view: {
         justifyContent: "center",

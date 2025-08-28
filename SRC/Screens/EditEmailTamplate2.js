@@ -17,7 +17,6 @@ const EditEmailTamplate2 = props => {
   const [loading, setLoading] = useState(false)
 
 
-
   const onPressSave = async () => {
     const url = 'auth/cover-letter'
     setLoading(true)

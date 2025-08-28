@@ -89,7 +89,7 @@ const AddDepartment = (props) => {
             <View style={styles.main_view}>
                 <TextInputWithTitle
                     title={"Enter Department Name : "}
-                    iconName={'building'}
+                    iconName={'buildi  ng'}
                     iconType={FontAwesome5}
                     color={Color.veryLightGray}
                     setText={setFullName}
@@ -149,7 +149,6 @@ const AddDepartment = (props) => {
                     borderColor={Color.themeBlue}
                 />
 
-
                 <TextInputWithTitle
                     title={"Enter Lead Phone Number : "}
                     iconName={'phone'}
@@ -166,7 +165,6 @@ const AddDepartment = (props) => {
                     borderColor={Color.themeBlue}
                 />
 
-
                 <TextInputWithTitle
                     title={"Enter Number of Employee in Depart"}
                     iconName={'person'}
@@ -182,7 +180,6 @@ const AddDepartment = (props) => {
                     borderRadius={moderateScale(10, 0.6)}
                     borderColor={Color.themeBlue}
                 />
-
                 <CustomButton
                     text={loading ? <ActivityIndicator style={styles.indicatorStyle}
                         size="small"

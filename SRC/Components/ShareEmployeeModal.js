@@ -18,18 +18,13 @@ const ShareEmployeeModal = props => {
     const token = useSelector(state => state.authReducer.token);
     console.log("🚀 ~ token:", token)
     const [employee, setEmployee] = useState([])
-    console.log("🚀 ~ employee:", employee)
     const [loading, setLoading] = useState(false)
     const [share_loading, setShareLoading] = useState(false)
     const userData = useSelector(state => state.commonReducer.userData);
-    console.log("🚀 ~ userData:", userData)
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    console.log("🚀 ~ selectedEmployees:", selectedEmployees)
     const [departments, setDepartments] = useState({})
     const [selectedCabCategory, setSelectedCabCategory] = useState(null)
-    console.log("🚀 ~ selectedCabCategory:", selectedCabCategory)
     const [filteredEmployees, setFilteredEmployees] = useState([]);
-    console.log("🚀 ~ filteredEmployees:", filteredEmployees)
 
     useEffect(() => {
         getEmployees()
@@ -51,7 +46,6 @@ const ShareEmployeeModal = props => {
         setLoading(true)
         console.log("🚀 ~ getEmployees ~ url:", url)
         const response = await Get(url, token)
-        console.log("🚀 ~ getDepartments ~ response:", response?.data)
         setLoading(false)
         if (response?.data != undefined) {
             setLoading(false)

@@ -12,20 +12,17 @@ import navigationService from '../navigationService'
 import { Get } from '../Axios/AxiosInterceptorFunction'
 import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/core'
-import { date } from 'yup'
-import CustomText from '../Components/CustomText'
 import ListEmphtyComponent from '../Components/ListEmphtyComponent'
+
 const AddEmployees = () => {
   const isFocused = useIsFocused()
   const token = useSelector(state => state.authReducer.token);
   const [employee, setEmployee] = useState([])
-  console.log("🚀 ~ AddEmployees ~ employee:", employee)
   const [loading, setLoading] = useState(false)
   const userData = useSelector(state => state.commonReducer.userData);
   const [search, setSearch] = useState('')
   const [filteredEmployee, setFilteredEmployee] = useState([]);
 
-  console.log("🚀 ~ AddEmployees ~ employee:", employee)
   useEffect(() => {
     getDepartments()
   }, [isFocused])
@@ -34,7 +31,6 @@ const AddEmployees = () => {
     const url = `auth/employee_list/${userData?.company_detail?.id}`
     setLoading(true)
     const response = await Get(url, token)
-    console.log("🚀 ~ getDepartments ~ response:", response?.data)
     setLoading(false)
     if (response?.data != undefined) {
       setLoading(false)
@@ -58,7 +54,7 @@ const AddEmployees = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails')} />
+      <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails', { data: {}, isDetails: false })} />
       <View style={styles.main_view}>
         <View style={styles.search_bar_view}>
           <TextInputWithTitle
@@ -99,7 +95,7 @@ const AddEmployees = () => {
                     image={nameInitial}
                     name={item?.full_name}
                     text={item?.designation}
-                    onPress={() => navigationService.navigate('EmployeeDetails', { data: item })}
+                    onPress={() => navigationService.navigate('EmployeeDetails', { data: item, isDetails: true })}
                   />
                 )
               })}

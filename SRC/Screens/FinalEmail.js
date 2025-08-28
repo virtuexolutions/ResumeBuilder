@@ -25,11 +25,8 @@ import ShareEmployeeModal from '../Components/ShareEmployeeModal';
 const FinalEmail = props => {
   const data = props?.route?.params?.data;
   const fromSave = props?.route?.params?.fromSave;
-  console.log("🚀 ~ fromSave:", fromSave)
   const fromHome = props?.route?.params?.fromHome;
-  console.log("🚀FinalEmail  🚀FinalEmail🚀FinalEmail~ data:", data)
   const token = useSelector(state => state.authReducer.token);
-  console.log("🚀 ~ token:", token)
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const user_type = useSelector(state => state.authReducer.role)
@@ -69,7 +66,7 @@ const FinalEmail = props => {
                   paddingVertical: moderateScale(10, 0.6),
                 },
               ]}>
-              {`  Dear ${data?.managerName}`}
+              {`Dear ${data?.name}`}
             </CustomText>
             <CustomText style={styles.per_text}>
               {/* {data?.description || data?.summary || data?.details} */}
@@ -98,7 +95,7 @@ const FinalEmail = props => {
                     paddingTop: moderateScale(20, 0.6),
                   },
                 ]}>
-                {data?.name}
+                {data?.managerName}
               </CustomText>
               <CustomText style={styles.per_text}>{data?.phone}</CustomText>
             </View>

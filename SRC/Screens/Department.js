@@ -58,7 +58,7 @@ const Department = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddDepartment')} rightText={'Add Department'} />
+            <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddDepartment', { data: {} })} rightText={'Add Department'} />
             <View style={styles.main_view}>
                 <View style={styles.search_bar_view}>
                     <TextInputWithTitle

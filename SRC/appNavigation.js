@@ -73,6 +73,7 @@ const AppNavigator = () => {
   const RootNav = createNativeStackNavigator();
   const RootNavLogged = createNativeStackNavigator();
   const userData = useSelector(state => state.commonReducer.userData);
+  console.log(userData, '=============================')
 
   const AppNavigatorContainer = () => {
     const firstScreen =

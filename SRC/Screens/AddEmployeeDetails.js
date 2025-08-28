@@ -7,7 +7,6 @@ import { moderateScale } from 'react-native-size-matters'
 import TextInputWithTitle from '../Components/TextInputWithTitle'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Fontisto from 'react-native-vector-icons/Fontisto'
@@ -21,16 +20,15 @@ import CustomText from '../Components/CustomText'
 import FormWrapper from '../Components/FormWrapper'
 
 const AddEmployeeDetails = (props) => {
+    const { isDetails, data } = props?.route?.params;
     const isFocused = useIsFocused()
-    const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone1, setPhone1] = useState('');
+    const [fullName, setFullName] = useState(data?.full_name ? data?.full_name : "");
+    const [email, setEmail] = useState(data?.employee_email ? data?.employee_email : '');
+    const [phone1, setPhone1] = useState(data?.employee_phone_number ? data?.employee_phone_number : '');
     const [password, setPassword] = useState('');
-    const [employeeId, setEmployeeId] = useState('');
-    const [department, setDepartment] = useState('');
-    const [designation, setDesignation] = useState('');
-    const [joining_date, setJoiningDate] = useState('');
-    const [salary, setSalary] = useState(0);
+    const [designation, setDesignation] = useState(data?.designation ? data?.designation : '');
+    const [joining_date, setJoiningDate] = useState(data?.joining_date ? data?.joining_date : '');
+    const [salary, setSalary] = useState(data?.salary ? data?.salary : 0);
     const token = useSelector(state => state.authReducer.token);
     const [loading, setLoading] = useState(false)
     const [departments, setDepartments] = useState({})
@@ -63,16 +61,42 @@ const AddEmployeeDetails = (props) => {
             salary: salary,
             company_id: userData?.company_detail?.id
         }
-        console.log("🚀 ~ onPressSubmit ~ body:", body)
         setLoading(true)
         const response = await Post(url, body, apiHeader(token))
-        console.log("🚀 ~ onPressSubmit ~ response:", response?.data)
         setLoading(false)
         if (response != undefined) {
             setLoading(false)
             Platform.OS == 'android'
                 ? ToastAndroid.show('Employee Added SuccessFully', ToastAndroid.SHORT)
                 : Alert.alert('Employee Added SuccessFully');
+            navigationService.navigate('AddEmployees');
+        } else {
+            setLoading(false)
+        }
+    }
+
+    const onPressUpdate = async () => {
+        const url = `auth/update_employee/${data?.id}`
+        const body = {
+            password: password,
+            full_name: fullName,
+            employee_email: email,
+            employee_phone_number: phone1,
+            confirm_password: password,
+            department_id: data?.department_id,
+            designation: designation,
+            joining_date: joining_date,
+            salary: salary,
+            company_id: userData?.company_detail?.id
+        }
+        setLoading(true)
+        const response = await Post(url, body, apiHeader(token))
+        setLoading(false)
+        if (response != undefined) {
+            setLoading(false)
+            Platform.OS == 'android'
+                ? ToastAndroid.show('Employee Update SuccessFully', ToastAndroid.SHORT)
+                : Alert.alert('Employee Update SuccessFully');
             navigationService.navigate('AddEmployees');
         } else {
             setLoading(false)
@@ -226,7 +250,7 @@ const AddEmployeeDetails = (props) => {
                     <CustomButton
                         text={loading ? <ActivityIndicator style={styles.indicatorStyle}
                             size="small"
-                            color={Color.white} /> : 'Submit'}
+                            color={Color.white} /> : isDetails ? 'Update' : 'Submit'}
                         width={windowWidth * 0.9}
                         height={windowHeight * 0.055}
                         borderRadius={moderateScale(10, 0.3)}
@@ -234,8 +258,8 @@ const AddEmployeeDetails = (props) => {
                         bgColor={Color.themeBlue}
                         marginTop={moderateScale(40, 0.6)}
                         onPress={() => {
-                            // Login()
-                            onPressSubmit()
+                            isDetails ? onPressUpdate() :
+                                onPressSubmit()
                         }}
                     />
                 </View>

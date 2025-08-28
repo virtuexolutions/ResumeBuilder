@@ -1,4 +1,3 @@
-import { Icon } from 'native-base';
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
@@ -14,13 +13,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
 import { Post } from '../Axios/AxiosInterceptorFunction';
 import CustomButton from '../Components/CustomButton';
+import CustomImage from '../Components/CustomImage';
 import CustomText from '../Components/CustomText';
 import TextInputWithTitle from '../Components/TextInputWithTitle';
-import navigationService from '../navigationService';
 import { SetUserRole, setUserToken } from '../Store/slices/auth';
 import { setUserData } from '../Store/slices/common';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
-import CustomImage from '../Components/CustomImage';
 
 const LoginScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -37,7 +35,6 @@ const LoginScreen = ({ navigation, route }) => {
     const body = {
       email: email,
       password: password,
-      private: type === "Private" ? true : false,
     };
     console.log("🚀 ~ Login ~ body:", body);
 

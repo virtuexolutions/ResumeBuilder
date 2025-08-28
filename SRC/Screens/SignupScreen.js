@@ -19,7 +19,7 @@ import CustomButton from '../Components/CustomButton';
 import CustomImage from '../Components/CustomImage';
 import CustomText from '../Components/CustomText';
 import TextInputWithTitle from '../Components/TextInputWithTitle';
-import { setUserToken } from '../Store/slices/auth';
+import { SetUserRole, setUserToken } from '../Store/slices/auth';
 import { setUserData } from '../Store/slices/common';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 
@@ -45,20 +45,18 @@ const SignupScreen = ({ navigation, route }) => {
       private: type === "Private" ? true : false,
     };
     for (let key in body) {
-      if (body[key] == "") {
+      if (body[key] === "" || body[key] === null || body[key] === undefined) {
         return ToastAndroid.show(`${key} is required`, ToastAndroid.SHORT);
       }
     }
     setIsLoading(true);
     const response = await Post(url, body, apiHeader());
-    console.log('responseeeeeeeeeeeeeeeeeeeeeeee', response?.data?.roles)
     setIsLoading(false);
     if (response != undefined) {
       dispatch(setUserData(response?.data?.user_info));
       dispatch(setUserToken({ token: response?.data?.token }));
       dispatch(SetUserRole(type));
     }
-
   }
 
   return (
