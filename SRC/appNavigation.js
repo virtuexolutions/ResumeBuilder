@@ -1,10 +1,8 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { enableScreens } from 'react-native-screens';
 import { useSelector } from 'react-redux';
-import Drawer from './Drawer/Drawer';
 import navigationService from './navigationService';
 import AddDepartment from './Screens/AddDepartment';
 import AddEmployeeDetails from './Screens/AddEmployeeDetails';
@@ -28,7 +26,6 @@ import FinalBlogPost from './Screens/FinalBlogPost';
 import FinalCoverLetter from './Screens/FinalCoverLetter';
 import FinalEmail from './Screens/FinalEmail';
 import Home from './Screens/Home';
-import HomeScreen from './Screens/HomeScreen';
 import LoginScreen from './Screens/LoginScreen';
 import OnboardingScreen from './Screens/OnboardingScreen';
 import Payment from './Screens/Payment';
@@ -41,13 +38,11 @@ import SignupScreen from './Screens/SignupScreen';
 import SplashScreen from './Screens/SplashScreen';
 import StartScreen from './Screens/StartScreen';
 import SurvaryForm from './Screens/SurvaryForm';
-import Tamplates from './Screens/Tamplates';
 import VerifyEmail from './Screens/VerifyEmail';
 import VerifyNumber from './Screens/VerifyNumber';
 import WalkThroughScreen from './Screens/WalkthroughScreen';
 import Categories from './Screens/Categories';
 import Documents from './Screens/Documents';
-import ProfileDetails from './Screens/ProfileDetails';
 import CompanyNavigator from './navigators/CompanyNavigator';
 import EmployeeNavigator from './navigators/EmployeeNavigator';
 import LoggedInScreen from './Screens/LoggedInScreen';
@@ -56,10 +51,11 @@ import EditProfile from './Screens/EditProfile';
 import PrivacyPolicy from './Screens/PrivacyPolicy';
 import Help from './Screens/Help';
 import TermsAndConditions from './Screens/TermsAndConditions';
-import Notification from './Screens/Notification';
 import EmployeeDetails from './Screens/EmployeeDetails';
 import DepartmentDetails from './Screens/DepartmentDetails';
 import privateNavigator from './navigators/privateNavigator';
+import PaymentScreen from './Screens/PaymentScreen';
+import AddToFavourite from './Screens/AddToFavourite';
 // import SurvaryForm from './Screens/SurvaryForm';
 // import EditSurveyForm from './Screens/EditSurveyForm';
 
@@ -88,7 +84,7 @@ const AppNavigator = () => {
     return (
       <NavigationContainer ref={navigationService.navigationRef}>
         <RootNav.Navigator
-          initialRouteName={firstScreen}
+          initialRouteName={'AddToFavourite'}
           screenOptions={{ headerShown: false }}>
           <RootNav.Screen name="MyDrawer" component={user_type === 'Company' ? CompanyNavigator : user_type === "Private" ? privateNavigator : EmployeeNavigator} />
           <RootNav.Screen
@@ -149,6 +145,8 @@ const AppNavigator = () => {
           <RootNav.Screen name="LoggedInScreen" component={LoggedInScreen} />
           <RootNav.Screen name="EmployeeDetails" component={EmployeeDetails} />
           <RootNav.Screen name="DepartmentDetails" component={DepartmentDetails} />
+          <RootNav.Screen name="PaymentScreen" component={PaymentScreen} />
+          <RootNav.Screen name="AddToFavourite" component={AddToFavourite} />
           <RootNav.Screen
             name="FinalCoverLetter"
             component={FinalCoverLetter}
@@ -165,30 +163,4 @@ const AppNavigator = () => {
 
   return <AppNavigatorContainer />;
 };
-
-// export const MyDrawer = () => {
-//   const DrawerNavigation = createDrawerNavigator();
-//   const firstScreen = 'HomeScreen';
-//   const user_type = useSelector(state => state.authReducer.role)
-//   console.log("🚀 ~ MyDrawer ~ user_type:", user_type)
-//   return (
-//     <DrawerNavigation.Navigator
-//       drawerContent={props => <Drawer {...props} />}
-//       initialRouteName={user_type === 'Company' ? 'Dashboard' : 'HomeScreen'}
-//       screenOptions={{
-//         headerShown: false,
-//         drawerStyle: {
-//           width: '70%',
-//         },
-//       }}>
-//       <DrawerNavigation.Screen name="Dashboard" component={Dashboard} />
-//       <DrawerNavigation.Screen name="HomeScreen" component={HomeScreen} />
-//       <DrawerNavigation.Screen name="Tamplates" component={Tamplates} />
-//       <DrawerNavigation.Screen name="Department" component={Department} />
-//       <DrawerNavigation.Screen name="AddEmployees" component={AddEmployees} />
-//       <DrawerNavigation.Screen name="ProfileDetails" component={ProfileDetails} />
-//     </DrawerNavigation.Navigator>
-//   );
-// };
-
 export default AppNavigator;

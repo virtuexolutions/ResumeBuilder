@@ -110,7 +110,9 @@ const Dashboard = ({ navigation, route }) => {
                             <View style={[styles.sub_view, {
                                 marginTop: moderateScale(15, 0.6)
                             }]}>
-                                <TouchableOpacity onPress={() => navigationService.navigate('Categories')} style={[styles.btn_view, {
+                                <TouchableOpacity onPress={() => navigationService.navigate('MyDrawer', {
+                                    screen: 'Tamplates',
+                                })} style={[styles.btn_view, {
                                     backgroundColor: '#557AFF'
                                 }]}>
                                     <CustomText isBold style={styles.heading}>{numberOfDocuments}</CustomText>
@@ -182,7 +184,7 @@ const Dashboard = ({ navigation, route }) => {
                     }
                 </View>
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 };
 

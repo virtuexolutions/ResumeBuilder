@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, FlatList, I18nManager, Platform, SafeAreaView, ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, I18nManager, Platform, SafeAreaView, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Fontisto from 'react-native-vector-icons/Fontisto'
+import Entypo from 'react-native-vector-icons/Entypo'
 import CustomButton from '../Components/CustomButton'
 import { Get, Post } from '../Axios/AxiosInterceptorFunction'
 import { useSelector } from 'react-redux'
@@ -18,6 +18,9 @@ import DropDown from '../Components/DropDown'
 import { useIsFocused } from '@react-navigation/core'
 import CustomText from '../Components/CustomText'
 import FormWrapper from '../Components/FormWrapper'
+import { Icon } from 'native-base'
+import DatePicker from 'react-native-date-picker'
+import moment from 'moment'
 
 const AddEmployeeDetails = (props) => {
     const { isDetails, data } = props?.route?.params;
@@ -34,6 +37,9 @@ const AddEmployeeDetails = (props) => {
     const [departments, setDepartments] = useState({})
     const [selectedCabCategory, setSelectedCabCategory] = useState(null)
     const userData = useSelector(state => state.commonReducer.userData);
+    const [date, setDate] = useState(new Date());
+    console.log("🚀 ~ HomeScreen ~ date:", date)
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         getDepartments()
@@ -57,7 +63,7 @@ const AddEmployeeDetails = (props) => {
             confirm_password: password,
             department_id: selectedCabCategory?.id,
             designation: designation,
-            joining_date: joining_date,
+            joining_date: date,
             salary: salary,
             company_id: userData?.company_detail?.id
         }
@@ -85,7 +91,7 @@ const AddEmployeeDetails = (props) => {
             confirm_password: password,
             department_id: data?.department_id,
             designation: designation,
-            joining_date: joining_date,
+            joining_date: date,
             salary: salary,
             company_id: userData?.company_detail?.id
         }
@@ -111,7 +117,6 @@ const AddEmployeeDetails = (props) => {
             }>
                 <View style={styles.main_view}>
                     <FormWrapper>
-
                         <TextInputWithTitle
                             title={"Enter Employee's Full Name : "}
                             iconName={'person'}
@@ -127,7 +132,6 @@ const AddEmployeeDetails = (props) => {
                             borderRadius={moderateScale(10, 0.6)}
                             borderColor={Color.themeBlue}
                         />
-
                         <TextInputWithTitle
                             title={"Enter Employee's Email Address : "}
                             iconName={'mail'}
@@ -143,7 +147,6 @@ const AddEmployeeDetails = (props) => {
                             borderRadius={moderateScale(10, 0.6)}
                             borderColor={Color.themeBlue}
                         />
-
                         <TextInputWithTitle
                             title={"Enter Employee's Password : "}
                             iconName={'lock'}
@@ -159,8 +162,6 @@ const AddEmployeeDetails = (props) => {
                             borderRadius={moderateScale(10, 0.6)}
                             borderColor={Color.themeBlue}
                         />
-
-
                         <TextInputWithTitle
                             title={"Enter Employee's Phone Number : "}
                             iconName={'phone'}
@@ -176,8 +177,6 @@ const AddEmployeeDetails = (props) => {
                             borderRadius={moderateScale(10, 0.6)}
                             borderColor={Color.themeBlue}
                         />
-
-
                         <TextInputWithTitle
                             title={"Enter Employee's Salary : "}
                             iconName={'money'}
@@ -193,8 +192,33 @@ const AddEmployeeDetails = (props) => {
                             borderRadius={moderateScale(10, 0.6)}
                             borderColor={Color.themeBlue}
                         />
-
-                        <TextInputWithTitle
+                        <CustomText isBold style={{
+                            fontSize: moderateScale(15, 0.3),
+                            marginBottom: moderateScale(5, 0.3),
+                            width: windowWidth * props.viewWidth,
+                            paddingHorizontal: moderateScale(10, 0.6),
+                            marginTop: moderateScale(10, 0.3),
+                            textAlign: 'left'
+                        }}>Choose Joining Date</CustomText>
+                        <TouchableOpacity onPress={() => setOpen(true)} style={{
+                            width: windowWidth * 0.9,
+                            height: windowHeight * 0.060,
+                            borderRadius: moderateScale(10, 0.6),
+                            // borderWidth: 1,
+                            // borderColor: Color.themeBlue,
+                            flexDirection: 'row',
+                            justifyContent: "flex-start",
+                            alignItems: 'center',
+                            paddingHorizontal: moderateScale(15, 0.6),
+                            backgroundColor: Color.lightGrey
+                        }}>
+                            <Icon name='calendar' as={Entypo} size={moderateScale(17, 0.3)} color={Color.veryLightGray} />
+                            <CustomText style={{
+                                marginLeft: moderateScale(15, 0.6),
+                                color: Color.veryLightGray
+                            }}>{date ? moment(date).format('DD MMM YYYY') : 'Choose Date'}</CustomText>
+                        </TouchableOpacity>
+                        {/* <TextInputWithTitle
                             title={"Enter Joing Date : "}
                             iconName={'date'}
                             iconType={Fontisto}
@@ -208,8 +232,7 @@ const AddEmployeeDetails = (props) => {
                             border={1}
                             borderRadius={moderateScale(10, 0.6)}
                             borderColor={Color.themeBlue}
-                        />
-
+                        /> */}
                         <TextInputWithTitle
                             title={"Enter Designation Name : "}
                             iconName={'work'}
@@ -263,6 +286,19 @@ const AddEmployeeDetails = (props) => {
                         }}
                     />
                 </View>
+                <DatePicker
+                    modal
+                    open={open}
+                    date={date}
+                    onConfirm={date => {
+                        setOpen(false);
+                        setDate(date);
+                    }}
+                    mode="date"
+                    onCancel={() => {
+                        setOpen(false);
+                    }}
+                />
             </ScrollView>
         </SafeAreaView>
     )
