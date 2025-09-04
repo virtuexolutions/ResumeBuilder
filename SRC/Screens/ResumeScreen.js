@@ -43,23 +43,24 @@ const ResumeScreen = props => {
           />
         </View>
         <CustomButton
-          text={'Edit'}
+          text={'Add To Favourites'}
           textColor={Color.darkBlue}
-          onPress={() => {
-            if (category === 'resume') {
-              navigationService.navigate('EditResume', { data: detailData });
-            } else if (category === 'career-blogs') {
-              navigationService.navigate('EditBlogPost', { data: detailData });
-            } else if (category === 'survey-form') {
-              navigationService.navigate('ChecklistForm', { data: detailData, type: tamplateType, tamplateType: detailData?.templeteType });
-            } else {
-              navigationService.navigate('EditCoverLetter', {
-                data: detailData,
-                type: detailData?.type,
-                tamplateType: tamplateType,
-              });
-            }
-          }}
+          onPress={() => navigationService.navigate("AddToFavourite", {data : detailData})}
+          // onPress={() => {
+          //   if (category === 'resume') {
+          //     navigationService.navigate('EditResume', { data: detailData });
+          //   } else if (category === 'career-blogs') {
+          //     navigationService.navigate('EditBlogPost', { data: detailData });
+          //   } else if (category === 'survey-form') {
+          //     navigationService.navigate('ChecklistForm', { data: detailData, type: tamplateType, tamplateType: detailData?.templeteType });
+          //   } else {
+          //     navigationService.navigate('EditCoverLetter', {
+          //       data: detailData,
+          //       type: detailData?.type,
+          //       tamplateType: tamplateType,
+          //     });
+          //   }
+          // }}
           width={windowWidth * 0.65}
           height={windowHeight * 0.075}
           borderRadius={moderateScale(20, 0.3)}

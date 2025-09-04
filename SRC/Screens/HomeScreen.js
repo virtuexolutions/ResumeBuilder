@@ -27,31 +27,28 @@ import navigationService from '../navigationService';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import ListEmphtyComponent from '../Components/ListEmphtyComponent';
-
+import { useIsFocused } from '@react-navigation/native';
 
 const HomeScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
     const fromSignup = route?.params?.fromSignup;
+    const foused = useIsFocused()
     const userData = useSelector(state => state.commonReducer.userData);
-    console.log(userData, 'yserrrrrrrrrrrrrrrrrr')
     dayjs.extend(advancedFormat);
     dayjs.locale('en');
     const todayFormatted = dayjs().format('dddd , D MMMM YYYY');
     console.log(todayFormatted);
     const [loading, setLoading] = useState(false)
     const [docs, setDocs] = useState([])
-    console.log("🚀 ~ HomeScreen ~ docs:", docs)
+    console.log(docs[0], 'docccccccccccccccccccs')
     const token = useSelector(state => state.authReducer.token);
-    console.log("🚀 ~ HomeScreen ~ token:", token)
     const [date, setDate] = useState(new Date());
-    console.log("🚀 ~ HomeScreen ~ date:", date)
     const [open, setOpen] = useState(false);
     const user_type = useSelector(state => state.authReducer.role)
-    console.log(user_type, 'userrrrrrrrrrrrrrtypeeeeeeeeee')
 
     useEffect(() => {
         getDocs()
-    }, [])
+    }, [foused])
 
 
     const getDocs = async () => {

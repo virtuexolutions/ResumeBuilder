@@ -21,6 +21,7 @@ import Header from '../Components/Header';
 import navigationService from '../navigationService';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import ShareEmployeeModal from '../Components/ShareEmployeeModal';
+import CustomResponse from '../Components/CustomResponse';
 
 const FinalEmail = props => {
   const data = props?.route?.params?.data;
@@ -100,6 +101,7 @@ const FinalEmail = props => {
               <CustomText style={styles.per_text}>{data?.phone}</CustomText>
             </View>
           </View>
+
           {user_type === 'Company' && <>
             {fromSave === true ?
               (
@@ -149,6 +151,9 @@ const FinalEmail = props => {
         {
           user_type === 'Company' &&
           <ShareEmployeeModal show={showModal} setShow={setShowModal} template_id={data?.id} />
+        }
+        {user_type === 'Employee' &&
+          <CustomResponse />
         }
       </View>
     </ImageBackground>

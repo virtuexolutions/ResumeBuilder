@@ -27,15 +27,15 @@ const TextInputWithTitle = props => {
         <CustomText isBold
           style={[
             {
-              color: Color.black,
+              color: props.titleColor ? props.titleColor : Color.black,
               fontSize: moderateScale(15, 0.3),
               marginBottom: moderateScale(5, 0.3),
               width: windowWidth * props.viewWidth,
-              paddingHorizontal: moderateScale(10, 0.6),
+              paddingHorizontal: moderateScale(6, 0.6),
               marginTop: props.marginTop
                 ? props.marginTop
                 : moderateScale(10, 0.3),
-              textAlign: 'left'
+              textAlign: 'left',
             },
             props?.titleStlye,
           ]}>

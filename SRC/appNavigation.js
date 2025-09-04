@@ -28,7 +28,6 @@ import FinalEmail from './Screens/FinalEmail';
 import Home from './Screens/Home';
 import LoginScreen from './Screens/LoginScreen';
 import OnboardingScreen from './Screens/OnboardingScreen';
-import Payment from './Screens/Payment';
 import ProgressFeedback from './Screens/ProgressFeedback';
 import ResetPassword from './Screens/ResetPassword';
 import ResumeFinalScreen from './Screens/ResumeFinalScreen';
@@ -56,10 +55,11 @@ import DepartmentDetails from './Screens/DepartmentDetails';
 import privateNavigator from './navigators/privateNavigator';
 import PaymentScreen from './Screens/PaymentScreen';
 import AddToFavourite from './Screens/AddToFavourite';
-// import SurvaryForm from './Screens/SurvaryForm';
-// import EditSurveyForm from './Screens/EditSurveyForm';
+import ConfirmPaymentScreen from './Screens/ConfirmPaymentScreen';
+
 
 enableScreens();
+
 const AppNavigator = () => {
   const token = useSelector(state => state.authReducer.token);
   console.log(token, '=============================')
@@ -84,7 +84,7 @@ const AppNavigator = () => {
     return (
       <NavigationContainer ref={navigationService.navigationRef}>
         <RootNav.Navigator
-          initialRouteName={'AddToFavourite'}
+          initialRouteName={firstScreen}
           screenOptions={{ headerShown: false }}>
           <RootNav.Screen name="MyDrawer" component={user_type === 'Company' ? CompanyNavigator : user_type === "Private" ? privateNavigator : EmployeeNavigator} />
           <RootNav.Screen
@@ -132,7 +132,6 @@ const AppNavigator = () => {
             component={CustomerSurveyForm}
           />
           <RootNav.Screen name="feedbackForm" component={FeedBackForm} />
-          <RootNav.Screen name="Payment" component={Payment} />
           <RootNav.Screen
             name="ProgressFeedback"
             component={ProgressFeedback}
@@ -147,6 +146,7 @@ const AppNavigator = () => {
           <RootNav.Screen name="DepartmentDetails" component={DepartmentDetails} />
           <RootNav.Screen name="PaymentScreen" component={PaymentScreen} />
           <RootNav.Screen name="AddToFavourite" component={AddToFavourite} />
+          <RootNav.Screen name="ConfirmPaymentScreen" component={ConfirmPaymentScreen} />
           <RootNav.Screen
             name="FinalCoverLetter"
             component={FinalCoverLetter}

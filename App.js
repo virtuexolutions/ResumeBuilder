@@ -18,16 +18,22 @@ import {
   requestWritePermission,
 } from './SRC/Utillity/utils';
 import AppNavigator from './SRC/appNavigation';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <NativeBaseProvider>
-          <MainContainer />
-        </NativeBaseProvider>
-      </PersistGate>
-    </Provider>
+    <StripeProvider
+      publishableKey={
+        'pk_test_51RoieKFIiQxtLicEZZqk0AwV9gdF7RWYSQsTOVEPgiGQmJQKhN5ZIINW7i5HC7LcX4teSDXXSfnwP8AJl1nUVjFg00ycMYLDEw'
+      }>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NativeBaseProvider>
+            <MainContainer />
+          </NativeBaseProvider>
+        </PersistGate>
+      </Provider>
+    </StripeProvider>
   );
 };
 

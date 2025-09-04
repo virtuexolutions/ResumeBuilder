@@ -9,8 +9,11 @@ import CustomText from '../Components/CustomText'
 import { Rating } from 'react-native-ratings'
 import CustomButton from '../Components/CustomButton'
 import navigationService from '../navigationService'
+import { baseUrl } from '../Config'
 
-const AddToFavourite = () => {
+const AddToFavourite = props => {
+    const data = props?.route?.params?.data;
+    console.log(data, 'dataaaaaaaaaaaa')
     const resumeData = [
         {
             id: 1,
@@ -30,91 +33,93 @@ const AddToFavourite = () => {
             price: '10.00'
         },
     ];
-    const [selectedItems, setSelectedItems] = useState([])
+    const [selectedItems, setSelectedItems] = useState(data?.id)
+    console.log(selectedItems, 'sdadskhkH')
+    // const toggleSelect = (item) => {
+    //     if (selectedItems.includes(item.id)) {
+    //         // agar already select hai to remove karo
+    //         setSelectedItems(selectedItems.filter(id => id !== item.id));
+    //     } else {
+    //         // warna add karo
+    //         setSelectedItems([...selectedItems, item.id]);
+    //     }
+    // };
 
-    const toggleSelect = (item) => {
-        if (selectedItems.includes(item.id)) {
-            // agar already select hai to remove karo
-            setSelectedItems(selectedItems.filter(id => id !== item.id));
-        } else {
-            // warna add karo
-            setSelectedItems([...selectedItems, item.id]);
-        }
-    };
 
 
+    // const totalPrice = useMemo(() => {
+    //     return resumeData
+    //         .filter(item => selectedItems.includes(item.id))
+    //         .reduce((sum, item) => sum + parseFloat(item.price), 0)
+    //         .toFixed(2);
+    // }, [selectedItems]);
 
-    const totalPrice = useMemo(() => {
-        return resumeData
-            .filter(item => selectedItems.includes(item.id))
-            .reduce((sum, item) => sum + parseFloat(item.price), 0)
-            .toFixed(2);
-    }, [selectedItems]);
+    const isSelected = selectedItems;
 
     return (
         <SafeAreaView style={styles.container}>
             <Header showBack hideUser={false} title={"Cart"} />
             <View style={styles.main_view}>
                 <View style={styles.header_view}>
-                    <FlatList
-                        data={resumeData}
+                    {/* <FlatList
+                        data={data}
                         showsVerticalScrollIndicator={false}
                         renderItem={(({ item, index }) => {
                             const isSelected = selectedItems.includes(item.id);
-                            return (
-                                <TouchableOpacity onPress={() => toggleSelect(item)}
-                                    style={[styles.card, {
-                                        borderWidth: isSelected ? 2 : 0,
-                                        borderColor: isSelected ? Color.themeBlue : 'transparent',
-                                        backgroundColor: isSelected ? "#E8F1FF" : 'rgba(237, 237, 237,0.3)'
-                                    }]}>
-                                    <View style={styles.card_image}>
-                                        <CustomImage
-                                            // source={{ uri: `${baseUrl}${item?.image}` }}
-                                            source={item.image}
-                                            style={{
-                                                height: '100%',
-                                                width: '100%',
-                                            }}
-                                        />
-                                    </View>
-                                    <View style={styles.content}>
-                                        <View>
-                                            <CustomText style={styles.heading}>
-                                                {item?.heading}
-                                            </CustomText>
-                                            <CustomText style={styles.description}>
-                                                {item?.description}
-                                            </CustomText>
-                                        </View>
-                                        <View style={styles.ratingView}>
-                                            <Rating
-                                                type="custom"
-                                                startingValue={4}
-                                                ratingCount={5}
-                                                imageSize={moderateScale(12, 0.3)}
-                                                style={
-                                                    {
-                                                        // width: windowWidth * 0.04,
-                                                    }
-                                                }
-                                                ratingBackgroundColor={'white'}
-                                            />
-                                        </View>
-                                        <CustomText isBold style={{
-                                            fontSize: moderateScale(14, 0.6),
-                                            position: 'absolute',
-                                            right: 10,
-                                            bottom: 2,
-                                            color: Color.themeBlue
-                                        }}>{`$ ${item?.price}`}</CustomText>
-                                    </View>
-                                </TouchableOpacity>
+                            return ( */}
+                    <TouchableOpacity
+                        style={[styles.card, {
+                            borderWidth: isSelected ? 2 : 0,
+                            borderColor: isSelected ? Color.themeBlue : 'transparent',
+                            backgroundColor: isSelected ? "#E8F1FF" : 'rgba(237, 237, 237,0.3)'
+                        }]}>
+                        <View style={styles.card_image}>
+                            <CustomImage
+                                source={{ uri: `${baseUrl}${data?.image}` }}
+                                // source={data.image}
+                                style={{
+                                    height: '100%',
+                                    width: '100%',
+                                }}
+                            />
+                        </View>
+                        <View style={styles.content}>
+                            <View>
+                                <CustomText style={styles.heading}>
+                                    {data?.heading}
+                                </CustomText>
+                                <CustomText style={styles.description}>
+                                    {data?.description}
+                                </CustomText>
+                            </View>
+                            <View style={styles.ratingView}>
+                                <Rating
+                                    type="custom"
+                                    startingValue={4}
+                                    ratingCount={5}
+                                    imageSize={moderateScale(12, 0.3)}
+                                    style={
+                                        {
+                                            // width: windowWidth * 0.04,
+                                        }
+                                    }
+                                    ratingBackgroundColor={'white'}
+                                />
+                            </View>
+                            <CustomText isBold style={{
+                                fontSize: moderateScale(14, 0.6),
+                                position: 'absolute',
+                                right: 10,
+                                bottom: 2,
+                                color: Color.themeBlue
+                            }}>{`$ ${data?.price}`}</CustomText>
+                        </View>
+                    </TouchableOpacity>
 
-                            )
+                    {/* )
                         })}
 
-                    />
+                    /> */}
                 </View>
                 <View style={styles.bottom_view}>
                     <View style={styles.row}>
@@ -125,7 +130,7 @@ const AddToFavourite = () => {
                         <CustomText isBold style={{
                             fontSize: moderateScale(18, 0.6),
                             color: Color.themeBlue
-                        }}>{selectedItems.length}</CustomText>
+                        }}>1</CustomText>
                     </View>
                     <View style={styles.row}>
                         <CustomText isBold style={{
@@ -135,7 +140,7 @@ const AddToFavourite = () => {
                         <CustomText isBold style={{
                             fontSize: moderateScale(18, 0.6),
                             color: Color.themeBlue
-                        }}>{`$ ${totalPrice}`}</CustomText>
+                        }}>{`$ ${data?.price}`}</CustomText>
                     </View>
                     <View style={styles.line} />
                     <CustomButton
@@ -147,7 +152,7 @@ const AddToFavourite = () => {
                         bgColor={Color.themeBlue}
                         marginTop={moderateScale(20, 0.6)}
                         onPress={() => {
-                            navigationService.navigate('PaymentScreen')
+                            navigationService.navigate('PaymentScreen', { data: data })
                         }}
                     />
                 </View>
