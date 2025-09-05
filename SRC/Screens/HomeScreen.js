@@ -40,7 +40,6 @@ const HomeScreen = ({ navigation, route }) => {
     console.log(todayFormatted);
     const [loading, setLoading] = useState(false)
     const [docs, setDocs] = useState([])
-    console.log(docs[0], 'docccccccccccccccccccs')
     const token = useSelector(state => state.authReducer.token);
     const [date, setDate] = useState(new Date());
     const [open, setOpen] = useState(false);
@@ -67,7 +66,7 @@ const HomeScreen = ({ navigation, route }) => {
 
     const onPressCard = async (data) => {
         console.log("🚀 ~ onPressCard ~ data:", data)
-        navigationService.navigate(data?.assignable?.template?.key, { data: data?.assignable, fromSave: true })
+        navigationService.navigate(data?.assignable?.template?.key, { data: data?.assignable, fromSave: true, responses: data })
     }
 
     return (
@@ -107,7 +106,6 @@ const HomeScreen = ({ navigation, route }) => {
                             keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
                             ListEmptyComponent={<ListEmphtyComponent />}
                             renderItem={({ item }) => {
-                                console.log("🚀 ~ Documents ~ item:", item?.assignable?.template?.image)
                                 return (
                                     <TouchableOpacity
                                         onPress={() =>

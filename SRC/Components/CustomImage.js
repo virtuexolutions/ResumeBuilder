@@ -9,13 +9,13 @@ const CustomImage = (props) => {
     errorImageSource,
     style,
     onPress,
+    onLongPress
   } = props;
   const [errorLoadingProfileImage, setErrorLoadingProfileImage] =
     useState(false);
   return (
-    <TouchableOpacity onPress={onPress && onPress} activeOpacity={0.9}>
+    <TouchableOpacity onLongPress={onLongPress} onPress={onPress && onPress} activeOpacity={0.9}>
       <Image
-
         resizeMode={resizeMode}
         style={style}
         source={errorLoadingProfileImage ? errorImageSource : source}

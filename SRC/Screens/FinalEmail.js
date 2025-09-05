@@ -17,20 +17,23 @@ import { Post } from '../Axios/AxiosInterceptorFunction';
 import CustomButton from '../Components/CustomButton';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
-
 import navigationService from '../navigationService';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import ShareEmployeeModal from '../Components/ShareEmployeeModal';
 import CustomResponse from '../Components/CustomResponse';
+import OptionModal from '../Components/OptionModal';
 
 const FinalEmail = props => {
   const data = props?.route?.params?.data;
+  const responses = props?.route?.params?.responses;
   const fromSave = props?.route?.params?.fromSave;
   const fromHome = props?.route?.params?.fromHome;
   const token = useSelector(state => state.authReducer.token);
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const user_type = useSelector(state => state.authReducer.role)
+  const [selectedOption, setSelectedOption] = useState('')
+  const [show, setShow] = useState(false)
 
   const saveEmailData = async () => {
     const url = 'auth/mail'
@@ -153,8 +156,10 @@ const FinalEmail = props => {
           <ShareEmployeeModal show={showModal} setShow={setShowModal} template_id={data?.id} />
         }
         {user_type === 'Employee' &&
-          <CustomResponse />
+          <CustomResponse selectedOption={setSelectedOption} setShow={setShow} />
         }
+
+        <OptionModal setShow={setShow} show={show} selectedType={selectedOption} item={responses} />
       </View>
     </ImageBackground>
   );

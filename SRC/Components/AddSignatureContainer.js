@@ -32,12 +32,25 @@ const AddSignatureContainer = ({
   setSignatureImages,
   style,
   numberOfRows,
+  mainStyle,
+  selectedItems,
+  setSelectedItems
 }) => {
   const token = useSelector((state) => state.authReducer.token)
-
   const [selectedIndex, setIndex] = useState(0);
   const [visible, setIsVisible] = useState(false);
   const [listModalVisible, setListModalVisible] = useState(false);
+
+  const toggleSelect = (sign, index) => {
+    setSelectedItems((prev) => {
+      const exists = prev.find((p) => p.id === sign.id);
+      if (exists) {
+        return prev.filter((p) => p.id !== sign.id);
+      } else {
+        return [...prev, sign];
+      }
+    });
+  };
 
   const statusArray = [
     {
@@ -237,7 +250,7 @@ const AddSignatureContainer = ({
   return (
     <>
       <FlatList
-        numColumns={3}
+        numColumns={numberOfRows ? numberOfRows : 3}
         nestedScrollEnabled={true}
         data={signatureImages}
         showsVerticalScrollIndicator={false}
@@ -247,13 +260,16 @@ const AddSignatureContainer = ({
         }}
         renderItem={({ item, index }) => {
           const isSingleItem = signatureImages.length === 1;
+          const isSelected = !!selectedItems.find((pdf) => pdf.id === item.id);
           return (
-            <View style={{
+            <TouchableOpacity onLongPress={() => toggleSelect(item)} style={[{
               width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
               flexDirection: 'row',
               justifyContent: isSingleItem ? 'flex-start' : 'center',
-            }}>
-              <View style={[styles.addImageContainer, style]} key={index} >
+            }, mainStyle]}>
+              <View style={[styles.addImageContainer, style,
+              isSelected && { borderWidth: 2, borderColor: Color.themeBlue },
+              ]} key={index} >
                 <View style={styles.header}>
                   <Icon name="picture-o" as={FontAwesome} style={styles.icon}
                     size={moderateScale(16, 0.6)}
@@ -270,6 +286,7 @@ const AddSignatureContainer = ({
                     setIndex(index);
                     setIsVisible(true);
                   }}
+
                   key={index}
                 />
 
@@ -277,7 +294,7 @@ const AddSignatureContainer = ({
                   <CustomText style={styles.date}>{item?.date}</CustomText>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
         ListEmptyComponent={<ListEmphtyComponent />
@@ -361,8 +378,8 @@ export default AddSignatureContainer;
 const styles = ScaledSheet.create({
   addImageContainer: {
     width: windowWidth * 0.3,
-    backgroundColor: Color.white,
     height: windowHeight * 0.15,
+    backgroundColor: Color.white,
     marginRight: moderateScale(6, 0.3),
     marginTop: moderateScale(10, 0.3),
     overflow: 'hidden',

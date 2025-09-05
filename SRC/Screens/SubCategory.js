@@ -56,7 +56,6 @@ const SubCategory = () => {
                         keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
                         ListEmptyComponent={<ListEmphtyComponent />}
                         renderItem={({ item }) => {
-                            console.log("🚀 ~ Documents ~ item:", item)
                             const nameInitial = (item?.Documents_name || ' ')[0]?.toUpperCase() || '?';
                             return (
                                 <TouchableOpacity onPress={() =>

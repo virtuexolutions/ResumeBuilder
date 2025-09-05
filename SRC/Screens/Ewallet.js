@@ -48,7 +48,6 @@ const Ewallet = () => {
     const [multiImages, setMultiImages] = useState([]);
     const [signatureImage, setSignatureImage] = useState([]);
     const [fileResponse, setFileResponse] = useState([]);
-
     const appState = useRef(AppState.currentState);
     const enabler = useSelector(state => state?.commonReducer?.fingerPrintEnabled)
     const dispatch = useDispatch();

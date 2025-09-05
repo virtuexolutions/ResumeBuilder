@@ -14,18 +14,23 @@ import CustomImage from './CustomImage';
 import CustomText from './CustomText';
 import NullDataComponent from './NullDataComponent';
 import ListEmphtyComponent from './ListEmphtyComponent';
+import CustomButton from './CustomButton';
 
 const AddImagesContainer = ({
   multiImages,
   setMultiImages,
   style,
   numberOfRows,
+  mainstyle,
+  setSelectedImage,
+  selectedImage
 }) => {
 
   const [selectedIndex, setIndex] = useState(0);
   const [visible, setIsVisible] = useState(false);
   const [listModalVisible, setListModalVisible] = useState(false);
   const token = useSelector((state) => state.authReducer.token)
+  const [btn_loading, setBtnLoading] = useState(false);
 
   const statusArray = [
     {
@@ -37,13 +42,8 @@ const AddImagesContainer = ({
         else if (selectedIndex == multiImages.length - 1) {
           setIndex(selectedIndex - 1)
         }
-        //  else{
-        //    setIndex(prev=>prev+1)
-        //  }
-
         let newArray = [...multiImages];
         newArray.splice(selectedIndex, 1);
-        // console.log("🚀 ~ file: AddImagesContainer.js:39 ~ newArray:", newArray)
         deleteImage(multiImages[selectedIndex]?.id)
         setMultiImages(newArray);
         setListModalVisible(false);
@@ -54,8 +54,6 @@ const AddImagesContainer = ({
     { label: 'Save to Gallery', onPress: async () => { await checkPermission() } },
     { label: 'Close', onPress: () => { setListModalVisible(false), setIsVisible(false) } },
   ];
-
-
 
   const checkPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -168,58 +166,6 @@ const AddImagesContainer = ({
     }
   };
 
-
-  // const downloadImage = () => {
-  //   console.log('is funcion me ha')
-  //   // Main function to download the image
-  //   // To add the time suffix in filename
-  //   let date = new Date();
-  //   // Image URL which we want to download
-  //   let image_URL = multiImages[selectedIndex]?.uri;
-  //   // console.log("🚀 ~ file: AddImagesContainer.js:116 ~ downloadImage ~ image_URL:", image_URL)
-  //   // const image = multiImages[selectedIndex];
-  //   // if (typeof image.uri !== 'string') {
-  //   //   console.log('Invalid image URI');
-  //   //   return;
-  //   // }
-  //   // Getting the extention of the file
-  //   let ext = getExtention(image_URL);
-  //   ext = '.' + ext[0];
-  //   // Get config and fs from RNFetchBlob
-  //   // config: To pass the downloading related options
-  //   // fs: Directory path where we want our image to download
-  //   const { config, fs } = RNFetchBlob;
-  //   let PictureDir = fs.dirs.PictureDir;
-  //   // console.log("🚀 ~ file: AddImagesContainer.js:130 ~ downloadImage ~ PictureDir:", PictureDir)
-  //   let options = {
-  //     fileCache: true,
-  //     addAndroidDownloads: {
-  //       // Related to the Android only
-  //       useDownloadManager: true,
-  //       notification: true,
-  //       path:
-  //         PictureDir +
-  //         '/image_' +
-  //         Math.floor(date.getTime() + date.getSeconds() / 2) +
-  //         ext,
-  //       description: 'Image',
-  //     },
-  //   };
-  //   config(options)
-  //     .fetch('GET', image_URL)
-  //     .then(res => {
-  //       setListModalVisible(false),
-  //         setIsVisible(false)
-  //       // Showing alert after successful downloading
-  //       // console.log('res -> ', JSON.stringify(res));
-  //       Platform.OS == 'android' ? ToastAndroid.show('Image Downloaded', ToastAndroid.SHORT) :
-  //         alert('Image Downloaded');
-  //     })
-  //     .catch(errorMessage => {
-  //       console.log(errorMessage);
-  //     });
-  // };
-
   const getExtention = filename => {
     // To get the file extension
     return /[.]/.exec(filename) ?
@@ -235,6 +181,16 @@ const AddImagesContainer = ({
     }
   }
 
+  const toggleSelectImage = (item) => {
+    let updatedSelection = [...selectedImage];
+    if (updatedSelection.some(img => img.uri === item.uri)) {
+      updatedSelection = updatedSelection.filter(img => img.uri !== item.uri);
+    } else {
+      updatedSelection.push(item);
+    }
+    setSelectedImage(updatedSelection);
+  };
+
   return (
     <>
       <FlatList
@@ -248,14 +204,18 @@ const AddImagesContainer = ({
         }}
         renderItem={({ item, index }) => {
           const isSingleItem = multiImages.length === 1;
+          const isSelected = selectedImage.some(img => img.uri === item.uri);
           return (
-            <View style={{
+            <View style={[{
               width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
               flexDirection: 'row',
               justifyContent: isSingleItem ? 'flex-start' : 'center',
-            }}>
-              <View style={[styles.addImageContainer, style]} key={index} >
+            }, mainstyle]}>
+              <View style={[styles.addImageContainer, style,
+              isSelected && { borderWidth: 3, borderColor: Color.themeBlack }
+              ]} key={index} >
                 <CustomImage
+                  onLongPress={() => toggleSelectImage(item)}
                   source={{ uri: item?.uri }}
                   style={{
                     width: '100%',
@@ -273,7 +233,6 @@ const AddImagesContainer = ({
         }}
         ListEmptyComponent={<ListEmphtyComponent />}
       />
-
       <ImageView
         imageIndex={selectedIndex}
         images={multiImages}
@@ -350,28 +309,17 @@ export default AddImagesContainer;
 const styles = ScaledSheet.create({
   addImageContainer: {
     width: windowWidth * 0.3,
-    backgroundColor: Color.white,
     height: windowHeight * 0.14,
+    backgroundColor: Color.white,
     marginRight: moderateScale(3, 0.3),
     borderRadius: moderateScale(10, 0.6),
     marginTop: moderateScale(5, 0.3),
-    // shadowColor: Color.grey,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 4,
-    // },
-    // shadowOpacity: 0.32,
-    // shadowRadius: 5.46,
-
-    // elevation: 9,
     overflow: 'hidden',
   },
-
   text: {
     fontSize: moderateScale(20, 0.6),
     color: Color.white,
     textAlign: 'center'
-
   },
   header: {
     width: windowWidth,

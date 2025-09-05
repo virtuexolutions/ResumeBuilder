@@ -8,31 +8,7 @@ import { windowHeight, windowWidth } from '../Utillity/utils';
 import CustomText from './CustomText';
 import CustomImage from './CustomImage';
 
-const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedPDFIndex }) => {
-  // console.log("🚀 ~ file: PdfContainer.js:18 ~ PdfContainer ~ index:", index)
-
-  // console.log("🚀 ~ file: PdfContainer.js:18 ~ PdfContainer ~ item:", item?.uri)
-  // const [thumbnailForHere , setThumbNailForHere] = useState(null)
-  // console.log("🚀 ~ file: PdfContainer.js:19 ~ PdfContainer ~ thumbnail:", thumbnailForHere?.uri)
-
-
-
-  // const getPng = async()=>{
-  //   const response= await PdfThumbnail.generate(item?.uri, 0);
-  //   console.log("🚀 ~ file: PdfContainer.js:25 ~ getPng ~ uri:", response)
-  //   setThumbNail(response)
-  //   setThumbNailForHere(response)
-  // }
-
-
-  // useEffect(() => {
-
-  //   getPng()
-
-  // }, [])
-
-
-
+const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedPDFIndex, style, isSelected, onToggleSelect }) => {
   return (
     <>
       <TouchableOpacity
@@ -41,8 +17,11 @@ const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedP
           setShow(true);
           setSelectedPDFIndex(index);
         }}
+        onLongPress={() => onToggleSelect(item)}
         activeOpacity={0.8}
-        style={styles.addImageContainer}>
+        style={[styles.addImageContainer, style,
+        isSelected && { borderWidth: 2, borderColor: Color.themeBlue },
+        ]}>
         <View style={{
           width: moderateScale(80, 0.6),
           height: moderateScale(80, 0.6),
@@ -78,7 +57,7 @@ const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedP
             {item?.name}
           </CustomText>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity >
 
     </>
   );
