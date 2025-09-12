@@ -78,6 +78,7 @@ const Documents = () => {
     };
 
     const onPressCard = (data) => {
+        console.log(JSON.stringify(data, 2), 'dayaaaaaaaaaaaaaaaaaaaa')
         navigationService.navigate(data?.template?.key, {
             data,
             fromHome: false,
@@ -94,6 +95,7 @@ const Documents = () => {
             default: return [];
         }
     };
+
 
     return (
         <SafeAreaView style={styles.container}>

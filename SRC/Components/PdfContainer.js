@@ -17,7 +17,7 @@ const PdfContainer = ({ item, setSelectedPdf, show, setShow, index, setSelectedP
           setShow(true);
           setSelectedPDFIndex(index);
         }}
-        onLongPress={() => onToggleSelect(item)}
+        onLongPress={onToggleSelect}
         activeOpacity={0.8}
         style={[styles.addImageContainer, style,
         isSelected && { borderWidth: 2, borderColor: Color.themeBlue },

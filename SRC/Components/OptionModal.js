@@ -177,6 +177,7 @@ const OptionModal = ({ show, setShow, style, selectedType, item }) => {
         });
     };
 
+
     return (
         <Modal
             isVisible={show}
@@ -227,6 +228,7 @@ const OptionModal = ({ show, setShow, style, selectedType, item }) => {
                                         numberOfRows={4}
                                         setSelectedImage={setSelectedImage}
                                         selectedImage={selectedImage}
+                                        isWallet={true}
                                     />
                                 }
                                 <CustomButton
@@ -268,6 +270,7 @@ const OptionModal = ({ show, setShow, style, selectedType, item }) => {
                                     }}
                                     selectedItems={selectedItems}
                                     setSelectedItems={setSelectedItems}
+                                    isWallet={false}
                                 />
                                 <CustomButton
                                     text={btn_loading ? <ActivityIndicator size="small"

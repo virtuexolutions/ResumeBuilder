@@ -403,6 +403,7 @@ const Ewallet = () => {
                             multiImages={multiImages}
                             setMultiImages={setMultiImages}
                             numberOfRows={3}
+                            isWallet={true}
                         />
                     }
                 </>
@@ -417,6 +418,7 @@ const Ewallet = () => {
                                     <AddSignatureContainer
                                         signatureImages={signatureImage}
                                         setSignatureImages={setSignatureImage}
+                                        isWallet={true}
                                         numberOfRows={3}
                                     />) : (
                                     <>

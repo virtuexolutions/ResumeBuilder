@@ -109,7 +109,7 @@ const PaymentScreen = props => {
                     placeholderColor={Color.veryLightGray}
                     viewWidth={0.9}
                     value={name}
-                    onChangeText={setName}
+                    setText={setName}
                     viewHeight={0.060}
                     borderRadius={moderateScale(10, 0.6)}
                     backgroundColor={'rgba(205, 208, 209,0.4)'}

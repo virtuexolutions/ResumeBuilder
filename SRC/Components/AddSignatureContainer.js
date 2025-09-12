@@ -34,23 +34,14 @@ const AddSignatureContainer = ({
   numberOfRows,
   mainStyle,
   selectedItems,
-  setSelectedItems
+  setSelectedItems,
+  isWallet
+
 }) => {
   const token = useSelector((state) => state.authReducer.token)
   const [selectedIndex, setIndex] = useState(0);
   const [visible, setIsVisible] = useState(false);
   const [listModalVisible, setListModalVisible] = useState(false);
-
-  const toggleSelect = (sign, index) => {
-    setSelectedItems((prev) => {
-      const exists = prev.find((p) => p.id === sign.id);
-      if (exists) {
-        return prev.filter((p) => p.id !== sign.id);
-      } else {
-        return [...prev, sign];
-      }
-    });
-  };
 
   const statusArray = [
     {
@@ -247,6 +238,17 @@ const AddSignatureContainer = ({
   // }, []);
 
 
+  const toggleSelect = (sign, index) => {
+    setSelectedItems((prev) => {
+      const exists = prev?.find((p) => p.id === sign.id);
+      if (exists) {
+        return prev?.filter((p) => p.id !== sign.id);
+      } else {
+        return [...prev, sign];
+      }
+    });
+  };
+
   return (
     <>
       <FlatList
@@ -260,9 +262,9 @@ const AddSignatureContainer = ({
         }}
         renderItem={({ item, index }) => {
           const isSingleItem = signatureImages.length === 1;
-          const isSelected = !!selectedItems.find((pdf) => pdf.id === item.id);
+          const isSelected = !!selectedItems?.find((pdf) => pdf.id === item.id);
           return (
-            <TouchableOpacity onLongPress={() => toggleSelect(item)} style={[{
+            <TouchableOpacity onLongPress={() => !isWallet ? toggleSelect(item) : null} style={[{
               width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
               flexDirection: 'row',
               justifyContent: isSingleItem ? 'flex-start' : 'center',

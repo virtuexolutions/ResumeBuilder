@@ -43,9 +43,29 @@ const ResumeScreen = props => {
           />
         </View>
         <CustomButton
-          text={'Add To Favourites'}
+          text={data?.is_purchased != true ? "Edit" : 'Add To Favourites'}
           textColor={Color.darkBlue}
-          onPress={() => navigationService.navigate("AddToFavourite", {data : detailData})}
+          onPress={() => {
+            if (data?.is_purchased === true) {
+              navigationService.navigate("AddToFavourite", { data: detailData })
+            } else {
+              if (category === 'resume') {
+                navigationService.navigate('EditResume', { data: detailData });
+              } else if (category === 'career-blogs') {
+                navigationService.navigate('EditBlogPost', { data: detailData });
+              } else if (category === 'survey-form') {
+                navigationService.navigate('ChecklistForm', { data: detailData, type: tamplateType, tamplateType: detailData?.templeteType });
+              } else {
+                navigationService.navigate('EditCoverLetter', {
+                  data: detailData,
+                  type: detailData?.type,
+                  tamplateType: tamplateType,
+                });
+              }
+            }
+          }
+
+          }
           // onPress={() => {
           //   if (category === 'resume') {
           //     navigationService.navigate('EditResume', { data: detailData });

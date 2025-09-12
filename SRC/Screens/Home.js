@@ -20,7 +20,6 @@ import { useSelector } from 'react-redux';
 import navigationService from '../navigationService';
 import { useIsFocused } from '@react-navigation/core';
 import { Get } from '../Axios/AxiosInterceptorFunction';
-import { date } from 'yup';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 

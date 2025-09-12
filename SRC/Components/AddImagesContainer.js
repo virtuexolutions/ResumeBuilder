@@ -23,7 +23,8 @@ const AddImagesContainer = ({
   numberOfRows,
   mainstyle,
   setSelectedImage,
-  selectedImage
+  selectedImage,
+  isWallet
 }) => {
 
   const [selectedIndex, setIndex] = useState(0);
@@ -204,7 +205,7 @@ const AddImagesContainer = ({
         }}
         renderItem={({ item, index }) => {
           const isSingleItem = multiImages.length === 1;
-          const isSelected = selectedImage.some(img => img.uri === item.uri);
+          const isSelected = selectedImage?.some(img => img.uri === item.uri);
           return (
             <View style={[{
               width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
@@ -215,7 +216,7 @@ const AddImagesContainer = ({
               isSelected && { borderWidth: 3, borderColor: Color.themeBlack }
               ]} key={index} >
                 <CustomImage
-                  onLongPress={() => toggleSelectImage(item)}
+                  onLongPress={() => !isWallet ? toggleSelectImage(item) : null}
                   source={{ uri: item?.uri }}
                   style={{
                     width: '100%',

@@ -22,6 +22,7 @@ import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import ShareEmployeeModal from '../Components/ShareEmployeeModal';
 import CustomResponse from '../Components/CustomResponse';
 import OptionModal from '../Components/OptionModal';
+import ResponseModal from '../Components/ReponseModal';
 
 const FinalEmail = props => {
   const data = props?.route?.params?.data;
@@ -31,6 +32,7 @@ const FinalEmail = props => {
   const token = useSelector(state => state.authReducer.token);
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [showResponseModal, setResponseShowModal] = useState(false)
   const user_type = useSelector(state => state.authReducer.role)
   const [selectedOption, setSelectedOption] = useState('')
   const [show, setShow] = useState(false)
@@ -104,27 +106,47 @@ const FinalEmail = props => {
               <CustomText style={styles.per_text}>{data?.phone}</CustomText>
             </View>
           </View>
-
           {user_type === 'Company' && <>
             {fromSave === true ?
               (
-                <CustomButton
-                  text={
-                    loading ?
-                      <ActivityIndicator
-                        size="small"
-                        style={styles.indicatorStyle
-                        }
-                        color={Color.darkBlue}
-                      /> : 'Share'}
-                  textColor={Color.darkBlue}
-                  onPress={() => setShowModal(true)}
-                  width={windowWidth * 0.8}
-                  height={windowHeight * 0.06}
-                  borderRadius={moderateScale(20, 0.3)}
-                  bgColor={Color.white}
-                  marginTop={moderateScale(20, 0.6)}
-                />
+                <>
+
+                  <CustomButton
+                    text={
+                      loading ?
+                        <ActivityIndicator
+                          size="small"
+                          style={styles.indicatorStyle
+                          }
+                          color={Color.darkBlue}
+                        /> : 'Share'}
+                    textColor={Color.darkBlue}
+                    onPress={() => setShowModal(true)}
+                    width={windowWidth * 0.8}
+                    height={windowHeight * 0.06}
+                    borderRadius={moderateScale(20, 0.3)}
+                    bgColor={Color.white}
+                    marginTop={moderateScale(20, 0.6)}
+                    style={styles.btn}
+                  />
+                  <CustomButton
+                    text={
+                      loading ?
+                        <ActivityIndicator
+                          size="small"
+                          style={styles.indicatorStyle
+                          }
+                          color={Color.white}
+                        /> : 'check response'}
+                    textColor={Color.white}
+                    onPress={() => setResponseShowModal(true)}
+                    width={windowWidth * 0.8}
+                    height={windowHeight * 0.06}
+                    borderRadius={moderateScale(20, 0.3)}
+                    bgColor={Color.darkBlue}
+                    marginTop={moderateScale(10, 0.6)}
+                  />
+                </>
               ) : (
                 <CustomButton
                   text={
@@ -151,6 +173,7 @@ const FinalEmail = props => {
           </>
           }
         </ScrollView>
+        <ResponseModal setShow={setResponseShowModal} show={showResponseModal} data={data} />
         {
           user_type === 'Company' &&
           <ShareEmployeeModal show={showModal} setShow={setShowModal} template_id={data?.id} />
@@ -158,7 +181,6 @@ const FinalEmail = props => {
         {user_type === 'Employee' &&
           <CustomResponse selectedOption={setSelectedOption} setShow={setShow} />
         }
-
         <OptionModal setShow={setShow} show={show} selectedType={selectedOption} item={responses} />
       </View>
     </ImageBackground>
@@ -221,4 +243,6 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(11, 0.6),
     color: Color.darkGray,
   },
+  btn: {
+  }
 });

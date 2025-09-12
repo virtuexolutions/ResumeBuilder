@@ -115,7 +115,7 @@ const Dashboard = ({ navigation, route }) => {
                                 })} style={[styles.btn_view, {
                                     backgroundColor: '#557AFF'
                                 }]}>
-                                    <CustomText isBold style={styles.heading}>{numberOfDocuments}</CustomText>
+                                    <CustomText isBold style={styles.heading}>{1}</CustomText>
                                     <CustomText style={styles.text}>categories</CustomText>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => navigationService.navigate('Documents')} style={[styles.btn_view, {

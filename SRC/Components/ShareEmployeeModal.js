@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.white,
         borderRadius: moderateScale(10, 0.6),
         paddingHorizontal: moderateScale(15, 0.6),
-        paddingVertical: moderateScale(20, 0.6)
+        paddingVertical: moderateScale(20, 0.6),
     },
     heading: {
         fontSize: moderateScale(20, 0.6),

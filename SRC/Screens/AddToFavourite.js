@@ -34,7 +34,6 @@ const AddToFavourite = props => {
         },
     ];
     const [selectedItems, setSelectedItems] = useState(data?.id)
-    console.log(selectedItems, 'sdadskhkH')
     // const toggleSelect = (item) => {
     //     if (selectedItems.includes(item.id)) {
     //         // agar already select hai to remove karo
