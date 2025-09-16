@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     // paddingVertical: moderateScale(20, 0.6),
     alignItems: 'center',
     paddingTop: windowHeight * 0.2,
-    // justifyContent : 'center'
+    justifyContent : 'center'
   },
   welcomeText: {
     fontSize: moderateScale(40, 0.3),

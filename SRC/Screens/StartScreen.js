@@ -16,7 +16,6 @@ import CustomButton from '../Components/CustomButton';
 import CustomImage from '../Components/CustomImage';
 
 const StartScreen = ({ navigation, route }) => {
-
     const dispatch = useDispatch();
     const fromSignup = route?.params?.fromSignup;
     const [email, setEmail] = useState('');
@@ -105,6 +104,7 @@ const styles = StyleSheet.create({
         // paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
         paddingTop: windowHeight * 0.3,
+        justifyContent:"center"
     },
     welcomeText: {
         fontSize: moderateScale(40, 0.3),

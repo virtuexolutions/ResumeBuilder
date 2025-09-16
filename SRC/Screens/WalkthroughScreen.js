@@ -178,14 +178,14 @@ const styles = StyleSheet.create({
     // backgroundColor:'green',
   },
   textStyle: {
-    bottom: moderateScale(50, 0.3),
+    bottom: moderateScale(80, 0.3),
     // zIndex:1,
     position: 'absolute',
     alignItems: 'center',
   },
   SecondscreenStyle: {
     alignItems: 'center',
-    top: moderateScale(30, 0.3),
+    top: moderateScale(45, 0.3),
     // backgroundColor:'green'
   },
 });
