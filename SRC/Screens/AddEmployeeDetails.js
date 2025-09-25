@@ -21,6 +21,7 @@ import FormWrapper from '../Components/FormWrapper'
 import { Icon } from 'native-base'
 import DatePicker from 'react-native-date-picker'
 import moment from 'moment'
+import ScreenBoiler from '../Components/ScreenBoiler'
 
 const AddEmployeeDetails = (props) => {
     const { isDetails, data } = props?.route?.params;
@@ -110,8 +111,10 @@ const AddEmployeeDetails = (props) => {
     }
 
     return (
+        <ScreenBoiler  statusBarBackgroundColor={Color.white}
+          statusBarContentStyle={'dark-content'}>
         <SafeAreaView style={styles.container}>
-            <Header showBack hideUser={false} title={'Add Employee'} isRight />
+            <Header showBack hideUser={false} title={'Add Employee'} />
             <ScrollView style={
                 styles.scrollView
             }>
@@ -301,6 +304,7 @@ const AddEmployeeDetails = (props) => {
                 />
             </ScrollView>
         </SafeAreaView>
+        </ScreenBoiler>
     )
 }
 

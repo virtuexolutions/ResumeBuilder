@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -8,21 +8,22 @@ import {
   ScrollView,
   StyleSheet,
   ToastAndroid,
-  View
+  View,
 } from 'react-native';
-import { moderateScale } from 'react-native-size-matters';
-import { useSelector } from 'react-redux';
+import {moderateScale} from 'react-native-size-matters';
+import {useSelector} from 'react-redux';
 import Color from '../Assets/Utilities/Color';
-import { Post } from '../Axios/AxiosInterceptorFunction';
+import {Post} from '../Axios/AxiosInterceptorFunction';
 import CustomButton from '../Components/CustomButton';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import navigationService from '../navigationService';
-import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
+import {apiHeader, windowHeight, windowWidth} from '../Utillity/utils';
 import ShareEmployeeModal from '../Components/ShareEmployeeModal';
 import CustomResponse from '../Components/CustomResponse';
 import OptionModal from '../Components/OptionModal';
 import ResponseModal from '../Components/ReponseModal';
+import {useNavigation} from '@react-navigation/native';
 
 const FinalEmail = props => {
   const data = props?.route?.params?.data;
@@ -30,32 +31,40 @@ const FinalEmail = props => {
   const fromSave = props?.route?.params?.fromSave;
   const fromHome = props?.route?.params?.fromHome;
   const token = useSelector(state => state.authReducer.token);
-  const [loading, setLoading] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const [showResponseModal, setResponseShowModal] = useState(false)
-  const user_type = useSelector(state => state.authReducer.role)
-  const [selectedOption, setSelectedOption] = useState('')
-  const [show, setShow] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showResponseModal, setResponseShowModal] = useState(false);
+  const user_type = useSelector(state => state.authReducer.role);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [show, setShow] = useState(false);
+  const navigation = useNavigation();
 
   const saveEmailData = async () => {
-    const url = 'auth/mail'
-    setLoading(true)
-    const response = await Post(url, data, apiHeader(token))
-    console.log("🚀 ~ saveEmailData ~ response:", response?.data)
-    setLoading(false)
+    const url = 'auth/mail';
+    setLoading(true);
+    const response = await Post(url, data, apiHeader(token));
+    console.log('🚀 ~ saveEmailData ~ response:', response?.data);
+    setLoading(false);
     if (response?.data != undefined) {
-      setLoading(false)
+      setLoading(false);
       Platform.OS == 'android'
         ? ToastAndroid.show('Saved SuccessFully', ToastAndroid.SHORT)
         : Alert.alert(' Saved SuccessFully');
+      navigation.navigate('MyDrawer', {screen: 'Tamplates'});
     }
-  }
+  };
 
   return (
     <ImageBackground
       style={styles.bg_container}
       source={require('../Assets/Images/bg.png')}>
-      <Header title={fromSave === true ? '' : 'Edit cover letter'} hideUser={true} showBack={true} />
+      <Header
+        title={fromSave === true ? '' : 'Edit cover letter'}
+        backBtnStyle={Color.white}
+        color={Color.white}
+        hideUser={true}
+        showBack={true}
+      />
       <View style={styles.main_view}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.letter_bg}>
@@ -64,7 +73,6 @@ const FinalEmail = props => {
                 {data?.subject}
               </CustomText>
             </View>
-
             <CustomText
               style={[
                 styles.per_text,
@@ -106,20 +114,22 @@ const FinalEmail = props => {
               <CustomText style={styles.per_text}>{data?.phone}</CustomText>
             </View>
           </View>
-          {user_type === 'Company' && <>
-            {fromSave === true ?
-              (
+          {user_type === 'Company' && (
+            <>
+              {fromSave === true ? (
                 <>
-
                   <CustomButton
                     text={
-                      loading ?
+                      loading ? (
                         <ActivityIndicator
                           size="small"
-                          style={styles.indicatorStyle
-                          }
+                          style={styles.indicatorStyle}
                           color={Color.darkBlue}
-                        /> : 'Share'}
+                        />
+                      ) : (
+                        'Share'
+                      )
+                    }
                     textColor={Color.darkBlue}
                     onPress={() => setShowModal(true)}
                     width={windowWidth * 0.8}
@@ -131,13 +141,16 @@ const FinalEmail = props => {
                   />
                   <CustomButton
                     text={
-                      loading ?
+                      loading ? (
                         <ActivityIndicator
                           size="small"
-                          style={styles.indicatorStyle
-                          }
+                          style={styles.indicatorStyle}
                           color={Color.white}
-                        /> : 'check response'}
+                        />
+                      ) : (
+                        'check response'
+                      )
+                    }
                     textColor={Color.white}
                     onPress={() => setResponseShowModal(true)}
                     width={windowWidth * 0.8}
@@ -150,17 +163,23 @@ const FinalEmail = props => {
               ) : (
                 <CustomButton
                   text={
-                    loading ?
+                    loading ? (
                       <ActivityIndicator
                         size="small"
-                        style={styles.indicatorStyle
-                        }
+                        style={styles.indicatorStyle}
                         color={Color.darkBlue}
-                      /> : fromHome ? 'Go Back' : 'Save'}
+                      />
+                    ) : fromHome ? (
+                      'Go Back'
+                    ) : (
+                      'Save'
+                    )
+                  }
                   textColor={Color.darkBlue}
                   onPress={() => {
-                    fromHome ? navigationService.navigate('Home') :
-                      saveEmailData()
+                    fromHome
+                      ? navigationService.navigate('Home')
+                      : saveEmailData();
                   }}
                   width={windowWidth * 0.8}
                   height={windowHeight * 0.06}
@@ -168,20 +187,34 @@ const FinalEmail = props => {
                   bgColor={Color.white}
                   marginTop={moderateScale(20, 0.6)}
                 />
-              )
-            }
-          </>
-          }
+              )}
+            </>
+          )}
         </ScrollView>
-        <ResponseModal setShow={setResponseShowModal} show={showResponseModal} data={data} />
-        {
-          user_type === 'Company' &&
-          <ShareEmployeeModal show={showModal} setShow={setShowModal} template_id={data?.id} />
-        }
-        {user_type === 'Employee' &&
-          <CustomResponse selectedOption={setSelectedOption} setShow={setShow} />
-        }
-        <OptionModal setShow={setShow} show={show} selectedType={selectedOption} item={responses} />
+        <ResponseModal
+          setShow={setResponseShowModal}
+          show={showResponseModal}
+          data={data}
+        />
+        {user_type === 'Company' && (
+          <ShareEmployeeModal
+            show={showModal}
+            setShow={setShowModal}
+            template_id={data?.id}
+          />
+        )}
+        {user_type === 'Employee' && (
+          <CustomResponse
+            selectedOption={setSelectedOption}
+            setShow={setShow}
+          />
+        )}
+        <OptionModal
+          setShow={setShow}
+          show={show}
+          selectedType={selectedOption}
+          item={responses}
+        />
       </View>
     </ImageBackground>
   );
@@ -243,6 +276,5 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(11, 0.6),
     color: Color.darkGray,
   },
-  btn: {
-  }
+  btn: {},
 });

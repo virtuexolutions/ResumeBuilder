@@ -89,7 +89,7 @@ const AddDepartment = (props) => {
             <View style={styles.main_view}>
                 <TextInputWithTitle
                     title={"Enter Department Name : "}
-                    iconName={'buildi  ng'}
+                    iconName={'building'}
                     iconType={FontAwesome5}
                     color={Color.veryLightGray}
                     setText={setFullName}
@@ -189,10 +189,10 @@ const AddDepartment = (props) => {
                     borderRadius={moderateScale(10, 0.3)}
                     textColor={Color.white}
                     bgColor={Color.themeBlue}
-                    marginTop={moderateScale(40, 0.6)}
+                    // marginTop={moderateScale(30, 0.6)}
                     style={{
                         position: 'absolute',
-                        bottom: 10
+                        bottom: 25
                     }}
                     onPress={() => {
                         isDepartment ? onPressUpdate() :

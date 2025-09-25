@@ -13,7 +13,7 @@ const LoggedInScreen = ({ setFingerPrintModal }) => {
   const dispatch = useDispatch();
   const [fingerAuthentication, setFingerAuthentication] = useState(false);
   const [show, setShow] = useState(false);
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(null);
   const [state, setState] = useState(null);
 
   const authCurrent = () => {
@@ -21,13 +21,11 @@ const LoggedInScreen = ({ setFingerPrintModal }) => {
     FingerprintScanner.authenticate({
       title: 'Log in with Biometrics',
       subTitle: 'Place finger to log in the application',
-    })
-      .then(data => {
+    }).then(data => {
         console.log('here is the data =============>', data);
         setFingerPrintModal(false)
         navigationService.navigate('DrawerNav');
-      })
-      .catch(error => {
+      }).catch(error => {
         if (error.name === 'UserCanceled') {
           console.log('Authentication was canceled');
           FingerprintScanner.release();
@@ -54,16 +52,16 @@ const LoggedInScreen = ({ setFingerPrintModal }) => {
       })
       .catch(error => {
         setState({
-          errorMessageLegacy: error.message,
-          biometricLegacy: error.biometric,
+          errorMessageLegacy: error?.message,
+          biometricLegacy: error?.biometric,
         });
-        description.shake();
+        description?.shake();
       });
   };
 
   const handleAuthenticationAttemptedLegacy = error => {
-    setState({ errorMessageLegacy: error.message });
-    description.shake();
+    setState({ errorMessageLegacy: error?.message });
+    description?.shake();
   };
 
   const renderLegacy = () => {
@@ -73,17 +71,11 @@ const LoggedInScreen = ({ setFingerPrintModal }) => {
     return (
       <View style={styles.container}>
         <View style={[styles.contentContainer]}>
-          <Image
+          <CustomImage
             style={styles.logo}
             source={require('../Assets/Images/finger_print.png')}
           />
-
           <Text style={styles.heading}>Biometric{'\n'}Authentication</Text>
-          {/* <ShakingText
-            ref={(ref)=>{setTextRef(ref)}}
-            >
-              Welcome
-            </ShakingText> */}
           <ShakingText
             ref={ref => {
               setDescription(ref);

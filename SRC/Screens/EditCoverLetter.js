@@ -131,6 +131,7 @@ const EditCoverLetter = props => {
         title={type == 'email' ? 'edit email' : 'Edit Email'}
         hideUser={true}
         showBack={true}
+        backBtnStyle={Color.white}  color={Color.white}
       />
       <View style={styles.main_view}>
         <ScrollView keyboardShouldPersistTaps={'never'} showsVerticalScrollIndicator={false}>

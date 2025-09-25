@@ -206,9 +206,10 @@ const Drawer = React.memo((props) => {
   };
 
   return (
-    <ScreenBoiler
-      statusBarBackgroundColor={Color.themeBlue}
-      statusBarContentStyle={'dark-content'}>
+    // <ScreenBoiler
+    //   statusBarBackgroundColor={Color.themeBlue}
+    //   statusBarContentStyle={'dark-content'}>
+<>
       <View style={styles.Profile}>
         <View style={{
           width: windowWidth * 0.3,
@@ -267,9 +268,10 @@ const Drawer = React.memo((props) => {
         <View
           style={{
             flexDirection: 'row',
-            marginLeft: moderateScale(15, 0.3),
+            // marginLeft: moderateScale(15, 0.3),
             justifyContent: 'space-between',
             alignItems: 'center',
+            paddingHorizontal: moderateScale(12,0.6)
           }}>
           <Icon name="fingerprint" as={Entypo} size={6} color={'grey'} />
           <CustomText
@@ -313,7 +315,9 @@ const Drawer = React.memo((props) => {
           {'Logout'}
         </CustomText>
       </TouchableOpacity>
-    </ScreenBoiler>
+</>
+
+    // </ScreenBoiler>
   );
 });
 

@@ -68,7 +68,11 @@ const DepartmentDetails = (props) => {
                 <View style={styles.main_view}>
                     <View style={styles.profile_view}>
                         <CustomText isBold style={styles.heading}>{data?.department_name}</CustomText>
-                        <CustomText style={styles.text}>{data?.department_type}</CustomText>
+                        <CustomText style={[styles.text,{
+                            textTransform: 'uppercase',
+                            width : '80%',
+                            textAlign: 'center'
+                        }]}>{data?.department_type}</CustomText>
                         <View style={[styles.row_view, { marginTop: moderateScale(10, 0.6) }]}>
                             <TouchableOpacity activeOpacity={0.8} style={styles.icon_view} onPress={() => onDelete()}>
                                 <Icon name='delete-outline' as={MaterialIcons} size={moderateScale(25, 0.6)} color={Color.veryLightGray} />
