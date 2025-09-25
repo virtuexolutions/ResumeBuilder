@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -7,29 +7,29 @@ import {
   Platform,
   ToastAndroid,
 } from 'react-native';
-import {ScaledSheet, moderateScale} from 'react-native-size-matters';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import navigationService from '../navigationService';
 import Color from '../Assets/Utilities/Color';
 import CustomText from '../Components/CustomText';
-import {apiHeader, windowHeight, windowWidth} from '../Utillity/utils';
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import CustomButton from '../Components/CustomButton';
-import {ActivityIndicator} from 'react-native';
-import {Post} from '../Axios/AxiosInterceptorFunction';
+import { ActivityIndicator } from 'react-native';
+import { Post } from '../Axios/AxiosInterceptorFunction';
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 // import CardContainer from '../Components/CardContainer';
 import CustomStatusBar from '../Components/CustomStatusBar';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Icon} from 'native-base';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Icon } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const VerifyNumber = props => {
   const SelecteduserRole = useSelector(
@@ -39,17 +39,14 @@ const VerifyNumber = props => {
 
   //params
   const email = props?.route?.params?.email;
-  console.log("🚀 ~ email:", email)
   const codeNumber = props?.route?.params?.code;
-  const {user_type} = useSelector(state => state.authReducer);
+  const { user_type } = useSelector(state => state.authReducer);
 
   //states
   const [code, setCode] = useState('');
-  console.log("🚀 ~ VerifyNumber ~ code===============:", code)
   const [isLoading, setIsLoading] = useState(false);
-  console.log("🚀 ~ VerifyNumber ~ isLoading:", isLoading)
   const CELL_COUNT = 4;
-  const ref = useBlurOnFulfill({code, cellCount: CELL_COUNT});
+  const ref = useBlurOnFulfill({ code, cellCount: CELL_COUNT });
   const [abcd, getCellOnLayoutHandler] = useClearByFocusCell({
     code,
     setCode,
@@ -93,7 +90,7 @@ const VerifyNumber = props => {
         ? ToastAndroid.show(`otp verified`, ToastAndroid.SHORT)
         : alert(`otp verified`);
 
-        navigationN.navigate('ResetPassword',{email:email});
+      navigationN.navigate('ResetPassword', { email: email });
     }
   };
 
@@ -114,100 +111,97 @@ const VerifyNumber = props => {
         backgroundColor={Color.white}
         barStyle={'dark-content'}
       />
-<View style={{backgroundColor:Color.white}}>
-
-      <TouchableOpacity
-        onPress={() => {
-          navigationN.goBack();
-        }}
-        activeOpacity={0.8}
-        style={{
-          position: 'absolute',
-          top: moderateScale(20, 0.3),
-          left: moderateScale(20, 0.3),
-          height: moderateScale(30, 0.3),
-          width: moderateScale(30, 0.3),
-          borderRadius: moderateScale(5, 0.3),
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 1,
-        }}>
-        <Icon
-          name={'arrowleft'}
-          as={AntDesign}
-          size={moderateScale(22, 0.3)}
-          color={Color.darkBlue}
+      <View style={{ backgroundColor: Color.white, paddingHorizontal: moderateScale(20, 0.6) }}>
+        <TouchableOpacity
           onPress={() => {
             navigationN.goBack();
           }}
-          />
-      </TouchableOpacity>
-
-      <KeyboardAwareScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: moderateScale(20, 0.3),
-          marginTop: windowHeight * 0.13,
-          alignItems: 'center',
-          // justifyContent: 'center',
-          width: '100%',
-          height: windowHeight,
-        }}>
-        <CustomText style={styles.h1}>Verification</CustomText>
-        <CustomText style={styles.h2}>Sent a verification code </CustomText>
-        <CustomText 
-        // style={{color:Color.blue}}
-        >Here's Code : {codeNumber}</CustomText>
-        <CodeField
-          placeholder={'0'}
-          ref={ref}
-          value={code}
-          onChangeText={setCode}
-          cellCount={CELL_COUNT}
-          rootStyle={styles.codeFieldRoot}
-          keyboardType="number-pad"
-          textContentType="oneTimeCode"
-          renderCell={({index, symbol, isFocused}) => (
-            <View
-            onLayout={getCellOnLayoutHandler(index)}
-            key={index}
-            style={[styles.cellRoot, isFocused && styles.focusCell]}>
-              <CustomText
-                style={[styles.cellText, isFocused && {color: Color.black}]}>
-                {symbol || (isFocused ? <Cursor /> : null)}
-              </CustomText>
-            </View>
-          )}
-        />
-        <CustomText style={[styles.txt3, {width: windowWidth * 0.6}]}>
-          Didn’t get Code yet?
-        </CustomText>
-        {
-          <TouchableOpacity
-          disabled={timerLabel == 'Resend otp ' ? false : true}
-          onPress={() => {
-            settimerLabel('ReSend in '), settime(120);
+          activeOpacity={0.8}
+          style={{
+            position: 'absolute',
+            // top: moderateScale(20, 0.3),
+            left: moderateScale(20, 0.3),
+            height: moderateScale(30, 0.3),
+            width: moderateScale(30, 0.3),
+            borderRadius: moderateScale(5, 0.3),
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1,
           }}>
-            <CustomText style={[styles.txt4]}>
-              {timerLabel} {time}
-            </CustomText>
-          </TouchableOpacity>
-        }
-        <CustomButton
-          text={ isLoading ? <ActivityIndicator size={'small'} color={Color.white}/> :'Verify'}
-          isBold
-          textColor={Color.white}
-          width={windowWidth * 0.85}
-          height={windowHeight * 0.065}
-          borderRadius={30}
-          marginTop={moderateScale(20, 0.3)}
-          onPress={() => {
-            VerifyOTP()
-          }}
-          bgColor={Color.darkBlue}
+          <Icon
+            name={'arrowleft'}
+            as={AntDesign}
+            size={moderateScale(24, 0.3)}
+            color={Color.themeBlue}
+            onPress={() => {
+              navigationN.goBack();
+            }}
           />
-      </KeyboardAwareScrollView>
-</View>
+        </TouchableOpacity>
+        <KeyboardAwareScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: moderateScale(20, 0.3),
+            marginTop: windowHeight * 0.10,
+            alignItems: 'flex-start',
+            width: '100%',
+            height: windowHeight,
+          }}>
+          <CustomText style={styles.h1}>Check your Email</CustomText>
+          <CustomText style={styles.h2}>We’ve sent a verification code to your registered email. Please enter the code below to continue.</CustomText>
+          <CustomText style={{ marginTop: moderateScale(10, 0.6), color: Color.grey }}
+          >Here's Code : {codeNumber}</CustomText>
+          <CodeField
+            placeholder={'0'}
+            ref={ref}
+            value={code}
+            onChangeText={setCode}
+            cellCount={CELL_COUNT}
+            rootStyle={styles.codeFieldRoot}
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            renderCell={({ index, symbol, isFocused }) => (
+              <View
+                onLayout={getCellOnLayoutHandler(index)}
+                key={index}
+                style={[styles.cellRoot, isFocused && styles.focusCell]}>
+                <CustomText
+                  style={[styles.cellText, isFocused && { color: Color.black }]}>
+                  {symbol || (isFocused ? <Cursor /> : null)}
+                </CustomText>
+              </View>
+            )}
+          />
+          <CustomButton
+            text={isLoading ? <ActivityIndicator size={'small'} color={Color.white} /> : 'Verify'}
+            isBold
+            textColor={Color.white}
+            width={windowWidth * 0.85}
+            height={windowHeight * 0.065}
+            borderRadius={30}
+            marginTop={moderateScale(20, 0.3)}
+            onPress={() => {
+              VerifyOTP()
+            }}
+            bgColor={Color.themeBlue}
+          />
+          <CustomButton
+            text={'Resend Code'}
+            isBold
+            textColor={Color.themeBlue}
+            width={windowWidth * 0.85}
+            height={windowHeight * 0.065}
+            borderRadius={30}
+            marginTop={moderateScale(20, 0.3)}
+            onPress={() => {
+              settimerLabel('ReSend in '), settime(120);
+            }}
+            bgColor={Color.white}
+            borderWidth={2}
+            borderColor={Color.themeBlue}
+          />
+        </KeyboardAwareScrollView>
+      </View>
     </>
   );
 };
@@ -243,22 +237,22 @@ const styles = ScaledSheet.create({
   codeFieldRoot: {
     marginTop: moderateScale(20, 0.3),
     marginBottom: moderateScale(15, 0.3),
-    width: windowWidth * 0.7,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    width: windowWidth * 0.8,
+    // backgroundColor: "red",
+    alignSelf: 'center'
   },
   cellRoot: {
-    width: moderateScale(45, 0.3),
-    height: moderateScale(45, 0.3),
+    width: moderateScale(60, 0.3),
+    height: moderateScale(60, 0.3),
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: Color.darkBlue,
-    borderWidth: 1,
+    borderColor: Color.veryLightGray,
+    borderWidth: 2,
     borderRadius: moderateScale(5, 0.3),
   },
   focusCell: {
-    borderColor: Color.themeBlack,
-    borderWidth: 1,
+    borderColor: Color.themeBlue,
+    borderWidth: 2,
   },
   cellText: {
     color: Color.blue,
@@ -266,21 +260,22 @@ const styles = ScaledSheet.create({
     textAlign: 'center',
   },
   h1: {
-    fontSize: moderateScale(22, 0.6),
-    color: Color.black,
+    fontSize: moderateScale(24, 0.6),
+    color: Color.themeBlue,
     textAlign: 'left',
     width: '80%',
     fontWeight: '700',
     letterSpacing: 0.6,
   },
   h2: {
-    fontSize: moderateScale(20.6),
-    color: Color.black,
+    fontSize: moderateScale(14, 0.6),
+    color: Color.grey,
     textAlign: 'left',
-    width: '80%',
+    width: '96%',
     fontWeight: '600',
-    letterSpacing: 0.8,
+    // letterSpacing: 0.8,
     textTransform: 'none',
+    marginTop: moderateScale(10, 0.6)
   },
 });
 

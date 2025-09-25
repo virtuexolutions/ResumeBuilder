@@ -1,6 +1,6 @@
 import React from 'react';
-import {View} from 'react-native';
-import {windowHeight} from '../Utillity/utils';
+import { View } from 'react-native';
+import { windowHeight } from '../Utillity/utils';
 import CustomStatusBar from './CustomStatusBar';
 import { useNavigation } from '@react-navigation/native';
 

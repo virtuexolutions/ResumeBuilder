@@ -1,7 +1,7 @@
 import React from "react";
-import { View, StatusBar, SafeAreaView, Platform } from "react-native";
+import { View, StatusBar, Platform } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { moderateScale } from "react-native-size-matters";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Color from "../Assets/Utilities/Color";
 import { windowWidth } from "../Utillity/utils";
 
@@ -9,7 +9,7 @@ export default function CustomStatusBar(props) {
   const { backgroundColor, barStyle } = props;
 
   const isGradient = Array.isArray(backgroundColor);
-  const StatusBarHeight = StatusBar.currentHeight;
+
   return (
     <>
       {isGradient ? (
@@ -17,31 +17,31 @@ export default function CustomStatusBar(props) {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           colors={backgroundColor ? backgroundColor : [Color.themeBgColor]}
-          style={[
-            {
-              height: StatusBarHeight,
-              width: windowWidth,
-            },
-          ]}
+          style={{
+            width: windowWidth,
+          }}
         >
-          <SafeAreaView style={{ flex: 0 }} />
+          <SafeAreaView edges={["top"]} />
+          <StatusBar
+            translucent
+            backgroundColor="transparent"
+            barStyle={barStyle ? barStyle : "dark-content"}
+          />
         </LinearGradient>
       ) : (
         <View
-          style={[
-            {
-              height: Platform.OS == "android" ? 0 : StatusBarHeight,
-              width: windowWidth,
-              backgroundColor: backgroundColor
-                ? backgroundColor
-                : Color.themePurpleLevel4,
-            },
-          ]}
+          style={{
+            width: windowWidth,
+            backgroundColor: backgroundColor
+              ? backgroundColor
+              : Color.themePurpleLevel4,
+          }}
         >
+          <SafeAreaView edges={["top"]} />
           <StatusBar
-            translucent={Platform.OS == "android" ? false : true}
+            translucent
             backgroundColor={
-              Platform.OS == "android"
+              Platform.OS === "android"
                 ? backgroundColor
                   ? backgroundColor
                   : Color.gray
@@ -49,7 +49,6 @@ export default function CustomStatusBar(props) {
             }
             barStyle={barStyle ? barStyle : "dark-content"}
           />
-          <SafeAreaView style={{ flex: 0 }} />
         </View>
       )}
     </>

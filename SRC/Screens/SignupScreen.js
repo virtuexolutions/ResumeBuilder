@@ -22,6 +22,7 @@ import TextInputWithTitle from '../Components/TextInputWithTitle';
 import { SetUserRole, setUserToken } from '../Store/slices/auth';
 import { setUserData } from '../Store/slices/common';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
+import CustomStatusBar from '../Components/CustomStatusBar';
 
 const SignupScreen = ({ navigation, route }) => {
   const type = route?.params?.type;
@@ -60,90 +61,95 @@ const SignupScreen = ({ navigation, route }) => {
   }
 
   return (
-    <ScrollView>
-      <SafeAreaView style={[styles.container, {
-        backgroundColor: Color.white
-      }]}>
-        <Icon
-          onPress={() => {
-            navigation.goBack();
-          }}
-          as={Ionicons}
-          name="arrow-back"
-          size={moderateScale(25, 0.3)}
-          color={user_type === 'Company' ? Color.white : Color.blue}
-          style={{
-            position: 'absolute',
-            top: moderateScale(20, 0.3),
-            left: moderateScale(10, 0.3),
-          }}
-        />
-        <View style={{
-          width: windowWidth * 0.6,
-          height: windowWidth * 0.35,
-        }}>
-          <CustomImage source={require('../Assets/Images/logo.png')} style={{
-            width: '100%',
-            height: '100%'
-          }} />
-        </View>
-        <TextInputWithTitle
-          iconName={'user'}
-          iconType={FontAwesome}
-          setText={setUserName}
-          value={userName}
-          placeholder={type === 'Company' ? 'Type your company' : 'Type your Name'}
-          viewWidth={0.75}
-          borderBottomWidth={2}
-          color={Color.blue}
-          placeholderColor={Color.grey}
-          borderColor={Color.blue}
-          marginTop={moderateScale(30, 0.3)}
-        />
-        <TextInputWithTitle
-          iconName={'mail'}
-          iconType={Ionicons}
-          setText={setEmail}
-          value={email}
-          placeholder={'Type your Email'}
-          viewWidth={0.75}
-          borderBottomWidth={2}
-          color={Color.blue}
-          placeholderColor={Color.grey}
-          borderColor={Color.blue}
-          marginTop={moderateScale(30, 0.3)}
-        />
-        <TextInputWithTitle
-          iconSize={moderateScale(20, 0.3)}
-          iconName={'key'}
-          iconType={Ionicons}
-          secureText={true}
-          setText={setPassword}
-          value={password}
-          placeholder={'Type your password'}
-          viewWidth={0.75}
-          borderBottomWidth={2}
-          color={Color.blue}
-          placeholderColor={Color.grey}
-          borderColor={Color.blue}
-          marginTop={moderateScale(30, 0.3)}
-        />
-        <TextInputWithTitle
-          iconSize={moderateScale(20, 0.3)}
-          iconName={'key'}
-          iconType={Ionicons}
-          secureText={true}
-          setText={setConfirmPassword}
-          value={confirmPassword}
-          placeholder={'Confirm Your Password'}
-          viewWidth={0.75}
-          borderBottomWidth={2}
-          color={Color.blue}
-          placeholderColor={Color.grey}
-          borderColor={Color.blue}
-          marginTop={moderateScale(30, 0.3)}
-        />
-        {/* <CustomButton
+    <>
+      <CustomStatusBar
+        backgroundColor={Color.white}
+        barStyle={'dark-content'}
+      />
+      <ScrollView>
+        <SafeAreaView style={[styles.container, {
+          backgroundColor: Color.white
+        }]}>
+          <Icon
+            onPress={() => {
+              navigation.goBack();
+            }}
+            as={Ionicons}
+            name="arrow-back"
+            size={moderateScale(25, 0.3)}
+            color={user_type === 'Company' ? Color.white : Color.blue}
+            style={{
+              position: 'absolute',
+              top: moderateScale(20, 0.3),
+              left: moderateScale(10, 0.3),
+            }}
+          />
+          <View style={{
+            width: windowWidth * 0.6,
+            height: windowWidth * 0.35,
+          }}>
+            <CustomImage source={require('../Assets/Images/logo.png')} style={{
+              width: '100%',
+              height: '100%'
+            }} />
+          </View>
+          <TextInputWithTitle
+            iconName={'user'}
+            iconType={FontAwesome}
+            setText={setUserName}
+            value={userName}
+            placeholder={type === 'Company' ? 'Type your company' : 'Type your Name'}
+            viewWidth={0.75}
+            borderBottomWidth={2}
+            color={Color.blue}
+            placeholderColor={Color.grey}
+            borderColor={Color.blue}
+            marginTop={moderateScale(30, 0.3)}
+          />
+          <TextInputWithTitle
+            iconName={'mail'}
+            iconType={Ionicons}
+            setText={setEmail}
+            value={email}
+            placeholder={'Type your Email'}
+            viewWidth={0.75}
+            borderBottomWidth={2}
+            color={Color.blue}
+            placeholderColor={Color.grey}
+            borderColor={Color.blue}
+            marginTop={moderateScale(30, 0.3)}
+          />
+          <TextInputWithTitle
+            iconSize={moderateScale(20, 0.3)}
+            iconName={'key'}
+            iconType={Ionicons}
+            secureText={true}
+            setText={setPassword}
+            value={password}
+            placeholder={'Type your password'}
+            viewWidth={0.75}
+            borderBottomWidth={2}
+            color={Color.blue}
+            placeholderColor={Color.grey}
+            borderColor={Color.blue}
+            marginTop={moderateScale(30, 0.3)}
+          />
+          <TextInputWithTitle
+            iconSize={moderateScale(20, 0.3)}
+            iconName={'key'}
+            iconType={Ionicons}
+            secureText={true}
+            setText={setConfirmPassword}
+            value={confirmPassword}
+            placeholder={'Confirm Your Password'}
+            viewWidth={0.75}
+            borderBottomWidth={2}
+            color={Color.blue}
+            placeholderColor={Color.grey}
+            borderColor={Color.blue}
+            marginTop={moderateScale(30, 0.3)}
+          />
+          {/* <CustomButton
           text={isLoading ? <ActivityIndicator color={"white"} size={moderateScale(24, 0.2)} /> : 'Create Account'}
           textColor={Color.white}
           onPress={() => {
@@ -158,39 +164,40 @@ const SignupScreen = ({ navigation, route }) => {
             top: windowHeight * 0.055
           }}
         /> */}
-        <CustomButton
-          text={isLoading ? <ActivityIndicator color={'white'} size={moderateScale(12, 0.2)} /> : 'Create'}
-          textColor={Color.white}
-          onPress={() => {
-            signUp()
-          }}
-          isBold
-          width={windowWidth * 0.7}
-          height={windowHeight * 0.060}
-          borderRadius={moderateScale(20, 0.3)}
-          bgColor={Color.themeBlue}
-          marginTop={moderateScale(20, 0.6)}
-        />
-        <CustomText style={{
-          fontSize: moderateScale(11, 0.3),
-          color: Color.darkbrown,
-          paddingTop: windowHeight * 0.09,
+          <CustomButton
+            text={isLoading ? <ActivityIndicator color={'white'} size={moderateScale(12, 0.2)} /> : 'Create'}
+            textColor={Color.white}
+            onPress={() => {
+              signUp()
+            }}
+            isBold
+            width={windowWidth * 0.7}
+            height={windowHeight * 0.060}
+            borderRadius={moderateScale(20, 0.3)}
+            bgColor={Color.themeBlue}
+            marginTop={moderateScale(20, 0.6)}
+          />
+          <CustomText style={{
+            fontSize: moderateScale(11, 0.3),
+            color: Color.darkbrown,
+            paddingTop: windowHeight * 0.09,
 
-        }}>Do You Have An Account ?</CustomText>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("LoginScreen")
-          }}
-          activeOpacity={0.8}>
-          <CustomText
-            isBold style={{
-              fontSize: moderateScale(18, 0.3),
-              color: Color.blue,
-            }}>Log in</CustomText>
-        </TouchableOpacity>
+          }}>Do You Have An Account ?</CustomText>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("LoginScreen")
+            }}
+            activeOpacity={0.8}>
+            <CustomText
+              isBold style={{
+                fontSize: moderateScale(18, 0.3),
+                color: Color.blue,
+              }}>Log in</CustomText>
+          </TouchableOpacity>
 
-      </SafeAreaView>
-    </ScrollView >
+        </SafeAreaView>
+      </ScrollView >
+    </>
   );
 };
 
@@ -204,8 +211,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(15, 0.3),
     // paddingVertical: moderateScale(20, 0.6),
     alignItems: 'center',
-    paddingTop: windowHeight * 0.15,
-    // justifyContent : 'center'
+    // paddingTop: windowHeight * 0.15,
+    justifyContent: 'center'
   },
   welcomeText: {
     fontSize: moderateScale(40, 0.3),

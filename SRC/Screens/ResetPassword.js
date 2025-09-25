@@ -26,6 +26,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Post } from '../Axios/AxiosInterceptorFunction';
 import { Formik } from 'formik';
 import { forgotpassword } from '../Constant/schema';
+import { mode } from 'native-base/lib/typescript/theme/tools';
 
 const ResetPassword = props => {
   const dispatch = useDispatch();
@@ -68,8 +69,8 @@ const ResetPassword = props => {
           <Icon
             name={'arrowleft'}
             as={AntDesign}
-            size={moderateScale(22, 0.3)}
-            color={Color.darkBlue}
+            size={moderateScale(30, 0.3)}
+            color={Color.themeBlue}
             onPress={() => {
               navigationN.goBack();
             }}
@@ -85,59 +86,55 @@ const ResetPassword = props => {
             Forgot your password ? don't worry, jsut take a simple step and
             create your new password!
           </CustomText>
-          <View style={styles.text_input}>
-            <TextInputWithTitle
-              iconSize={moderateScale(20, 0.3)}
-              iconName={'key'}
-              iconType={Ionicons}
-              color={Color.blue}
-              secureText={true}
-              setText={setPassword}
-              value={password}
-              placeholder={'Password'}
-              placeholderColor={Color.grey}
-              viewWidth={0.7}
-              borderBottomWidth={2}
-              borderColor={Color.blue}
-              marginTop={moderateScale(30, 0.3)}
-            />
+          <TextInputWithTitle
+            iconSize={moderateScale(20, 0.3)}
+            iconName={'key'}
+            iconType={Ionicons}
+            color={Color.themeBlue}
+            secureText={true}
+            setText={setPassword}
+            value={password}
+            placeholder={'Password'}
+            viewWidth={0.86}
+            border={1}
+            placeholderColor={Color.grey}
+            marginTop={moderateScale(20, 0.3)}
+            borderRadius={moderateScale(10, 0.6)}
+            backgroundColor={Color.lightGrey}
+          />
+          <TextInputWithTitle
+            iconSize={moderateScale(20, 0.3)}
+            iconName={'key'}
+            iconType={Ionicons}
+            color={Color.themeBlue}
+            secureText={true}
+            setText={setConfirmPassword}
+            value={confirmPassword}
+            placeholder={'Confirm New Password'}
+            viewWidth={0.86}
+            border={1}
+            placeholderColor={Color.grey}
+            marginTop={moderateScale(20, 0.3)}
+            borderRadius={moderateScale(10, 0.6)}
+            backgroundColor={Color.lightGrey}
+          />
 
-            <TextInputWithTitle
-              iconSize={moderateScale(20, 0.3)}
-              iconName={'key'}
-              iconType={Ionicons}
-              color={Color.blue}
-              secureText={true}
-              setText={setConfirmPassword}
-              value={confirmPassword}
-              placeholder={'Confirm New Password'}
-              placeholderColor={Color.grey}
-              viewWidth={0.7}
-              borderBottomWidth={2}
-              borderColor={Color.blue}
-              marginTop={moderateScale(30, 0.3)}
-            />
-
-            <CustomButton
-              text={
-                isLoading ? (
-                  <ActivityIndicator size={'small'} color={Color.white} />
-                ) : (
-                  'Reset'
-                )
-              }
-              textColor={Color.white}
-              width={windowWidth * 0.65}
-              height={windowHeight * 0.065}
-              marginTop={moderateScale(20, 0.3)}
-              onPress={resetPassword}
-              borderRadius={30}
-              bgColor={
-                Color.darkBlue
-              }
-            />
-          </View>
-
+          <CustomButton
+            text={
+              isLoading ? (
+                <ActivityIndicator size={'small'} color={Color.white} />
+              ) : (
+                'Reset'
+              )
+            }
+            textColor={Color.white}
+            width={windowWidth * 0.86}
+            height={windowHeight * 0.06}
+            marginTop={moderateScale(40, 0.3)}
+            onPress={resetPassword}
+            borderRadius={moderateScale(10, 0.6)}
+            bgColor={Color.themeBlue}
+          />
         </KeyboardAwareScrollView>
       </View>
     </>
@@ -149,53 +146,28 @@ const styles = ScaledSheet.create({
     height: windowHeight,
     width: windowWidth,
     backgroundColor: Color.white,
+    paddingHorizontal: moderateScale(20, 0.6)
   },
   txt2: {
-    color: Color.black,
+    color: Color.themeBlue,
     fontSize: moderateScale(24, 0.6),
   },
   txt3: {
-    color: Color.black,
+    color: Color.veryLightGray,
     fontSize: moderateScale(11, 0.6),
-    textAlign: 'center',
-    width: '80%',
+    textAlign: 'left',
+    width: '90%',
     marginVertical: moderateScale(10, 0.3),
     lineHeight: moderateScale(17, 0.3),
   },
   back: {
-    position: 'absolute',
-    top: moderateScale(20, 0.3),
-    left: moderateScale(20, 0.3),
     height: moderateScale(30, 0.3),
     width: moderateScale(30, 0.3),
     borderRadius: moderateScale(5, 0.3),
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: Color.themeBlack,
-    zIndex: 1,
-  },
-  text_input: {
-    alignItems: 'center',
-    borderWidth: 0.45,
-    width: windowWidth * 0.9,
-    borderColor: Color.lightGrey,
-    elevation: 3,
-    paddingVertical: moderateScale(10, 0.6),
-    // height: windowHeight * 0.36,
-    shadowRadius: 25,
-    shadowColor: "grey",
-    shadowOpacity: 0.6,
-    shadowOffset: { width: 0, height: 1 },
-    borderRadius: 25,
-    paddingTop: windowHeight * 0.03,
-    paddingHorizontal: moderateScale(30, 0.6),
   },
   container: {
-    paddingBottom: moderateScale(20, 0.3),
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: windowHeight,
+    alignItems: 'flex-start',
+    marginTop: moderateScale(20, 0.6)
   },
   schemaText: {
     fontSize: moderateScale(10, 0.6),
