@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux';
 import CustomImage from './CustomImage';
 import { baseUrl, imageUrl } from '../Config';
 import ListEmphtyComponent from './ListEmphtyComponent';
+import CustomButton from './CustomButton';
 
 const AddSignatureContainer = ({
   signatureImages,
@@ -312,22 +313,52 @@ const AddSignatureContainer = ({
         }}
         backgroundColor={Color.white}
         key={selectedIndex}
-        HeaderComponent={() => {
+        // HeaderComponent={() => {
+        //   return (
+        //     <View style={styles.header}>
+        //       <Icon
+        //         name={'dots-three-vertical'}
+        //         as={Entypo}
+        //         size={moderateScale(20, 0.6)}
+        //         color={Color.black}
+        //         style={{
+        //           width: windowWidth * 0.98,
+        //           textAlign: 'right',
+        //         }}
+        //         onPress={() => {
+        //           setListModalVisible(true)
+        //         }}
+        //       />
+        //     </View>
+        //   )
+        // }}
+        FooterComponent={() => {
           return (
-            <View style={styles.header}>
-              <Icon
-                name={'dots-three-vertical'}
-                as={Entypo}
-                size={moderateScale(20, 0.6)}
-                color={Color.black}
-                style={{
-                  width: windowWidth * 0.98,
-                  textAlign: 'right',
-                }}
-                onPress={() => {
-                  setListModalVisible(true)
-                }}
-              />
+            <View style={{
+              width: windowWidth,
+              height: windowWidth * 0.15,
+              bottom: moderateScale(10, 0.6),
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: moderateScale(10, 0.6)
+            }}>
+              {statusArray.map((item, index) => {
+                return (
+                  <CustomButton
+                    text={item?.label}
+                    width={windowWidth * 0.3}
+                    height={windowHeight * 0.05}
+                    borderRadius={moderateScale(10, 0.3)}
+                    textColor={Color.white}
+                    bgColor={Color.themeBlue}
+                    onPress={item?.onPress}
+                    textstyle={{
+                      fontSize: moderateScale(9, 0.6)
+                    }}
+                  />
+                )
+              })}
             </View>
           )
         }}

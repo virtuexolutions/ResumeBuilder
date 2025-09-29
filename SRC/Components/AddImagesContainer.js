@@ -243,25 +243,55 @@ const AddImagesContainer = ({
           setIsVisible(false);
         }}
         key={selectedIndex}
-        HeaderComponent={() => {
+        // HeaderComponent={() => {
+        //   return (
+        //     <SafeAreaView edges={['top']} style={{ backgroundColor: 'transparent' }}>
+        //       <View style={styles.header}>
+        //         <Icon
+        //           name={'dots-three-vertical'}
+        //           as={Entypo}
+        //           size={moderateScale(20, 0.6)}
+        //           color={Color.white}
+        //           style={{
+        //             width: windowWidth * 0.98,
+        //             textAlign: 'right'
+        //           }}
+        //           onPress={() => {
+        //             setListModalVisible(true)
+        //           }}
+        //         />
+        //       </View>
+        //     </SafeAreaView>
+        //   )
+        // }}
+        FooterComponent={() => {
           return (
-            <SafeAreaView edges={['top']} style={{ backgroundColor: 'transparent' }}>
-              <View style={styles.header}>
-                <Icon
-                  name={'dots-three-vertical'}
-                  as={Entypo}
-                  size={moderateScale(20, 0.6)}
-                  color={Color.white}
-                  style={{
-                    width: windowWidth * 0.98,
-                    textAlign: 'right'
-                  }}
-                  onPress={() => {
-                    setListModalVisible(true)
-                  }}
-                />
-              </View>
-            </SafeAreaView>
+            <View style={{
+              width: windowWidth,
+              height: windowWidth * 0.15,
+              bottom: moderateScale(10, 0.6),
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: moderateScale(10, 0.6)
+            }}>
+              {statusArray.map((item, index) => {
+                return (
+                  <CustomButton
+                    text={item?.label}
+                    width={windowWidth * 0.3}
+                    height={windowHeight * 0.05}
+                    borderRadius={moderateScale(10, 0.3)}
+                    textColor={Color.white}
+                    bgColor={Color.themeBlue}
+                    onPress={item?.onPress}
+                    textstyle={{
+                      fontSize: moderateScale(9, 0.6)
+                    }}
+                  />
+                )
+              })}
+            </View>
           )
         }}
       />
