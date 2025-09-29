@@ -134,6 +134,7 @@ const styles = ScaledSheet.create({
   },
   main_view: {
     paddingHorizontal: moderateScale(15, 0.6),
+    paddingVertical: moderateScale(15, 0.6)
   },
   heading: {
     fontSize: moderateScale(18, 0.6),

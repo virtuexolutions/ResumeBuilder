@@ -1,32 +1,23 @@
-import dayjs from 'dayjs';
+import 'dayjs/locale/en'; // or your preferred locale
 import { Icon } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
-    FlatList,
-    SafeAreaView,
     ScrollView,
     StyleSheet,
-    Text,
-    TouchableOpacity,
     View
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale } from 'react-native-size-matters';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
+import CustomImage from '../Components/CustomImage';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
+import { baseUrl } from '../Config';
 import { windowHeight, windowWidth } from '../Utillity/utils';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import 'dayjs/locale/en'; // or your preferred locale
-import { Get } from '../Axios/AxiosInterceptorFunction';
-import CustomImage from '../Components/CustomImage';
-import { baseUrl, imageUrl } from '../Config';
-import navigationService from '../navigationService';
 
 
 const Profile = () => {
@@ -56,9 +47,9 @@ const Profile = () => {
         )
     }
     return (
-        <SafeAreaView style={styles.container}>
-            <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} backgroundColor={Color.themeBlue} />
+        <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
+                <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} backgroundColor={Color.themeBlue} />
                 <View style={styles.header_view}>
                     <View style={styles.header_subview}>
                         <View style={styles.profile_view}>
@@ -135,7 +126,7 @@ const Profile = () => {
                 </View>
                 <View style={{ height: windowHeight * 0.1 }} />
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 };
 
@@ -143,9 +134,7 @@ export default Profile;
 
 const styles = StyleSheet.create({
     container: {
-        // backgroundColor: Color.themeBlue,
         paddingHorizontal: moderateScale(15, 0.3),
-        paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
     },
     des: {

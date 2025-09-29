@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { windowHeight, windowWidth } from '../Utillity/utils'
@@ -13,6 +13,7 @@ import { Get } from '../Axios/AxiosInterceptorFunction'
 import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/core'
 import ListEmphtyComponent from '../Components/ListEmphtyComponent'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AddEmployees = () => {
   const isFocused = useIsFocused()
@@ -53,7 +54,7 @@ const AddEmployees = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails', { data: {}, isDetails: false })} />
       <View style={styles.main_view}>
         <View style={styles.search_bar_view}>
@@ -103,7 +104,7 @@ const AddEmployees = () => {
         }
 
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

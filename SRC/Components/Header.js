@@ -219,9 +219,7 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: moderateScale(10, 0.3),
-    paddingVertical: moderateScale(20, 0.3),
     alignItems: 'center',
-
   },
   notificationCircle: {
     position: 'absolute',

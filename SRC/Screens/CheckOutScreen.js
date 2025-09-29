@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { ActivityIndicator, ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 import { useSelector } from 'react-redux'
 import Color from '../Assets/Utilities/Color'
@@ -10,6 +10,7 @@ import Header from '../Components/Header'
 import TextInputWithTitle from '../Components/TextInputWithTitle'
 import navigationService from '../navigationService'
 import { windowHeight, windowWidth } from '../Utillity/utils'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CheckOutScreen = () => {
     const isFocused = useIsFocused()
@@ -34,7 +35,7 @@ const CheckOutScreen = () => {
     ];
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <ImageBackground
                 style={styles.bg_container}
                 source={require('../Assets/Images/bg.png')}>
@@ -181,7 +182,7 @@ const CheckOutScreen = () => {
                     />
                 </View>
             </ImageBackground>
-        </SafeAreaView >
+        </View >
     )
 }
 

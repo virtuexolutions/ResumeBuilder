@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 import { useSelector } from 'react-redux'
 import Color from '../Assets/Utilities/Color'
@@ -12,6 +12,7 @@ import { baseUrl } from '../Config'
 import navigationService from '../navigationService'
 import { windowHeight, windowWidth } from '../Utillity/utils'
 import ListEmphtyComponent from '../Components/ListEmphtyComponent'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SubCategory = () => {
     const isFocused = useIsFocused()
@@ -41,7 +42,7 @@ const SubCategory = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header title={'SubCategory'} hideUser={false} showBack />
             <View style={styles.main_view}>
                 {loading ? (
@@ -85,7 +86,7 @@ const SubCategory = () => {
                     />
                 )}
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

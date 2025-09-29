@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, FlatList, Platform, SafeAreaView, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, Platform, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../Components/Header'
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
@@ -22,6 +22,7 @@ import FormWrapper from '../Components/FormWrapper'
 import CustomText from '../Components/CustomText'
 import { date } from 'yup'
 import { baseUrl, imageUrl, profilePicUrl } from '../Config'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -84,9 +85,9 @@ const EditProfile = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header showBack hideUser={false} title={'Edit Profile'} />
-      <ScrollView showsVerticalScrollIndicator={false} >
+      <ScrollView showsVerticalScrollIndicatorF={false} >
         <View style={styles.main_view}>
           <FormWrapper>
             <TouchableOpacity onPress={() => setShowModal(true)} style={{
@@ -287,7 +288,7 @@ const EditProfile = () => {
         setShow={setShowModal}
         setFileObject={setImage}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

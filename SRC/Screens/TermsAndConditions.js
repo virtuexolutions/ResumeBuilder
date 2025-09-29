@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import Color from '../Assets/Utilities/Color';
 import CustomText from '../Components/CustomText';
@@ -8,12 +8,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Icon } from 'native-base';
 import { windowHeight, windowWidth } from '../Utillity/utils';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const TermsAndConditions = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView
+    <View
       style={styles.main_container}>
       <Header showBack={true} title={'Terms and condition'} />
       <ScrollView
@@ -36,7 +37,7 @@ const TermsAndConditions = () => {
           }
         </CustomText>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

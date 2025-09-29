@@ -15,6 +15,7 @@ import CustomText from './CustomText';
 import NullDataComponent from './NullDataComponent';
 import ListEmphtyComponent from './ListEmphtyComponent';
 import CustomButton from './CustomButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AddImagesContainer = ({
   multiImages,
@@ -244,21 +245,23 @@ const AddImagesContainer = ({
         key={selectedIndex}
         HeaderComponent={() => {
           return (
-            <View style={styles.header}>
-              <Icon
-                name={'dots-three-vertical'}
-                as={Entypo}
-                size={moderateScale(20, 0.6)}
-                color={Color.white}
-                style={{
-                  width: windowWidth * 0.98,
-                  textAlign: 'right'
-                }}
-                onPress={() => {
-                  setListModalVisible(true)
-                }}
-              />
-            </View>
+            <SafeAreaView edges={['top']} style={{ backgroundColor: 'transparent' }}>
+              <View style={styles.header}>
+                <Icon
+                  name={'dots-three-vertical'}
+                  as={Entypo}
+                  size={moderateScale(20, 0.6)}
+                  color={Color.white}
+                  style={{
+                    width: windowWidth * 0.98,
+                    textAlign: 'right'
+                  }}
+                  onPress={() => {
+                    setListModalVisible(true)
+                  }}
+                />
+              </View>
+            </SafeAreaView>
           )
         }}
       />
@@ -327,6 +330,7 @@ const styles = ScaledSheet.create({
     paddingVertical: moderateScale(10, 0.6),
     backgroundColor: 'black',
     opacity: 0.5,
+    marginTop: moderateScale(20, 0.3)
   },
   statusModal: {
     alignSelf: 'flex-end',

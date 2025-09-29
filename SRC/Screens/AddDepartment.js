@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, FlatList, Platform, SafeAreaView, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, Platform ,StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../Components/Header'
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
@@ -13,6 +13,7 @@ import { Post } from '../Axios/AxiosInterceptorFunction'
 import { useSelector } from 'react-redux'
 import navigationService from '../navigationService'
 import { useNavigation } from '@react-navigation/core'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AddDepartment = (props) => {
     const { isDepartment, data } = props?.route?.params;
@@ -84,7 +85,7 @@ const AddDepartment = (props) => {
         }
     }
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header showBack hideUser={false} />
             <View style={styles.main_view}>
                 <TextInputWithTitle
@@ -200,7 +201,7 @@ const AddDepartment = (props) => {
                     }}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

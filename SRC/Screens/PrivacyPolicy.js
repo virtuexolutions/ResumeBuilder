@@ -23,7 +23,7 @@ const PrivacyPolicy = () => {
     const userData = useSelector(state => state.commonReducer.userData);
 
     return (
-        <SafeAreaView
+        <View
             // scrollEnabled={false}
             style={[styles.mainScreen,]}
         //   conltentContainerStyle={{
@@ -65,7 +65,7 @@ const PrivacyPolicy = () => {
                     </CustomText>
                 </ScrollView>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

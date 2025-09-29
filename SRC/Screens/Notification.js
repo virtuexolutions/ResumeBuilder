@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/core'
 import { Icon } from 'native-base'
 import React from 'react'
-import { FlatList, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -13,6 +13,7 @@ import { windowHeight, windowWidth } from '../Utillity/utils'
 import navigationService from '../navigationService'
 import NotificationView from '../Components/NotificationView'
 import ListEmphtyComponent from '../Components/ListEmphtyComponent'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Notification = () => {
   const isFocused = useIsFocused()
@@ -53,7 +54,7 @@ const Notification = () => {
   ]
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header showBack={false} />
       <View style={styles.main_view}>
         <CustomText isBold style={styles.heading}>Notification</CustomText>
@@ -66,7 +67,7 @@ const Notification = () => {
             )
           })} />
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

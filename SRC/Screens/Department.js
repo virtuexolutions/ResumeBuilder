@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, FlatList, SafeAreaView, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/core'
 import CustomText from '../Components/CustomText'
 import ListEmphtyComponent from '../Components/ListEmphtyComponent'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Department = () => {
     const isFocused = useIsFocused()
@@ -57,7 +58,7 @@ const Department = () => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddDepartment', { data: {} })} rightText={'Add Department'} />
             <View style={styles.main_view}>
                 <View style={styles.search_bar_view}>
@@ -106,7 +107,7 @@ const Department = () => {
                     />
                 }
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 
@@ -120,7 +121,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: moderateScale(15, 0.3),
         // paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
-        paddingTop: moderateScale(10, 0.6),
         // justifyContent : 'center'
     },
     main_view: {

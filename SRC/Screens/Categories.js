@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { windowHeight, windowWidth } from '../Utillity/utils'
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/core'
 import { date } from 'yup'
 import CustomText from '../Components/CustomText'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Categories = () => {
     const isFocused = useIsFocused()
@@ -31,7 +32,7 @@ const Categories = () => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header title={'Categories'} hideUser={false} showBack />
             <View style={styles.main_view}>
                 {category.map((item) => {
@@ -43,7 +44,7 @@ const Categories = () => {
                 })
                 }
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

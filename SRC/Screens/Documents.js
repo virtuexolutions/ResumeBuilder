@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
     FlatList,
-    SafeAreaView,
     StyleSheet,
     TouchableOpacity,
     View
@@ -19,6 +18,7 @@ import { Get } from '../Axios/AxiosInterceptorFunction';
 import CustomImage from '../Components/CustomImage';
 import { baseUrl } from '../Config';
 import ListEmphtyComponent from '../Components/ListEmphtyComponent';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Documents = () => {
     const isFocused = useIsFocused();
@@ -98,7 +98,7 @@ const Documents = () => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header hideUser={false} showBack={false} title={'Documents'} />
             <View style={styles.main_view}>
                 <View style={{
@@ -173,7 +173,7 @@ const Documents = () => {
                     />
                 )}
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

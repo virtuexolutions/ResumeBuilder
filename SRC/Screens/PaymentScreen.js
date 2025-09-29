@@ -1,4 +1,4 @@
-import { Alert, Platform, SafeAreaView, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { Alert, Platform,  StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../Components/Header'
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
@@ -12,6 +12,7 @@ import { Post } from '../Axios/AxiosInterceptorFunction'
 import CustomLoading from '../Components/CustomLoading'
 import { useSelector } from 'react-redux'
 import navigationService from '../navigationService'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const PaymentScreen = props => {
     const data = props?.route?.params?.data;
@@ -59,7 +60,7 @@ const PaymentScreen = props => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header showBack hideUser={false} title={"Add Card Details"} />
             <View style={styles.main_view}>
                 <View style={{
@@ -131,7 +132,7 @@ const PaymentScreen = props => {
                     />
                 }
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

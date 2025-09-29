@@ -57,7 +57,7 @@ const ProfileDetails = () => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} backgroundColor={Color.themeBlue} />
             <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
                 <View style={styles.header_view}>
@@ -191,7 +191,7 @@ const ProfileDetails = () => {
                     <View style={{ height: windowHeight * 0.1 }} />
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 };
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  SafeAreaView,
   StyleSheet,
   ToastAndroid,
   TouchableOpacity,
@@ -20,6 +19,7 @@ import { SetUserRole, setUserToken } from '../Store/slices/auth';
 import { setUserData } from '../Store/slices/common';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import CustomStatusBar from '../Components/CustomStatusBar';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const LoginScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ const LoginScreen = ({ navigation, route }) => {
         backgroundColor={Color.white}
         barStyle={'dark-content'}
       />
-      <SafeAreaView style={[styles.container, {
+      <View style={[styles.container, {
         backgroundColor: Color.white
       }]}>
         <View style={{
@@ -154,7 +154,7 @@ const LoginScreen = ({ navigation, route }) => {
                 }}>Sign Up</CustomText>
             </TouchableOpacity></>
         }
-      </SafeAreaView>
+      </View>
     </>
   );
 };

@@ -2,7 +2,6 @@ import { Icon } from 'native-base';
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   ToastAndroid,
@@ -23,6 +22,7 @@ import { SetUserRole, setUserToken } from '../Store/slices/auth';
 import { setUserData } from '../Store/slices/common';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import CustomStatusBar from '../Components/CustomStatusBar';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignupScreen = ({ navigation, route }) => {
   const type = route?.params?.type;
@@ -67,7 +67,7 @@ const SignupScreen = ({ navigation, route }) => {
         barStyle={'dark-content'}
       />
       <ScrollView>
-        <SafeAreaView style={[styles.container, {
+        <View style={[styles.container, {
           backgroundColor: Color.white
         }]}>
           <Icon
@@ -195,7 +195,7 @@ const SignupScreen = ({ navigation, route }) => {
               }}>Log in</CustomText>
           </TouchableOpacity>
 
-        </SafeAreaView>
+        </View>
       </ScrollView >
     </>
   );

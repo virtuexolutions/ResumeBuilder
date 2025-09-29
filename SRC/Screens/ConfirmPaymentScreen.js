@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Header from '../Components/Header'
 import { windowHeight, windowWidth } from '../Utillity/utils'
@@ -11,10 +11,11 @@ import CustomButton from '../Components/CustomButton'
 import navigationService from '../navigationService'
 import LottieView from 'lottie-react-native'
 import CustomText from '../Components/CustomText'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ConfirmPaymentScreen = () => {
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.main_view}>
                 <View style={{
                     width: windowWidth * 0.8,
@@ -51,7 +52,7 @@ const ConfirmPaymentScreen = () => {
                     marginTop={moderateScale(20, 0.6)}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

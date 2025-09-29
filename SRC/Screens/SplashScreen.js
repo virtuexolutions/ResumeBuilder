@@ -4,15 +4,16 @@ import { moderateScale, ScaledSheet } from 'react-native-size-matters';
 import { windowHeight, windowWidth } from '../Utillity/utils';
 import CustomImage from '../Components/CustomImage';
 import CustomText from '../Components/CustomText';
-import { ImageBackground, SafeAreaView } from 'react-native';
+import { ImageBackground} from 'react-native';
 import Color from '../Assets/Utilities/Color';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SplashScreen = () => {
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <CustomImage source={require('../Assets/Images/logo.png')} />
-    </SafeAreaView>
+    </View>
   );
 };
 

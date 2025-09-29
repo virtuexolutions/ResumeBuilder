@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
     FlatList,
-    SafeAreaView,
     StyleSheet,
     TouchableOpacity,
     View
@@ -13,6 +12,7 @@ import { useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
 import CustomStatusBar from '../Components/CustomStatusBar';
 import Header from '../Components/Header';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Help = () => {
     const token = useSelector(state => state.authReducer.token);
@@ -53,9 +53,9 @@ const Help = () => {
     ];
 
     return (
-        <SafeAreaView
+        <View
             style={styles.main_container}>
-            <Header showBack={true}  title={'Help'}/>
+            <Header showBack={true} title={'Help'} />
 
             <View
                 style={styles.mainScreen}>
@@ -78,7 +78,7 @@ const Help = () => {
                     )}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
     ActivityIndicator,
-    SafeAreaView,
     StyleSheet,
     View
 } from 'react-native';
@@ -14,6 +13,7 @@ import { windowHeight, windowWidth } from '../Utillity/utils';
 import { useDispatch } from 'react-redux';
 import CustomButton from '../Components/CustomButton';
 import CustomImage from '../Components/CustomImage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const StartScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const StartScreen = ({ navigation, route }) => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={{
                 width: windowWidth * 0.6,
                 height: windowWidth * 0.35,
@@ -89,7 +89,7 @@ const StartScreen = ({ navigation, route }) => {
                     navigationService.navigate('LoginScreen', { type: 'Private' })
                 }}
             />
-        </SafeAreaView>
+        </View>
     );
 };
 

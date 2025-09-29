@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StatusBar, Platform } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Color from "../Assets/Utilities/Color";
 import { windowWidth } from "../Utillity/utils";
 

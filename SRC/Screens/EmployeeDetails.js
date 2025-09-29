@@ -66,7 +66,7 @@ const EmployeeDetails = (props) => {
     const skillsArray = data?.skills ? JSON.parse(data.skills) : [];
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header isShadow={false} hideUser={false} showBack={true} headerColor={Color.white} backgroundColor={Color.themeBlue} />
             <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
                 <View style={styles.main_view}>
@@ -168,7 +168,7 @@ const EmployeeDetails = (props) => {
                 </View>
             </ScrollView>
             <CustomLoading show={showModal} setShow={setShowModal} />
-        </SafeAreaView>
+        </View>
     );
 };
 

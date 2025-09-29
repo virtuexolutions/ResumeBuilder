@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import Header from '../Components/Header'
 import { windowHeight, windowWidth } from '../Utillity/utils'
@@ -10,6 +10,7 @@ import { Rating } from 'react-native-ratings'
 import CustomButton from '../Components/CustomButton'
 import navigationService from '../navigationService'
 import { baseUrl } from '../Config'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AddToFavourite = props => {
     const data = props?.route?.params?.data;
@@ -56,7 +57,7 @@ const AddToFavourite = props => {
     const isSelected = selectedItems;
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header showBack hideUser={false} title={"Cart"} />
             <View style={styles.main_view}>
                 <View style={styles.header_view}>
@@ -156,7 +157,7 @@ const AddToFavourite = props => {
                     />
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

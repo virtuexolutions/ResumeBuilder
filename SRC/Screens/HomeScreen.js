@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
     FlatList,
-    SafeAreaView,
     ScrollView,
     StyleSheet,
     Text,
@@ -28,6 +27,7 @@ import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import ListEmphtyComponent from '../Components/ListEmphtyComponent';
 import { useIsFocused } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomeScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const HomeScreen = ({ navigation, route }) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View>
                 <View style={styles.header_view}>
                     <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} />
@@ -154,7 +154,7 @@ const HomeScreen = ({ navigation, route }) => {
                     />
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

@@ -1,5 +1,5 @@
-import {Icon} from 'native-base';
-import React, {useEffect, useState} from 'react';
+import { Icon } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,24 +7,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {PieChart} from 'react-native-gifted-charts';
-import {moderateScale} from 'react-native-size-matters';
+import { PieChart } from 'react-native-gifted-charts';
+import { moderateScale } from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Foundation from 'react-native-vector-icons/Foundation';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import navigationService from '../navigationService';
-import {windowHeight, windowWidth} from '../Utillity/utils';
-import {Get, Post} from '../Axios/AxiosInterceptorFunction';
-import {useIsFocused} from '@react-navigation/core';
+import { windowHeight, windowWidth } from '../Utillity/utils';
+import { Get, Post } from '../Axios/AxiosInterceptorFunction';
+import { useIsFocused } from '@react-navigation/core';
 import ScreenBoiler from '../Components/ScreenBoiler';
+import CustomSafeAreaView from '../Components/CustomSafeAreaView';
 
-const Dashboard = ({navigation, route}) => {
+const Dashboard = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
@@ -38,10 +39,10 @@ const Dashboard = ({navigation, route}) => {
   const token = useSelector(state => state.authReducer.token);
 
   const pieData = [
-    {value: numberOfEmployees, color: '#6366F1', text: numberOfEmployees},
-    {value: numberOfDepartment, color: '#2DD4BF', text: numberOfDepartment},
-    {value: numberOfDocuments, color: '#D1D5DB', text: '0'},
-    {value: numberOfDocuments, color: '#D946EF', text: '0'},
+    { value: numberOfEmployees, color: '#6366F1', text: numberOfEmployees },
+    { value: numberOfDepartment, color: '#2DD4BF', text: numberOfDepartment },
+    { value: numberOfDocuments, color: '#D1D5DB', text: '0' },
+    { value: numberOfDocuments, color: '#D946EF', text: '0' },
   ];
 
   useEffect(() => {
@@ -61,258 +62,254 @@ const Dashboard = ({navigation, route}) => {
   };
 
   return (
-    <ScreenBoiler
-      statusBarBackgroundColor={Color.white}
-      statusBarContentStyle={'dark-content'}>
-      <SafeAreaView style={styles.container}>
-        <Header hideUser={false} showBack={false} />
-        <View style={styles.main_view}>
-          <View style={styles.tab_view}>
-            <TouchableOpacity
-              onPress={() => setStatus('Dashboard')}
-              style={[
-                styles.tab_sub_view,
-                {
-                  borderBottomWidth: 2,
-                  borderBottomColor:
-                    status === 'Dashboard'
-                      ? Color.themeBlue
-                      : Color.veryLightGray,
-                },
-              ]}>
-              <Icon
-                name="document-text"
-                as={Ionicons}
-                size={moderateScale(40, 0.6)}
-                color={Color.themeBlue}
-              />
-              <CustomText style={styles.subtextStyle}>Dashboard</CustomText>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setStatus('Status')}
-              style={[
-                styles.tab_sub_view,
-                {
-                  borderBottomWidth: 2,
-                  borderBottomColor:
-                    status === 'Status' ? Color.themeBlue : Color.veryLightGray,
-                },
-              ]}>
-              <Icon
-                name="circular-graph"
-                as={Entypo}
-                size={moderateScale(40, 0.6)}
-                color={Color.themeBlue}
-              />
-              <CustomText style={styles.subtextStyle}>Status</CustomText>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              width: windowWidth,
-              height: 2,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
+    <View style={styles.container}>
+      <Header hideUser={false} showBack={false} />
+      <View style={styles.main_view}>
+        <View style={styles.tab_view}>
+          <TouchableOpacity
+            onPress={() => setStatus('Dashboard')}
+            style={[
+              styles.tab_sub_view,
+              {
+                borderBottomWidth: 2,
+                borderBottomColor:
+                  status === 'Dashboard'
+                    ? Color.themeBlue
+                    : Color.veryLightGray,
               },
-              shadowOpacity: 0.23,
-              shadowRadius: 2.62,
-              elevation: 4,
-              marginTop: moderateScale(10, 0.6),
-            }}
-          />
-          <View
-            style={{
-              paddingHorizontal: moderateScale(10, 0.6),
-            }}>
-            {status === 'Dashboard' ? (
-              <>
-                <View style={styles.sub_view}>
-                  <TouchableOpacity
-                    onPress={() => navigationService.navigate('AddEmployees')}
-                    style={styles.btn_view}>
-                    <CustomText isBold style={styles.heading}>
-                      {numberOfEmployees}
-                    </CustomText>
-                    <CustomText style={styles.text}>Employees</CustomText>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => navigationService.navigate('Department')}
-                    style={[
-                      styles.btn_view,
-                      {
-                        backgroundColor: '#31C3BB',
-                      },
-                    ]}>
-                    <CustomText isBold style={styles.heading}>
-                      {numberOfDepartment}
-                    </CustomText>
-                    <CustomText style={styles.text}>Department</CustomText>
-                  </TouchableOpacity>
-                </View>
-                <View
-                  style={[
-                    styles.sub_view,
-                    {
-                      marginTop: moderateScale(15, 0.6),
-                    },
-                  ]}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigationService.navigate('MyDrawer', {
-                        screen: 'Tamplates',
-                      })
-                    }
-                    style={[
-                      styles.btn_view,
-                      {
-                        backgroundColor: '#557AFF',
-                      },
-                    ]}>
-                    <CustomText isBold style={styles.heading}>
-                      {1}
-                    </CustomText>
-                    <CustomText style={styles.text}>categories</CustomText>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => navigationService.navigate('Documents')}
-                    style={[
-                      styles.btn_view,
-                      {
-                        backgroundColor: '#C131C3',
-                      },
-                    ]}>
-                    <CustomText isBold style={styles.heading}>
-                      {numberOfDocuments}
-                    </CustomText>
-                    <CustomText style={styles.text}>document</CustomText>
-                  </TouchableOpacity>
-                </View>
-              </>
-            ) : (
-              <>
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: moderateScale(40, 0.6),
-                  }}>
-                  <PieChart
-                    data={pieData}
-                    donut
-                    showText
-                    textColor="white"
-                    innerRadius={70}
-                    radius={160}
-                  />
-                </View>
-                <View
-                  style={[
-                    styles.row_view,
-                    {
-                      marginTop: moderateScale(30, 0.6),
-                    },
-                  ]}>
-                  <Icon
-                    name="team"
-                    as={AntDesign}
-                    size={moderateScale(30, 0.6)}
-                    color={'#6366F1'}
-                  />
-                  <CustomText
-                    style={[
-                      styles.graph_text,
-                      {
-                        color: '#6366F1',
-                        marginTop: moderateScale(10, 0.6),
-                        marginLeft: moderateScale(10, 0.6),
-                      },
-                    ]}>
-                    Number of Employees
-                  </CustomText>
-                </View>
-                <View
-                  style={[
-                    styles.row_view,
-                    {
-                      marginTop: moderateScale(10, 0.6),
-                    },
-                  ]}>
-                  <Icon
-                    name="building"
-                    as={FontAwesome5}
-                    size={moderateScale(30, 0.6)}
-                    color={'#2DD4BF'}
-                  />
-                  <CustomText
-                    style={[
-                      styles.graph_text,
-                      {
-                        color: '#2DD4BF',
-                        marginTop: moderateScale(10, 0.6),
-                        marginLeft: moderateScale(10, 0.6),
-                      },
-                    ]}>
-                    Number of Department
-                  </CustomText>
-                </View>
-                <View
-                  style={[
-                    styles.row_view,
-                    {
-                      marginTop: moderateScale(10, 0.6),
-                    },
-                  ]}>
-                  <Icon
-                    name="folder1"
-                    as={AntDesign}
-                    size={moderateScale(30, 0.6)}
-                    color={'#D1D5DB'}
-                  />
-                  <CustomText
-                    style={[
-                      styles.graph_text,
-                      {
-                        color: '#D1D5DB',
-                        marginTop: moderateScale(10, 0.6),
-                        marginLeft: moderateScale(10, 0.6),
-                      },
-                    ]}>
-                    Number of categories
-                  </CustomText>
-                </View>
-                <View
-                  style={[
-                    styles.row_view,
-                    {
-                      marginTop: moderateScale(10, 0.6),
-                    },
-                  ]}>
-                  <Icon
-                    name="page-doc"
-                    as={Foundation}
-                    size={moderateScale(30, 0.6)}
-                    color={'#D946EF'}
-                  />
-                  <CustomText
-                    style={[
-                      styles.graph_text,
-                      {
-                        color: '#D946EF',
-                        marginTop: moderateScale(10, 0.6),
-                        marginLeft: moderateScale(10, 0.6),
-                      },
-                    ]}>
-                    Number of documents
-                  </CustomText>
-                </View>
-              </>
-            )}
-          </View>
+            ]}>
+            <Icon
+              name="document-text"
+              as={Ionicons}
+              size={moderateScale(40, 0.6)}
+              color={Color.themeBlue}
+            />
+            <CustomText style={styles.subtextStyle}>Dashboard</CustomText>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setStatus('Status')}
+            style={[
+              styles.tab_sub_view,
+              {
+                borderBottomWidth: 2,
+                borderBottomColor:
+                  status === 'Status' ? Color.themeBlue : Color.veryLightGray,
+              },
+            ]}>
+            <Icon
+              name="circular-graph"
+              as={Entypo}
+              size={moderateScale(40, 0.6)}
+              color={Color.themeBlue}
+            />
+            <CustomText style={styles.subtextStyle}>Status</CustomText>
+          </TouchableOpacity>
         </View>
-      </SafeAreaView>
-    </ScreenBoiler>
+        <View
+          style={{
+            width: windowWidth,
+            height: 2,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.23,
+            shadowRadius: 2.62,
+            elevation: 4,
+            marginTop: moderateScale(10, 0.6),
+          }}
+        />
+        <View
+          style={{
+            paddingHorizontal: moderateScale(10, 0.6),
+          }}>
+          {status === 'Dashboard' ? (
+            <>
+              <View style={styles.sub_view}>
+                <TouchableOpacity
+                  onPress={() => navigationService.navigate('AddEmployees')}
+                  style={styles.btn_view}>
+                  <CustomText isBold style={styles.heading}>
+                    {numberOfEmployees}
+                  </CustomText>
+                  <CustomText style={styles.text}>Employees</CustomText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigationService.navigate('Department')}
+                  style={[
+                    styles.btn_view,
+                    {
+                      backgroundColor: '#31C3BB',
+                    },
+                  ]}>
+                  <CustomText isBold style={styles.heading}>
+                    {numberOfDepartment}
+                  </CustomText>
+                  <CustomText style={styles.text}>Department</CustomText>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={[
+                  styles.sub_view,
+                  {
+                    marginTop: moderateScale(15, 0.6),
+                  },
+                ]}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigationService.navigate('MyDrawer', {
+                      screen: 'Tamplates',
+                    })
+                  }
+                  style={[
+                    styles.btn_view,
+                    {
+                      backgroundColor: '#557AFF',
+                    },
+                  ]}>
+                  <CustomText isBold style={styles.heading}>
+                    {1}
+                  </CustomText>
+                  <CustomText style={styles.text}>categories</CustomText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigationService.navigate('Documents')}
+                  style={[
+                    styles.btn_view,
+                    {
+                      backgroundColor: '#C131C3',
+                    },
+                  ]}>
+                  <CustomText isBold style={styles.heading}>
+                    {numberOfDocuments}
+                  </CustomText>
+                  <CustomText style={styles.text}>document</CustomText>
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : (
+            <>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: moderateScale(40, 0.6),
+                }}>
+                <PieChart
+                  data={pieData}
+                  donut
+                  showText
+                  textColor="white"
+                  innerRadius={70}
+                  radius={160}
+                />
+              </View>
+              <View
+                style={[
+                  styles.row_view,
+                  {
+                    marginTop: moderateScale(30, 0.6),
+                  },
+                ]}>
+                <Icon
+                  name="team"
+                  as={AntDesign}
+                  size={moderateScale(30, 0.6)}
+                  color={'#6366F1'}
+                />
+                <CustomText
+                  style={[
+                    styles.graph_text,
+                    {
+                      color: '#6366F1',
+                      marginTop: moderateScale(10, 0.6),
+                      marginLeft: moderateScale(10, 0.6),
+                    },
+                  ]}>
+                  Number of Employees
+                </CustomText>
+              </View>
+              <View
+                style={[
+                  styles.row_view,
+                  {
+                    marginTop: moderateScale(10, 0.6),
+                  },
+                ]}>
+                <Icon
+                  name="building"
+                  as={FontAwesome5}
+                  size={moderateScale(30, 0.6)}
+                  color={'#2DD4BF'}
+                />
+                <CustomText
+                  style={[
+                    styles.graph_text,
+                    {
+                      color: '#2DD4BF',
+                      marginTop: moderateScale(10, 0.6),
+                      marginLeft: moderateScale(10, 0.6),
+                    },
+                  ]}>
+                  Number of Department
+                </CustomText>
+              </View>
+              <View
+                style={[
+                  styles.row_view,
+                  {
+                    marginTop: moderateScale(10, 0.6),
+                  },
+                ]}>
+                <Icon
+                  name="folder1"
+                  as={AntDesign}
+                  size={moderateScale(30, 0.6)}
+                  color={'#D1D5DB'}
+                />
+                <CustomText
+                  style={[
+                    styles.graph_text,
+                    {
+                      color: '#D1D5DB',
+                      marginTop: moderateScale(10, 0.6),
+                      marginLeft: moderateScale(10, 0.6),
+                    },
+                  ]}>
+                  Number of categories
+                </CustomText>
+              </View>
+              <View
+                style={[
+                  styles.row_view,
+                  {
+                    marginTop: moderateScale(10, 0.6),
+                  },
+                ]}>
+                <Icon
+                  name="page-doc"
+                  as={Foundation}
+                  size={moderateScale(30, 0.6)}
+                  color={'#D946EF'}
+                />
+                <CustomText
+                  style={[
+                    styles.graph_text,
+                    {
+                      color: '#D946EF',
+                      marginTop: moderateScale(10, 0.6),
+                      marginLeft: moderateScale(10, 0.6),
+                    },
+                  ]}>
+                  Number of documents
+                </CustomText>
+              </View>
+            </>
+          )}
+        </View>
+      </View>
+    </View>
   );
 };
 
@@ -320,13 +317,10 @@ export default Dashboard;
 
 const styles = StyleSheet.create({
   container: {
-    width: windowWidth,
-    height: windowHeight,
     backgroundColor: Color.white,
     paddingHorizontal: moderateScale(15, 0.3),
     // paddingVertical: moderateScale(20, 0.6),
     alignItems: 'center',
-    paddingTop: moderateScale(10, 0.6),
     // justifyContent : 'center'
   },
   main_view: {

@@ -15,9 +15,6 @@ import Color from '../Assets/Utilities/Color';
 
 
 const PDFView = ({ uri, setIsVisible, visible, id, setFileResponse, fileResponse, index }) => {
-  console.log("🚀 ~ PDFView ~ fileResponse:", fileResponse[index]?.uri)
-  // const [selectedIndex, setIndex] = useState(index);
-  // console.log('selectedIndex',selectedIndex);
   const token = useSelector((state) => state.authReducer.token)
   const [listModalVisible, setListModalVisible] = useState(false);
 

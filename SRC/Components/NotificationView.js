@@ -8,7 +8,6 @@ import { Icon } from 'native-base'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import CustomText from './CustomText'
 const NotificationView = ({ data }) => {
-    console.log("🚀 ~ NotificationView ~ data:", data)
     return (
         <View style={styles.main_view}>
             <View style={styles.image_view}>

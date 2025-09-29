@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, FlatList, Platform, SafeAreaView, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, Platform, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../Components/Header'
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import navigationService from '../navigationService'
 import { setUserData } from '../Store/slices/common'
 import FormWrapper from '../Components/FormWrapper'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CompanyDetails = () => {
     const dispatch = useDispatch();
@@ -75,7 +76,7 @@ const CompanyDetails = () => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Header showBack hideUser={false} title={'Add Company Details'} />
             <ScrollView showsVerticalScrollIndicator={false} >
                 <View style={styles.main_view}>
@@ -200,7 +201,6 @@ const CompanyDetails = () => {
                             placeholder={userData?.company_detail?.company_address ? userData?.company_detail?.company_address : 'company address'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
-
                             viewHeight={0.060}
                             border={1}
                             borderRadius={moderateScale(10, 0.6)}
@@ -258,7 +258,7 @@ const CompanyDetails = () => {
                 setShow={setShowModal}
                 setFileObject={setImage}
             />
-        </SafeAreaView>
+        </View>
     )
 }
 
