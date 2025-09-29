@@ -106,7 +106,7 @@ const Documents = () => {
                 }}>
                     <FlatList
                         horizontal
-                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
                         contentContainerStyle={styles.categoryListContainer}
                         data={category}
                         keyExtractor={(item) => item.id.toString()}
