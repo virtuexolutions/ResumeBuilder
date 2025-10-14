@@ -19,7 +19,6 @@ import { useSelector } from 'react-redux';
 import navigationService from '../navigationService';
 import { useIsFocused } from '@react-navigation/core';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Get } from '../Axios/AxiosInterceptorFunction';
 import { baseUrl } from '../Config';
 
@@ -32,9 +31,7 @@ const Tamplates = () => {
     const [dropDown, setDropDown] = useState(false);
     const [showCategory, setshowCategory] = useState('email');
     const [selectedCategoty, setSelectedCategory] = useState('email');
-    console.log("🚀 ~ Tamplates ~ selectedCategoty:", selectedCategoty)
     const [tamplates, setTamplates] = useState([]);
-    console.log("🚀 ~ Tamplates ~ tamplates:", tamplates)
     useEffect(() => {
         getTamplates()
     }, [selectedCategoty])
@@ -118,118 +115,6 @@ const Tamplates = () => {
             key: 'survey-form'
         },
     ];
-    // const resumeData = [
-    //     {
-    //         id: 1,
-    //         heading: 'Creative',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/resume.jpeg'),
-    //         type: 'creative',
-    //     },
-    // ];
-    // const coverletterData = [
-    //     {
-    //         id: 1,
-    //         heading: 'Creative',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/coverletter.png'),
-    //         type: 'coverLetter'
-    //     },
-    // ];
-    // const careerBlogdata = [
-    //     {
-    //         id: 1,
-    //         heading: 'Creative',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/blogbg.png'),
-    //         type: 'blog',
-    //     },
-    //     {
-    //         id: 2,
-    //         heading: 'welcome OnBoarding',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/onboard.jpeg'),
-    //         type: 'OnBoarding',
-    //         templeteType: 1,
-    //     },
-    //     {
-    //         id: 3,
-    //         heading: 'welcome OnBoarding',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/onboard3.jpeg'),
-    //         type: 'OnBoarding',
-    //         templeteType: 2,
-    //     },
-    // ];
-    // const cvdata = [
-    //     // {
-    //     //   id: 2,
-    //     //   heading: 'WelCome Email',
-    //     //   description:
-    //     //     'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //     //   image: require('../Assets/Images/email_tamplate2.jpeg'),
-    //     //   type: 'email',
-    //     //   tamplateType: 'companyEmail'
-    //     // },
-    //     {
-    //         id: 1,
-    //         heading: 'late attendence policy',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/email-temp.jpeg'),
-    //         tamplateType: 'attendencepolicy',
-    //         type: 'attendencepolicy',
-    //         price: 0
-    //     },
-    // ];
-    // const survayForm = [
-    //     {
-    //         id: 1,
-    //         heading: 'Survey Form',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/form_image.png'),
-    //         templeteType: 'SurveyForm'
-    //     },
-    //     {
-    //         id: 2,
-    //         heading: 'Customer Survey Form',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/customer_survey.jpeg'),
-    //         templeteType: 'customerForm'
-    //     },
-    //     {
-    //         id: 3,
-    //         heading: 'Feedback form',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/feedback_form.jpeg'),
-    //         templeteType: 'feedbackForm'
-    //     },
-    //     {
-    //         id: 4,
-    //         heading: 'Progress FeedBack Form',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/feedback_form2.jpeg'),
-    //         templeteType: 'progressForm'
-    //     },
-    //     {
-    //         id: 5,
-    //         heading: ' compliance checklist',
-    //         description:
-    //             'Land your dream job in the creative industries by using this creative resume template, which will make your application stand out.',
-    //         image: require('../Assets/Images/checklist.jpeg'),
-    //         templeteType: 'checklist',
-    //         type: 'checklist',
-    //     }
-    // ]
 
     return (
         <ImageBackground

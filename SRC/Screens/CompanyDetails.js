@@ -1,25 +1,22 @@
-import { ActivityIndicator, Alert, FlatList, Platform, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import Header from '../Components/Header'
-import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
-import Color from '../Assets/Utilities/Color'
+import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
-import TextInputWithTitle from '../Components/TextInputWithTitle'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useDispatch, useSelector } from 'react-redux'
+import Color from '../Assets/Utilities/Color'
+import { Post } from '../Axios/AxiosInterceptorFunction'
 import CustomButton from '../Components/CustomButton'
 import CustomImage from '../Components/CustomImage'
-import { Icon } from 'native-base'
+import FormWrapper from '../Components/FormWrapper'
+import Header from '../Components/Header'
 import ImagePickerModal from '../Components/ImagePickerModal'
-import { Post } from '../Axios/AxiosInterceptorFunction'
-import { useDispatch, useSelector } from 'react-redux'
+import TextInputWithTitle from '../Components/TextInputWithTitle'
 import navigationService from '../navigationService'
 import { setUserData } from '../Store/slices/common'
-import FormWrapper from '../Components/FormWrapper'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
 
 const CompanyDetails = () => {
     const dispatch = useDispatch();
@@ -222,21 +219,6 @@ const CompanyDetails = () => {
                             borderColor={Color.themeBlue}
                             keyboardType={'numeric'}
                         />
-                        {/* <TextInputWithTitle
-                        title={"Enter tax indentification number"}
-                        iconName={'work'}
-                        iconType={MaterialIcons}
-                        color={Color.veryLightGray}
-                        setText={setVerificationNumber}
-                        value={tax_verification_number}
-                        placeholder={'website url'}
-                        placeholderColor={Color.veryLightGray}
-                        viewWidth={0.85}
-                        viewHeight={0.060}
-                        border={1}
-                        borderRadius={moderateScale(10, 0.6)}
-                        borderColor={Color.themeBlue}
-                    /> */}
                         <CustomButton
                             text={loading ? <ActivityIndicator color={'white'} size={moderateScale(12, 0.2)} /> : 'Submit'}
                             width={windowWidth * 0.85}
@@ -270,14 +252,11 @@ const styles = StyleSheet.create({
         height: windowHeight,
         backgroundColor: '#F9F9F9',
         paddingHorizontal: moderateScale(15, 0.3),
-        // paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),
-        // justifyContent : 'center'
     },
     main_view: {
         paddingVertical: moderateScale(10, 0.6),
-        // paddingHorizontal: moderateScale(15, 0.6)
     },
     search_bar_view: {
         width: windowWidth * 0.94,

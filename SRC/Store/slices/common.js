@@ -19,6 +19,11 @@ const initialState = {
   rideInfo: {},
   type: '',
   fingerPrintEnabled: false,
+  error: {
+    visible: false,
+    title: '',
+    message: ''
+  }
 };
 
 const CommonSlice = createSlice({
@@ -229,6 +234,17 @@ const CommonSlice = createSlice({
       state.fingerPrintEnabled = action?.payload;
       console.log(state.fingerPrintEnabled)
     },
+    showErrorModal(state, action) {
+      console.log( state.error, ' state.error')
+      state.error = {
+        visible: true,
+        title: action.payload?.title || "Error",
+        message: action.payload?.message || 'Something went wrong'
+      }
+    },
+    hideErrorModal(state) {
+      state.error.visible = false
+    },
   },
 });
 
@@ -260,7 +276,9 @@ export const {
   setDropoffLocation,
   setRideinfo,
   setUserType,
-  setFingerPrint
+  setFingerPrint,
+  showErrorModal,
+  hideErrorModal
 } = CommonSlice.actions;
 
 export default CommonSlice.reducer;

@@ -1,17 +1,14 @@
-import { ActivityIndicator, FlatList, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import Header from '../Components/Header'
-import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
+import { ActivityIndicator, FlatList, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
-import Color from '../Assets/Utilities/Color'
-import { Icon } from 'native-base'
-import MaterialCommunityIcons
-    from 'react-native-vector-icons/MaterialCommunityIcons'
-import CustomText from '../Components/CustomText'
-import CustomButton from '../Components/CustomButton'
 import { useSelector } from 'react-redux'
+import Color from '../Assets/Utilities/Color'
 import { Post } from '../Axios/AxiosInterceptorFunction'
+import CustomButton from '../Components/CustomButton'
+import CustomText from '../Components/CustomText'
+import Header from '../Components/Header'
 import navigationService from '../navigationService'
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
 
 
 const CustomerSurveyForm = props => {

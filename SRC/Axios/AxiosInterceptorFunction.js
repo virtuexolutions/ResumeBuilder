@@ -2,6 +2,8 @@ import axios from 'axios';
 import { Alert } from 'react-native';
 // import NetworkErrorAlert from "../Components/NetworkErrorAlert";
 import { baseUrl } from '../Config';
+import { store } from '../Store';
+import { showErrorModal } from '../Store/slices/common';
 
 /**
  * @description Sends a Get request to api
@@ -84,35 +86,15 @@ let Post = async (route, data, headers, showAlert = true) => {
     let networkError = error.message === 'Network Error';
     if (showAlert == true) {
       if (networkError === true) {
-        console.log('sadasdsad');
-        Alert.alert(
-          error.message,
-          'Please Check Your Network Connection',
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                console.log('OK Pressed');
-              },
-            },
-          ],
-          { cancelable: false },
-        );
-        // <NetworkErrorAlert/>
+        store.dispatch(showErrorModal({
+          title: 'Network Error',
+          message: 'Please check Your Connection'
+        }))
       } else {
-        Alert.alert(
-          'Submission Errors',
-          error.response.data.message,
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                console.log('OK Pressed');
-              },
-            },
-          ],
-          { cancelable: false },
-        );
+        store.dispatch(showErrorModal({
+          title: 'Submission Error',
+          message: error?.response?.data?.message || "Something went wrong!"
+        }))
       }
     }
     return undefined;

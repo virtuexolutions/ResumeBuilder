@@ -326,6 +326,8 @@ const styles = StyleSheet.create({
   main_view: {
     paddingVertical: moderateScale(10, 0.6),
     paddingHorizontal: moderateScale(15, 0.6),
+    height: windowHeight,
+    backgroundColor: Color.white
   },
   welcomeText: {
     fontSize: moderateScale(40, 0.3),

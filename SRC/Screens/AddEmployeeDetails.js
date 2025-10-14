@@ -1,28 +1,26 @@
-import { ActivityIndicator, Alert, FlatList, I18nManager, Platform, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { useIsFocused } from '@react-navigation/core'
+import moment from 'moment'
+import { Icon } from 'native-base'
 import React, { useEffect, useState } from 'react'
-import Header from '../Components/Header'
-import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
-import Color from '../Assets/Utilities/Color'
+import { ActivityIndicator, Alert, I18nManager, Platform, ScrollView, StyleSheet, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import DatePicker from 'react-native-date-picker'
 import { moderateScale } from 'react-native-size-matters'
-import TextInputWithTitle from '../Components/TextInputWithTitle'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Entypo from 'react-native-vector-icons/Entypo'
-import CustomButton from '../Components/CustomButton'
-import { Get, Post } from '../Axios/AxiosInterceptorFunction'
 import { useSelector } from 'react-redux'
-import navigationService from '../navigationService'
-import DropDown from '../Components/DropDown'
-import { useIsFocused } from '@react-navigation/core'
+import Color from '../Assets/Utilities/Color'
+import { Get, Post } from '../Axios/AxiosInterceptorFunction'
+import CustomButton from '../Components/CustomButton'
 import CustomText from '../Components/CustomText'
+import DropDown from '../Components/DropDown'
 import FormWrapper from '../Components/FormWrapper'
-import { Icon } from 'native-base'
-import DatePicker from 'react-native-date-picker'
-import moment from 'moment'
-import ScreenBoiler from '../Components/ScreenBoiler'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '../Components/Header'
+import TextInputWithTitle from '../Components/TextInputWithTitle'
+import navigationService from '../navigationService'
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
 
 const AddEmployeeDetails = (props) => {
     const { isDetails, data } = props?.route?.params;
@@ -220,21 +218,6 @@ const AddEmployeeDetails = (props) => {
                                 color: Color.veryLightGray
                             }}>{date ? moment(date).format('DD MMM YYYY') : 'Choose Date'}</CustomText>
                         </TouchableOpacity>
-                        {/* <TextInputWithTitle
-                            title={"Enter Joing Date : "}
-                            iconName={'date'}
-                            iconType={Fontisto}
-                            color={Color.veryLightGray}
-                            setText={setJoiningDate}
-                            value={joining_date}
-                            placeholder={'joining date '}
-                            placeholderColor={Color.veryLightGray}
-                            viewWidth={0.9}
-                            viewHeight={0.060}
-                            border={1}
-                            borderRadius={moderateScale(10, 0.6)}
-                            borderColor={Color.themeBlue}
-                        /> */}
                         <TextInputWithTitle
                             title={"Enter Designation Name : "}
                             iconName={'work'}
@@ -318,10 +301,8 @@ const styles = StyleSheet.create({
         height: windowHeight,
         backgroundColor: '#F9F9F9',
         paddingHorizontal: moderateScale(15, 0.3),
-        // paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),
-        // justifyContent : 'center'
     },
     main_view: {
         paddingVertical: moderateScale(10, 0.6),

@@ -70,7 +70,6 @@ const ChecklistScreen = props => {
         </View>
 
         <View style={styles.table}>
-          {/* Table Header */}
           <View style={[styles.tableRow, styles.headerRow]}>
             <CustomText
               style={[
@@ -88,7 +87,6 @@ const ChecklistScreen = props => {
             </CustomText>
           </View>
 
-          {/* Table Rows */}
           {data?.skills?.map((item, index) => {
             return (
               <View key={index} style={styles.tableRow}>
@@ -141,14 +139,11 @@ const styles = StyleSheet.create({
   container: {
     padding: moderateScale(20, 0.6),
     backgroundColor: 'white',
-    // justifyContent :'center' ,
     marginTop: moderateScale(20, 0.6),
-    // alignItems: 'center',
     width: windowWidth * 0.96,
   },
   title: {
     fontSize: moderateScale(16, 0.6),
-    // fontWeight: 'bold',
     marginVertical: moderateScale(20, 0.6),
     textAlign: 'center',
   },

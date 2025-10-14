@@ -56,10 +56,8 @@ const styles = StyleSheet.create({
         height: windowHeight,
         backgroundColor: '#F9F9F9',
         paddingHorizontal: moderateScale(15, 0.3),
-        // paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),
-        // justifyContent : 'center'
     },
     main_view: {
         paddingVertical: moderateScale(10, 0.6),

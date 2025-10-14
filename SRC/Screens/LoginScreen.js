@@ -30,6 +30,11 @@ const LoginScreen = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const user_type = useSelector(state => state.authReducer.role)
   console.log("🚀 ~ LoginScreen ~ user_type:", user_type)
+  const modalVisible = useSelector(state => state.commonReducer.modalVisible);
+  const modalMessage = useSelector(state => state.commonReducer.modalMessage);
+  console.log("🚀 ~ LoginScreen ~ modalVisible:", modalVisible, modalMessage)
+
+
 
   const Login = async () => {
     const url = "login";

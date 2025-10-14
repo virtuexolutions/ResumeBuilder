@@ -19,6 +19,7 @@ import {
 } from './SRC/Utillity/utils';
 import AppNavigator from './SRC/appNavigation';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import GlobalErrorModal from './SRC/Components/ErrorModal';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <NativeBaseProvider>
             <MainContainer />
+            <GlobalErrorModal />
           </NativeBaseProvider>
         </PersistGate>
       </Provider>

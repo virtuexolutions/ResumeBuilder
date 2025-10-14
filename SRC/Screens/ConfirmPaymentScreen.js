@@ -1,17 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import Header from '../Components/Header'
-import { windowHeight, windowWidth } from '../Utillity/utils'
-import Color from '../Assets/Utilities/Color'
-import { moderateScale } from 'react-native-size-matters'
-import CardField from '@stripe/stripe-react-native';
-import CustomImage from '../Components/CustomImage'
-import TextInputWithTitle from '../Components/TextInputWithTitle'
-import CustomButton from '../Components/CustomButton'
-import navigationService from '../navigationService'
 import LottieView from 'lottie-react-native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { moderateScale } from 'react-native-size-matters'
+import Color from '../Assets/Utilities/Color'
+import CustomButton from '../Components/CustomButton'
 import CustomText from '../Components/CustomText'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import navigationService from '../navigationService'
+import { windowHeight, windowWidth } from '../Utillity/utils'
 
 const ConfirmPaymentScreen = () => {
     return (

@@ -10,8 +10,6 @@ import Header from '../Components/Header'
 import TextInputWithTitle from '../Components/TextInputWithTitle'
 import navigationService from '../navigationService'
 import { windowHeight, windowWidth } from '../Utillity/utils'
-import { SafeAreaView } from 'react-native-safe-area-context';
-
 const CheckOutScreen = () => {
     const isFocused = useIsFocused()
     const [CheckOutScreens, setCheckOutScreens] = useState([])

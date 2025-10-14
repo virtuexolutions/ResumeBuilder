@@ -115,11 +115,6 @@ const AddToFavourite = props => {
                             }}>{`$ ${data?.price}`}</CustomText>
                         </View>
                     </TouchableOpacity>
-
-                    {/* )
-                        })}
-
-                    /> */}
                 </View>
                 <View style={styles.bottom_view}>
                     <View style={styles.row}>

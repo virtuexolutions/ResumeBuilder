@@ -1,19 +1,18 @@
-import { ActivityIndicator, Alert, FlatList, Platform ,StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import Header from '../Components/Header'
-import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
-import Color from '../Assets/Utilities/Color'
+import { ActivityIndicator, Alert, Platform, StyleSheet, ToastAndroid, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
-import TextInputWithTitle from '../Components/TextInputWithTitle'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import CustomButton from '../Components/CustomButton'
-import { Post } from '../Axios/AxiosInterceptorFunction'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useSelector } from 'react-redux'
+import Color from '../Assets/Utilities/Color'
+import { Post } from '../Axios/AxiosInterceptorFunction'
+import CustomButton from '../Components/CustomButton'
+import Header from '../Components/Header'
+import TextInputWithTitle from '../Components/TextInputWithTitle'
 import navigationService from '../navigationService'
-import { useNavigation } from '@react-navigation/core'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
 
 const AddDepartment = (props) => {
     const { isDepartment, data } = props?.route?.params;
@@ -190,7 +189,6 @@ const AddDepartment = (props) => {
                     borderRadius={moderateScale(10, 0.3)}
                     textColor={Color.white}
                     bgColor={Color.themeBlue}
-                    // marginTop={moderateScale(30, 0.6)}
                     style={{
                         position: 'absolute',
                         bottom: 25

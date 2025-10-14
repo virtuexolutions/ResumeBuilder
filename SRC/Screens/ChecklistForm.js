@@ -1,32 +1,27 @@
+import { Icon } from 'native-base';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   FlatList,
   ImageBackground,
-  Platform,
   ScrollView,
   StyleSheet,
-  Text,
-  ToastAndroid,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import React, { useState } from 'react';
-import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
-import Header from '../Components/Header';
-import Color from '../Assets/Utilities/Color';
-import CustomText from '../Components/CustomText';
 import { moderateScale } from 'react-native-size-matters';
-import { Icon } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import TextInputWithTitle from '../Components/TextInputWithTitle';
-import CustomButton from '../Components/CustomButton';
-import navigationService from '../navigationService';
-import { Post } from '../Axios/AxiosInterceptorFunction';
 import { useSelector } from 'react-redux';
+import Color from '../Assets/Utilities/Color';
+import CustomButton from '../Components/CustomButton';
 import CustomImage from '../Components/CustomImage';
+import CustomText from '../Components/CustomText';
+import Header from '../Components/Header';
 import ImagePickerModal from '../Components/ImagePickerModal';
+import TextInputWithTitle from '../Components/TextInputWithTitle';
+import navigationService from '../navigationService';
+import { windowHeight, windowWidth } from '../Utillity/utils';
 
 const ChecklistForm = props => {
   const token = useSelector(state => state.authReducer.token);
@@ -527,8 +522,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: windowHeight,
     justifyContent: 'center',
-    // alignItems: 'left',
-    // paddingHorizontal: moderateScale(10, 0.6),
   },
   image_con: {
     height: windowHeight * 0.08,
