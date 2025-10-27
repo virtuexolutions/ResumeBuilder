@@ -1,20 +1,14 @@
-import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Header from '../Components/Header'
-import { windowHeight, windowWidth } from '../Utillity/utils'
-import Color from '../Assets/Utilities/Color'
-import { moderateScale } from 'react-native-size-matters'
-import TextInputWithTitle from '../Components/TextInputWithTitle'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import CustomButton from '../Components/CustomButton'
-import CardComponent from '../Components/CardComponent'
-import navigationService from '../navigationService'
-import { Get } from '../Axios/AxiosInterceptorFunction'
-import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/core'
-import { date } from 'yup'
+import React, { useState } from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { moderateScale } from 'react-native-size-matters'
+import { useSelector } from 'react-redux'
+import Color from '../Assets/Utilities/Color'
 import CustomText from '../Components/CustomText'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '../Components/Header'
+import navigationService from '../navigationService'
+import { windowHeight, windowWidth } from '../Utillity/utils'
+
 
 const Categories = () => {
     const isFocused = useIsFocused()
@@ -41,8 +35,7 @@ const Categories = () => {
                             <CustomText isBold style={{ color: Color.themeBlue, fontSize: moderateScale(15, 0.6) }}>{item?.text}</CustomText>
                         </TouchableOpacity>
                     )
-                })
-                }
+                })}
             </View>
         </View>
     )

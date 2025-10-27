@@ -40,6 +40,8 @@ const GlobalErrorModal = () => {
                                 autoPlay
                                 loop
                                 style={{
+
+                                    
                                     height: '100%',
                                     width: 200,
                                     alignItems: 'center',

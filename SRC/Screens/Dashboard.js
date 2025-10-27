@@ -41,8 +41,8 @@ const Dashboard = ({ navigation, route }) => {
   const pieData = [
     { value: numberOfEmployees, color: '#6366F1', text: numberOfEmployees },
     { value: numberOfDepartment, color: '#2DD4BF', text: numberOfDepartment },
-    { value: numberOfDocuments, color: '#D1D5DB', text: '0' },
-    { value: numberOfDocuments, color: '#D946EF', text: '0' },
+    { value: numberOfDocuments, color: '#D1D5DB', text: numberOfEmployees },
+    { value: numberOfDocuments, color: '#D946EF', text: numberOfDocuments },
   ];
 
   useEffect(() => {
