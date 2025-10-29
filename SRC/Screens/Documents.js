@@ -143,6 +143,7 @@ const Documents = () => {
                         keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
                         ListEmptyComponent={<ListEmphtyComponent />
                         }
+                        showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => {
                             const nameInitial = (item?.Documents_name || ' ')[0]?.toUpperCase() || '?';
                             return (

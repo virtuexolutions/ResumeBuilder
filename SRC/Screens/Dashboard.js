@@ -28,7 +28,7 @@ import CustomSafeAreaView from '../Components/CustomSafeAreaView';
 const Dashboard = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-
+ 
   const fromSignup = route?.params?.fromSignup;
   const [numberOfEmployees, setnumberOfEmployees] = useState(0);
   const [numberOfDepartment, setnumberOfDepartment] = useState(0);
