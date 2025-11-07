@@ -125,7 +125,10 @@ const styles = StyleSheet.create({
     },
     main_view: {
         paddingVertical: moderateScale(10, 0.6),
-        paddingHorizontal: moderateScale(15, 0.6)
+        paddingHorizontal: moderateScale(15, 0.6),
+        width: windowWidth,
+        height: windowHeight,
+        backgroundColor: Color.white
     },
     search_bar_view: {
         width: windowWidth * 0.94,

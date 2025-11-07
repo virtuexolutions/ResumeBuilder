@@ -220,6 +220,8 @@ const styles = ScaledSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: moderateScale(10, 0.3),
     alignItems: 'center',
+    paddingVertical: moderateScale(10, 0.6),
+    backgroundColor: '#F9F9F9',
   },
   notificationCircle: {
     position: 'absolute',

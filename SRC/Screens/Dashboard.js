@@ -22,13 +22,11 @@ import navigationService from '../navigationService';
 import { windowHeight, windowWidth } from '../Utillity/utils';
 import { Get, Post } from '../Axios/AxiosInterceptorFunction';
 import { useIsFocused } from '@react-navigation/core';
-import ScreenBoiler from '../Components/ScreenBoiler';
-import CustomSafeAreaView from '../Components/CustomSafeAreaView';
 
 const Dashboard = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
- 
+
   const fromSignup = route?.params?.fromSignup;
   const [numberOfEmployees, setnumberOfEmployees] = useState(0);
   const [numberOfDepartment, setnumberOfDepartment] = useState(0);
@@ -66,7 +64,7 @@ const Dashboard = ({ navigation, route }) => {
       <Header hideUser={false} showBack={false} />
       <View style={styles.main_view}>
         <View style={styles.tab_view}>
-          <TouchableOpacity
+          <TouchableOpacity 
             onPress={() => setStatus('Dashboard')}
             style={[
               styles.tab_sub_view,

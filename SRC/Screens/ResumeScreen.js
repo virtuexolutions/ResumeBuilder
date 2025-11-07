@@ -97,6 +97,6 @@ export default ResumeScreen;
 const styles = StyleSheet.create({
   bg_container: {
     width: windowWidth,
-    height: windowHeight,
+    flex: 1
   },
 });

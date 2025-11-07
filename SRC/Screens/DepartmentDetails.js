@@ -29,6 +29,7 @@ import CustomLoading from '../Components/CustomLoading';
 
 const DepartmentDetails = (props) => {
     const data = props?.route?.params?.data;
+    console.log(data, 'asjdajsdj')
     const dispatch = useDispatch();
     const userData = useSelector(state => state.commonReducer.userData);
     const token = useSelector(state => state.authReducer.token);
@@ -62,14 +63,14 @@ const DepartmentDetails = (props) => {
 
     return (
         <View style={styles.container}>
-            <Header isShadow={false} hideUser={false} showBack={true} headerColor={Color.white} backgroundColor={Color.themeBlue} />
+            <Header isShadow={false} hideUser={false} showBack={true} headerColor={Color.white} />
             <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
                 <View style={styles.main_view}>
                     <View style={styles.profile_view}>
                         <CustomText isBold style={styles.heading}>{data?.department_name}</CustomText>
-                        <CustomText style={[styles.text,{
+                        <CustomText style={[styles.text, {
                             textTransform: 'uppercase',
-                            width : '80%',
+                            width: '80%',
                             textAlign: 'center'
                         }]}>{data?.department_type}</CustomText>
                         <View style={[styles.row_view, { marginTop: moderateScale(10, 0.6) }]}>
@@ -102,7 +103,7 @@ const DepartmentDetails = (props) => {
                         <CustomText>{data?.number_of_employees_in_depart}</CustomText>
                     </View>
                     <CustomText isBold style={styles.sub_heading}>Team Members</CustomText>
-                    <FlatList data={data?.employee}
+                    <FlatList data={data?.employees}
                         ListEmptyComponent={() => <ListEmphtyComponent />}
                         renderItem={({ item, index }) => {
                             return (

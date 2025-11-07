@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -10,20 +10,20 @@ import {
   ToastAndroid,
   View,
 } from 'react-native';
-import {moderateScale} from 'react-native-size-matters';
-import {useSelector} from 'react-redux';
+import { moderateScale } from 'react-native-size-matters';
+import { useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
-import {Post} from '../Axios/AxiosInterceptorFunction';
+import { Post } from '../Axios/AxiosInterceptorFunction';
 import CustomButton from '../Components/CustomButton';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import navigationService from '../navigationService';
-import {apiHeader, windowHeight, windowWidth} from '../Utillity/utils';
+import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import ShareEmployeeModal from '../Components/ShareEmployeeModal';
 import CustomResponse from '../Components/CustomResponse';
 import OptionModal from '../Components/OptionModal';
 import ResponseModal from '../Components/ReponseModal';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const FinalEmail = props => {
   const data = props?.route?.params?.data;
@@ -50,7 +50,7 @@ const FinalEmail = props => {
       Platform.OS == 'android'
         ? ToastAndroid.show('Saved SuccessFully', ToastAndroid.SHORT)
         : Alert.alert(' Saved SuccessFully');
-      navigation.navigate('MyDrawer', {screen: 'Tamplates'});
+      navigation.navigate('MyDrawer', { screen: 'Tamplates' });
     }
   };
 
@@ -59,7 +59,7 @@ const FinalEmail = props => {
       style={styles.bg_container}
       source={require('../Assets/Images/bg.png')}>
       <Header
-        title={fromSave === true ? '' : 'Edit cover letter'}
+        title={fromSave === true ? '' : ''}
         backBtnStyle={Color.white}
         color={Color.white}
         hideUser={true}
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   bg_container: {
     width: windowWidth,
     alignItems: 'center',
-    height: windowHeight,
+    flex: 1,
     justifyContent: 'center',
   },
   main_view: {

@@ -5,7 +5,6 @@ import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import Color from '../Assets/Utilities/Color';
 import { moderateScale } from 'react-native-size-matters';
 import CustomText from './CustomText';
-import { mode } from 'native-base/lib/typescript/theme/tools';
 import { Icon } from 'native-base';
 import Entypo from 'react-native-vector-icons/Entypo'
 import { Get, Post } from '../Axios/AxiosInterceptorFunction';
@@ -375,19 +374,6 @@ const OptionModal = ({ show, setShow, style, selectedType, item }) => {
                                 <View style={{
                                     height: windowHeight * 0.43,
                                 }}>
-                                    {/* <TextInputWithTitle
-                                        title={"Add Title : "}
-                                        color={Color.veryLightGray}
-                                        // setText={setLeadName}
-                                        // value={lead_name}
-                                        placeholder={'write your title here'}
-                                        placeholderColor={Color.veryLightGray}
-                                        viewWidth={0.8}
-                                        viewHeight={0.060}
-                                        border={1}
-                                        borderRadius={moderateScale(10, 0.6)}
-                                        borderColor={Color.themeBlue}
-                                    /> */}
                                     <TextInputWithTitle
                                         title={"Add Summary : "}
                                         color={Color.veryLightGray}

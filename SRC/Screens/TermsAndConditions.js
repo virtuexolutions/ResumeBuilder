@@ -61,8 +61,9 @@ const styles = ScaledSheet.create({
   },
   main_container: {
     width: windowWidth,
-    height: windowHeight,
-    backgroundColor: '#F9F9F9',
+    // height: windowHeight,
+    flex: 1,
+    backgroundColor: Color.white,
     paddingTop: moderateScale(10, 0.6),
   },
 });

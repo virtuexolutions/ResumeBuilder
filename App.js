@@ -21,6 +21,10 @@ import AppNavigator from './SRC/appNavigation';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import GlobalErrorModal from './SRC/Components/ErrorModal';
 
+// import { LogBox } from 'react-native';
+
+// LogBox.ignoreAllLogs();
+
 const App = () => {
   return (
     <StripeProvider

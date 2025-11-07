@@ -48,83 +48,89 @@ const Profile = () => {
     }
     return (
         <View style={styles.container}>
-            <ScrollView showsVerticalScrollIndicator={false} style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{
+                flexGrow: 1,
+                backgroundColor: Color.white
+            }}>
                 <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} backgroundColor={Color.themeBlue} />
-                <View style={styles.header_view}>
-                    <View style={styles.header_subview}>
-                        <View style={styles.profile_view}>
-                            <CustomImage source={{ uri: `${baseUrl}${userData?.company_detail?.company_logo}` }} style={styles.image_style} />
-                        </View>
-                        <View style={styles.text_view}>
-                            <CustomText isBold style={styles.heading}>{userData?.company_detail?.business_email_address}</CustomText>
-                            <CustomText style={styles.subtextStyle}>{userData?.company_detail?.company_name}</CustomText>
-                        </View>
-                        <View style={styles.icon_view}>
-                            <View style={styles.icon}>
-                                <Icon name='mail' as={Feather} size={moderateScale(25, 0.3)}
-                                    color={Color.themeBlue} />
+                <View style={styles.main_view}>
+
+                    <View style={styles.header_view}>
+                        <View style={styles.header_subview}>
+                            <View style={styles.profile_view}>
+                                <CustomImage source={{ uri: `${baseUrl}${userData?.company_detail?.company_logo}` }} style={styles.image_style} />
                             </View>
-                            <View style={styles.icon}>
+                            <View style={styles.text_view}>
+                                <CustomText isBold style={styles.heading}>{userData?.company_detail?.business_email_address}</CustomText>
+                                <CustomText style={styles.subtextStyle}>{userData?.company_detail?.company_name}</CustomText>
+                            </View>
+                            <View style={styles.icon_view}>
+                                <View style={styles.icon}>
+                                    <Icon name='mail' as={Feather} size={moderateScale(25, 0.3)}
+                                        color={Color.themeBlue} />
+                                </View>
+                                <View style={styles.icon}>
+                                    <Icon name='call-outline' as={Ionicons} size={moderateScale(25, 0.3)}
+                                        color={Color.themeBlue} />
+                                </View>
+                                <View style={styles.icon}>
+                                    <Icon name='building' as={FontAwesome5} size={moderateScale(25, 0.3)}
+                                        color={Color.themeBlue} />
+                                </View> <View style={styles.icon}>
+                                    <Icon name='user-edit' as={FontAwesome5} size={moderateScale(25, 0.3)}
+                                        color={Color.themeBlue} />
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[styles.sub_main_view, { marginTop: moderateScale(50, 0.6) }]}>
+                        <CustomText isBold style={styles.heading}>Email</CustomText>
+                        <View style={[styles.row_view, {
+                            marginTop: moderateScale(10, 0.6)
+                        }]}>
+                            <View style={styles.detail_icon}>
+                                <Icon name='mail' as={Feather} size={moderateScale(20, 0.3)}
+                                    color={Color.white} />
+                            </View>
+                            <View style={{
+                                marginLeft: moderateScale(10, 0.6)
+                            }}>
+                                <CustomText style={styles.des}>offical</CustomText>
+                                <CustomText style={[styles.text, {
+                                    textTransform: 'lowercase'
+                                }]}>{userData?.company_detail?.business_email_address}</CustomText>
+                            </View>
+                        </View>
+                        <View style={styles.line} />
+                        <CustomText isBold style={styles.heading}>Company Details</CustomText>
+                        <PointsView name={'Company Name:  ' + userData?.company_detail?.company_name} />
+                        <PointsView name={'Company Email Address:  ' + userData?.company_detail?.business_email_address} />
+                        <PointsView name={'Bussiness Type :  ' + userData?.company_detail?.business_type} />
+                        <PointsView name={'Company Address :  ' + userData?.company_detail?.company_address} />
+                        <PointsView name={'Industry:  ' + userData?.company_detail?.industry} />
+                        <PointsView name={'Company Phone Number :  ' + userData?.company_detail?.company_number} />
+                        <PointsView name={'Number of Employees:  ' + userData?.company_detail?.number_of_employees + ' Employees'} />
+                        <View style={styles.line} />
+                        <CustomText isBold style={styles.heading}>Mobile Number</CustomText>
+                        <View style={[styles.row_view, {
+                            marginTop: moderateScale(10, 0.6)
+                        }]}>
+                            <View style={styles.detail_icon}>
                                 <Icon name='call-outline' as={Ionicons} size={moderateScale(25, 0.3)}
-                                    color={Color.themeBlue} />
+                                    color={Color.white} />
                             </View>
-                            <View style={styles.icon}>
-                                <Icon name='building' as={FontAwesome5} size={moderateScale(25, 0.3)}
-                                    color={Color.themeBlue} />
-                            </View> <View style={styles.icon}>
-                                <Icon name='user-edit' as={FontAwesome5} size={moderateScale(25, 0.3)}
-                                    color={Color.themeBlue} />
+                            <View style={{
+                                marginLeft: moderateScale(10, 0.6)
+                            }}>
+                                <CustomText style={[styles.text, {
+                                    textTransform: 'lowercase'
+                                }]}>{userData?.company_detail?.company_number}</CustomText>
                             </View>
                         </View>
+                        <View style={styles.line} />
                     </View>
+                    <View style={{ height: windowHeight * 0.1 }} />
                 </View>
-                <View style={[styles.main_view, { marginTop: moderateScale(50, 0.6) }]}>
-                    <CustomText isBold style={styles.heading}>Email</CustomText>
-                    <View style={[styles.row_view, {
-                        marginTop: moderateScale(10, 0.6)
-                    }]}>
-                        <View style={styles.detail_icon}>
-                            <Icon name='mail' as={Feather} size={moderateScale(20, 0.3)}
-                                color={Color.white} />
-                        </View>
-                        <View style={{
-                            marginLeft: moderateScale(10, 0.6)
-                        }}>
-                            <CustomText style={styles.des}>offical</CustomText>
-                            <CustomText style={[styles.text, {
-                                textTransform: 'lowercase'
-                            }]}>{userData?.company_detail?.business_email_address}</CustomText>
-                        </View>
-                    </View>
-                    <View style={styles.line} />
-                    <CustomText isBold style={styles.heading}>Company Details</CustomText>
-                    <PointsView name={'Company Name:  ' + userData?.company_detail?.company_name} />
-                    <PointsView name={'Company Email Address:  ' + userData?.company_detail?.business_email_address} />
-                    <PointsView name={'Bussiness Type :  ' + userData?.company_detail?.business_type} />
-                    <PointsView name={'Company Address :  ' + userData?.company_detail?.company_address} />
-                    <PointsView name={'Industry:  ' + userData?.company_detail?.industry} />
-                    <PointsView name={'Company Phone Number :  ' + userData?.company_detail?.company_number} />
-                    <PointsView name={'Number of Employees:  ' + userData?.company_detail?.number_of_employees + ' Employees'} />
-                    <View style={styles.line} />
-                    <CustomText isBold style={styles.heading}>Mobile Number</CustomText>
-                    <View style={[styles.row_view, {
-                        marginTop: moderateScale(10, 0.6)
-                    }]}>
-                        <View style={styles.detail_icon}>
-                            <Icon name='call-outline' as={Ionicons} size={moderateScale(25, 0.3)}
-                                color={Color.white} />
-                        </View>
-                        <View style={{
-                            marginLeft: moderateScale(10, 0.6)
-                        }}>
-                            <CustomText style={[styles.text, {
-                                textTransform: 'lowercase'
-                            }]}>{userData?.company_detail?.company_number}</CustomText>
-                        </View>
-                    </View>
-                    <View style={styles.line} />
-                </View>
-                <View style={{ height: windowHeight * 0.1 }} />
             </ScrollView>
         </View>
     );
@@ -134,16 +140,22 @@ export default Profile;
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: moderateScale(15, 0.3),
         alignItems: 'center',
+        backgroundColor: Color.white
     },
     des: {
         fontSize: moderateScale(12, 0.6),
         color: Color.veryLightGray
     },
     main_view: {
-        paddingVertical: moderateScale(10, 0.6),
-        paddingHorizontal: moderateScale(15, 0.6)
+        width: windowWidth,
+        height: windowHeight,
+    },
+    sub_main_view: {
+        paddingVertical: moderateScale(20, 0.6),
+        paddingHorizontal: moderateScale(15, 0.6),
+        width: windowWidth,
+        height: windowHeight,
     },
     heading_sub_view: {
         paddingHorizontal: moderateScale(15, 0.6),

@@ -67,7 +67,7 @@ const EmployeeDetails = (props) => {
 
     return (
         <View style={styles.container}>
-            <Header isShadow={false} hideUser={false} showBack={true} headerColor={Color.white} backgroundColor={Color.themeBlue} />
+            <Header isShadow={false} hideUser={false} showBack={true} headerColor={Color.white} />
             <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
                 <View style={styles.main_view}>
                     <View style={styles.profile_view}>

@@ -191,7 +191,7 @@ const AddDepartment = (props) => {
                     bgColor={Color.themeBlue}
                     style={{
                         position: 'absolute',
-                        bottom: 25
+                        bottom: windowWidth * 0.2,
                     }}
                     onPress={() => {
                         isDepartment ? onPressUpdate() :
@@ -219,7 +219,9 @@ const styles = StyleSheet.create({
     main_view: {
         paddingVertical: moderateScale(10, 0.6),
         paddingHorizontal: moderateScale(15, 0.6),
-        height: windowHeight * 0.88,
+        width: windowWidth,
+        height: windowHeight,
+        backgroundColor: Color.white
     },
     search_bar_view: {
         width: windowWidth * 0.94,

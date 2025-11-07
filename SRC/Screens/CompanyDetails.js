@@ -75,7 +75,7 @@ const CompanyDetails = () => {
     return (
         <View style={styles.container}>
             <Header showBack hideUser={false} title={'Add Company Details'} />
-            <ScrollView showsVerticalScrollIndicator={false} >
+            <ScrollView showsVerticalScrollIndicator={false} style={{ flexGrow: 1, backgroundColor: Color.white }}>
                 <View style={styles.main_view}>
                     <FormWrapper>
                         <TouchableOpacity onPress={() => setShowModal(true)} style={{
@@ -249,14 +249,17 @@ export default CompanyDetails
 const styles = StyleSheet.create({
     container: {
         width: windowWidth,
-        height: windowHeight,
-        backgroundColor: '#F9F9F9',
+        flex: 1,
+        backgroundColor: Color.white,
         paddingHorizontal: moderateScale(15, 0.3),
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),
     },
     main_view: {
+        flex: 1,
         paddingVertical: moderateScale(10, 0.6),
+        width: windowWidth,
+        backgroundColor: Color.white
     },
     search_bar_view: {
         width: windowWidth * 0.94,

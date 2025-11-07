@@ -131,7 +131,7 @@ const EditCoverLetter = props => {
         title={type == 'email' ? 'edit email' : 'Edit Email'}
         hideUser={true}
         showBack={true}
-        backBtnStyle={Color.white}  color={Color.white}
+        backBtnStyle={Color.white} color={Color.white}
       />
       <View style={styles.main_view}>
         <ScrollView keyboardShouldPersistTaps={'never'} showsVerticalScrollIndicator={false}>
@@ -1151,8 +1151,8 @@ const styles = StyleSheet.create({
   bg_container: {
     width: windowWidth,
     alignItems: 'center',
-    height: windowHeight,
     justifyContent: 'center',
+    flex: 1
   },
   main_view: {
     width: windowWidth,

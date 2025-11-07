@@ -41,7 +41,7 @@ const GlobalErrorModal = () => {
                                 loop
                                 style={{
 
-                                    
+
                                     height: '100%',
                                     width: 200,
                                     alignItems: 'center',
@@ -65,6 +65,7 @@ const GlobalErrorModal = () => {
                         borderColor={Color.red}
                         onPress={() => {
                             dispatch(hideErrorModal())
+                            console.log('pressed')
                         }}
                     />
                 </View>

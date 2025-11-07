@@ -82,6 +82,9 @@ const styles = StyleSheet.create({
   },
   main_view: {
     paddingHorizontal: moderateScale(10, 0.6),
+    width: windowWidth,
+    height: windowHeight,
+    backgroundColor: Color.white
   },
   heading: {
     fontSize: moderateScale(28, 0.6),

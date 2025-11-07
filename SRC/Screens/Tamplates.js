@@ -357,7 +357,7 @@ export default Tamplates;
 const styles = StyleSheet.create({
     bg_container: {
         width: windowWidth,
-        height: windowHeight,
+        flex: 1,
     },
     h1: {
         fontSize: moderateScale(25, 0.6),

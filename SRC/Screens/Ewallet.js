@@ -317,152 +317,154 @@ const Ewallet = () => {
     return (
         <View style={styles.container}>
             <Header hideUser={false} title={'Ewallet'} />
+            <View style={styles.main_view}>
 
-            <View style={styles.upperContainer}>
-                <CustomText
-                    isBold
-                    style={{
-                        fontSize: moderateScale(20, 0.3),
-                        color: Color.black,
-                        width: windowWidth * 0.92,
-                    }}>
-                    Categories
-                </CustomText>
-                <View style={styles.squareContainer}>
-                    {['photo', 'file-text', 'file-signature'].map((item, index) => {
-                        return (
-                            <TouchableOpacity
-                                key={index}
-                                activeOpacity={0.7}
-                                style={[
-                                    styles.square,
-                                    {
-                                        backgroundColor:
-                                            item == selectedIndex
-                                                ? Color.themeBlue
-                                                : Color.lightGrey,
-                                    },
-                                ]}
-                                onPress={() => {
-                                    setSelectedItem(item);
-                                }}>
-                                <Icon
-                                    name={item}
-                                    as={item == 'file-signature' ? FontAwesome5 : FontAwesome}
-                                    color={item == selectedIndex ? Color.white : Color.veryLightGray}
-                                    size={moderateScale(35, 0.3)}
-                                    style={{
-                                        width: windowWidth * 0.24,
-                                        textAlign: 'center',
-                                    }}
-                                />
-                            </TouchableOpacity>
-                        );
-                    })}
-                </View>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        width: windowWidth * 0.92,
-                        justifyContent: 'space-between',
-                        marginTop: moderateScale(30, 0.3),
-                    }}>
+                <View style={styles.upperContainer}>
                     <CustomText
+                        isBold
                         style={{
-                            width: windowWidth * 0.6,
+                            fontSize: moderateScale(20, 0.3),
                             color: Color.black,
-                            fontSize: moderateScale(15, 0.3),
-                            // backgroundColor : 'red'
+                            width: windowWidth * 0.92,
                         }}>
-                        Recent added Files
+                        Categories
                     </CustomText>
-                    <CustomButton
-                        text={'Add'}
-                        textColor={Color.white}
-                        width={windowWidth * 0.2}
-                        height={windowHeight * 0.035}
-                        onPress={() => {
-                            selectedIndex == 'photo'
-                                ? setShowMultiImageModal(true)
-                                : selectedIndex == 'file-signature'
-                                    ? setSignModalVisible(true)
-                                    : handleDocumentSelection();
-                        }}
-                        bgColor={Color.themeBlue}
-                        borderWidth={0}
-                        borderRadius={moderateScale(30, 0.3)}
-                        fontSize={moderateScale(12, 0.3)}
-                    />
-                </View>
-            </View>
-            {selectedIndex == 'photo' ? (
-                <>
-                    {image_loading || isLoading ? <ActivityIndicator size="small"
-                        color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> :
-                        <AddImagesContainer
-                            multiImages={multiImages}
-                            setMultiImages={setMultiImages}
-                            numberOfRows={3}
-                            isWallet={true}
+                    <View style={styles.squareContainer}>
+                        {['photo', 'file-text', 'file-signature'].map((item, index) => {
+                            return (
+                                <TouchableOpacity
+                                    key={index}
+                                    activeOpacity={0.7}
+                                    style={[
+                                        styles.square,
+                                        {
+                                            backgroundColor:
+                                                item == selectedIndex
+                                                    ? Color.themeBlue
+                                                    : Color.lightGrey,
+                                        },
+                                    ]}
+                                    onPress={() => {
+                                        setSelectedItem(item);
+                                    }}>
+                                    <Icon
+                                        name={item}
+                                        as={item == 'file-signature' ? FontAwesome5 : FontAwesome}
+                                        color={item == selectedIndex ? Color.white : Color.veryLightGray}
+                                        size={moderateScale(35, 0.3)}
+                                        style={{
+                                            width: windowWidth * 0.24,
+                                            textAlign: 'center',
+                                        }}
+                                    />
+                                </TouchableOpacity>
+                            );
+                        })}
+                    </View>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            width: windowWidth * 0.92,
+                            justifyContent: 'space-between',
+                            marginTop: moderateScale(30, 0.3),
+                        }}>
+                        <CustomText
+                            style={{
+                                width: windowWidth * 0.6,
+                                color: Color.black,
+                                fontSize: moderateScale(15, 0.3),
+                                // backgroundColor : 'red'
+                            }}>
+                            Recent added Files
+                        </CustomText>
+                        <CustomButton
+                            text={'Add'}
+                            textColor={Color.white}
+                            width={windowWidth * 0.2}
+                            height={windowHeight * 0.035}
+                            onPress={() => {
+                                selectedIndex == 'photo'
+                                    ? setShowMultiImageModal(true)
+                                    : selectedIndex == 'file-signature'
+                                        ? setSignModalVisible(true)
+                                        : handleDocumentSelection();
+                            }}
+                            bgColor={Color.themeBlue}
+                            borderWidth={0}
+                            borderRadius={moderateScale(30, 0.3)}
+                            fontSize={moderateScale(12, 0.3)}
                         />
-                    }
-                </>
-            ) :
-                <>
-                    {signature_loading || isLoading ? <ActivityIndicator size="small"
-                        color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} />
-                        :
-                        <>
-                            {
-                                selectedIndex == 'file-signature' ? (
-                                    <AddSignatureContainer
-                                        signatureImages={signatureImage}
-                                        setSignatureImages={setSignatureImage}
-                                        isWallet={true}
-                                        numberOfRows={3}
-                                    />) : (
-                                    <>
-                                        {document_loading || isLoading ? <ActivityIndicator size="small"
-                                            color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> : (
-                                            <FlatList
-                                                numColumns={3}
-                                                nestedScrollEnabled={true}
-                                                data={fileResponse.flat()}
-                                                showsVerticalScrollIndicator={false}
-                                                contentContainerStyle={{
-                                                    paddingBottom: moderateScale(20, 0.6),
-                                                    alignItems: fileResponse.flat().length === 1 ? 'flex-start' : 'center',
-                                                }}
-                                                renderItem={({ item, index }) => {
-                                                    const isSingleItem = fileResponse.flat().length === 1;
-                                                    return (
-                                                        <View style={{
-                                                            width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
-                                                            flexDirection: 'row',
-                                                            justifyContent: isSingleItem ? 'flex-start' : 'center', marginRight: moderateScale(10, 0.6),
-                                                        }}>
-                                                            <PdfContainer
-                                                                key={index}
-                                                                item={item}
-                                                                setSelectedPdf={setSelectedPdf}
-                                                                setShow={setShow}
-                                                                show={show}
-                                                                index={index}
-                                                                setSelectedPDFIndex={setSelectedPDFIndex}
-                                                            />
-                                                        </View>
-                                                    );
-                                                }}
-                                                ListEmptyComponent={<ListEmphtyComponent />}
-                                            />
-                                        )}
-                                    </>
-                                )
-                            }
-                        </>
-                    }
-                </>
-            }
+                    </View>
+                </View>
+                {selectedIndex == 'photo' ? (
+                    <>
+                        {image_loading || isLoading ? <ActivityIndicator size="small"
+                            color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> :
+                            <AddImagesContainer
+                                multiImages={multiImages}
+                                setMultiImages={setMultiImages}
+                                numberOfRows={3}
+                                isWallet={true}
+                            />
+                        }
+                    </>
+                ) :
+                    <>
+                        {signature_loading || isLoading ? <ActivityIndicator size="small"
+                            color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} />
+                            :
+                            <>
+                                {
+                                    selectedIndex == 'file-signature' ? (
+                                        <AddSignatureContainer
+                                            signatureImages={signatureImage}
+                                            setSignatureImages={setSignatureImage}
+                                            isWallet={true}
+                                            numberOfRows={3}
+                                        />) : (
+                                        <>
+                                            {document_loading || isLoading ? <ActivityIndicator size="small"
+                                                color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> : (
+                                                <FlatList
+                                                    numColumns={3}
+                                                    nestedScrollEnabled={true}
+                                                    data={fileResponse.flat()}
+                                                    showsVerticalScrollIndicator={false}
+                                                    contentContainerStyle={{
+                                                        paddingBottom: moderateScale(20, 0.6),
+                                                        alignItems: fileResponse.flat().length === 1 ? 'flex-start' : 'center',
+                                                    }}
+                                                    renderItem={({ item, index }) => {
+                                                        const isSingleItem = fileResponse.flat().length === 1;
+                                                        return (
+                                                            <View style={{
+                                                                width: isSingleItem ? windowWidth * 0.9 : windowWidth * 0.32,
+                                                                flexDirection: 'row',
+                                                                justifyContent: isSingleItem ? 'flex-start' : 'center', marginRight: moderateScale(10, 0.6),
+                                                            }}>
+                                                                <PdfContainer
+                                                                    key={index}
+                                                                    item={item}
+                                                                    setSelectedPdf={setSelectedPdf}
+                                                                    setShow={setShow}
+                                                                    show={show}
+                                                                    index={index}
+                                                                    setSelectedPDFIndex={setSelectedPDFIndex}
+                                                                />
+                                                            </View>
+                                                        );
+                                                    }}
+                                                    ListEmptyComponent={<ListEmphtyComponent />}
+                                                />
+                                            )}
+                                        </>
+                                    )
+                                }
+                            </>
+                        }
+                    </>
+                }
+            </View>
             <ImagePickerModal
                 show={showMultiImageModal}
                 setShow={setShowMultiImageModal}
@@ -570,7 +572,6 @@ const Ewallet = () => {
             >
                 <LoggedInScreen setFingerPrintModal={setFingerPrintModal} />
             </Modal>
-
         </View>
     );
 };
@@ -581,15 +582,15 @@ const styles = StyleSheet.create({
     container: {
         width: windowWidth,
         height: windowHeight,
-        backgroundColor: '#F9F9F9',
+        backgroundColor: Color.white,
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),
     },
     main_view: {
-        flex: 1,
+        width: windowWidth,
+        height: windowHeight,
         paddingVertical: moderateScale(10, 0.6),
-        paddingHorizontal: moderateScale(10, 0.6),
-        width: '100%',
+        backgroundColor: Color.white,
     },
     square: {
         width: windowWidth * 0.24,

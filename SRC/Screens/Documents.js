@@ -183,16 +183,17 @@ export default Documents;
 const styles = StyleSheet.create({
     container: {
         width: windowWidth,
-        height: windowHeight,
+        flex: 1,
         backgroundColor: '#F9F9F9',
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),
     },
     main_view: {
-        flex: 1,
         paddingVertical: moderateScale(10, 0.6),
         paddingHorizontal: moderateScale(10, 0.6),
-        width: '100%',
+        width: windowWidth,
+        flex: 1,
+        backgroundColor: Color.white
     },
     categoryListContainer: {
         paddingVertical: moderateScale(5, 0.6),
