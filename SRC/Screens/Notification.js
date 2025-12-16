@@ -1,19 +1,14 @@
 import { useIsFocused } from '@react-navigation/core'
-import { Icon } from 'native-base'
 import React from 'react'
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
-import Feather from 'react-native-vector-icons/Feather'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useSelector } from 'react-redux'
 import Color from '../Assets/Utilities/Color'
 import CustomText from '../Components/CustomText'
 import Header from '../Components/Header'
-import { windowHeight, windowWidth } from '../Utillity/utils'
-import navigationService from '../navigationService'
-import NotificationView from '../Components/NotificationView'
 import ListEmphtyComponent from '../Components/ListEmphtyComponent'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import NotificationView from '../Components/NotificationView'
+import { windowHeight, windowWidth } from '../Utillity/utils'
 
 const Notification = () => {
   const isFocused = useIsFocused()

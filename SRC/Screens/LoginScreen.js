@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
+  ImageBackground,
   StyleSheet,
   ToastAndroid,
   TouchableOpacity,
@@ -20,6 +21,8 @@ import { setUserData } from '../Store/slices/common';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import CustomStatusBar from '../Components/CustomStatusBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
+import { Icon } from 'native-base';
 
 const LoginScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -61,26 +64,41 @@ const LoginScreen = ({ navigation, route }) => {
 
 
   return (
-    <>
+    <ImageBackground source={require('../Assets/Images/background_image.png')}
+      style={styles.gradient}
+    >
       <CustomStatusBar
-        backgroundColor={Color.white}
+        backgroundColor={'transparent'}
         barStyle={'dark-content'}
       />
-      <View style={[styles.container, {
-        backgroundColor: Color.white
-      }]}>
-        <View style={{
-          width: windowWidth * 0.6,
-          height: windowWidth * 0.35,
-        }}>
-          <CustomImage source={require('../Assets/Images/logo.png')} style={{
-            width: '100%',
-            height: '100%'
-          }} />
-        </View>
-        {type === 'Private' &&
-          <CustomText isBold style={styles.heading}>Login Your private E wallet</CustomText>
-        }
+      <Icon
+        onPress={() => {
+          navigation.goBack();
+        }}
+        as={Ionicons}
+        name="arrow-back"
+        size={moderateScale(30, 0.3)}
+        color={Color.blue}
+        style={{
+          position: 'absolute',
+          top: moderateScale(30, 0.3),
+          left: moderateScale(10, 0.3),
+        }}
+      />
+      <View style={{
+        width: windowWidth * 0.5,
+        height: windowWidth * 0.29,
+        alignSelf: "center",
+        marginBottom: moderateScale(30, 0.6)
+      }}>
+        <CustomImage source={require('../Assets/Images/logo.png')} style={{
+          width: '100%',
+          height: '100%'
+        }} />
+      </View>
+      <View style={styles.container}>
+        <CustomText isBold style={styles.heading}>Welcome Back</CustomText>
+        <CustomText style={styles.text}>Stay connected, access important resources, and manage your work efficiently. We’re glad to have you on board!</CustomText>
         <TextInputWithTitle
           iconName={'mail'}
           iconType={Ionicons}
@@ -88,11 +106,14 @@ const LoginScreen = ({ navigation, route }) => {
           setText={setEmail}
           value={email}
           placeholder={'Type your Email'}
-          placeholderColor={Color.grey}
-          viewWidth={0.75}
+          placeholderColor={Color.veryLightGray}
+          viewWidth={0.82}
+          backgroundColor={'rgba(211, 211, 211, 0.3) '}
+          borderRadius={moderateScale(10, 0.6)}
+          viewHeight={0.07}
+          marginTop={moderateScale(20, 0.3)}
           borderBottomWidth={2}
           borderColor={Color.blue}
-          marginTop={moderateScale(20, 0.3)}
         />
         <TextInputWithTitle
           iconSize={moderateScale(20, 0.3)}
@@ -103,11 +124,14 @@ const LoginScreen = ({ navigation, route }) => {
           setText={setPassword}
           value={password}
           placeholder={'Password'}
-          placeholderColor={Color.grey}
-          viewWidth={0.75}
+          placeholderColor={Color.veryLightGray}
+          viewWidth={0.82}
+          backgroundColor={'rgba(211, 211, 211, 0.3) '}
+          borderRadius={moderateScale(10, 0.6)}
+          viewHeight={0.07}
+          marginTop={moderateScale(10, 0.3)}
           borderBottomWidth={2}
           borderColor={Color.blue}
-          marginTop={moderateScale(30, 0.3)}
         />
         <TouchableOpacity
           onPress={() => {
@@ -117,11 +141,11 @@ const LoginScreen = ({ navigation, route }) => {
           style={{
             alignSelf: 'flex-end',
             marginTop: moderateScale(7, 0.2),
-            right: moderateScale(42, 0.3),
+            right: moderateScale(10, 0.3),
           }}>
           <CustomText
             style={{
-              fontSize: moderateScale(11, 0.3),
+              fontSize: moderateScale(12, 0.3),
               color: Color.darkbrown,
               textDecorationLine: 'underline',
             }}>
@@ -134,7 +158,8 @@ const LoginScreen = ({ navigation, route }) => {
           height={windowHeight * 0.060}
           borderRadius={moderateScale(20, 0.3)}
           textColor={Color.white}
-          bgColor={Color.themeBlue}
+          bgColor={Color.themeBgColor}
+          isGradient
           marginTop={moderateScale(20, 0.6)}
           onPress={() => {
             Login()
@@ -144,37 +169,46 @@ const LoginScreen = ({ navigation, route }) => {
           :
           <>
             <CustomText style={{
-              fontSize: moderateScale(11, 0.3),
+              fontSize: moderateScale(13, 0.3),
               color: Color.darkbrown,
               paddingTop: windowHeight * 0.05,
 
-            }}>Don’t have an accout ?</CustomText>
+            }}>Don’t have an Account?</CustomText>
             <TouchableOpacity activeOpacity={0.8}>
               <CustomText onPress={() => {
                 navigation.navigate('SignupScreen', { type: type })
               }}
                 isBold style={{
-                  fontSize: moderateScale(18, 0.3),
-                  color: Color.blue,
+                  fontSize: moderateScale(20, 0.3),
+                  color: Color.darkBlue
                 }}>Sign Up</CustomText>
             </TouchableOpacity></>
         }
       </View>
-    </>
+    </ImageBackground>
   );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  gradient: {
     width: windowWidth,
     height: windowHeight,
-    backgroundColor: Color.white,
-    paddingHorizontal: moderateScale(15, 0.3),
-    // paddingVertical: moderateScale(20, 0.6),
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  container: {
+    paddingHorizontal: moderateScale(15, 0.3),
+    alignItems: 'center',
+    width: windowWidth * 0.92,
+    // height: windowHeight * 0.6,
+    paddingVertical: moderateScale(15, 0.6),
+    backgroundColor: " rgba(255, 255, 255, 0.4)",
+    borderRadius: moderateScale(20, 0.6),
+    alignSelf: "center",
+    borderTopWidth: 5,
+    borderTopColor: Color.darkBlue
   },
   welcomeText: {
     fontSize: moderateScale(40, 0.3),
@@ -185,9 +219,17 @@ const styles = StyleSheet.create({
     color: '#333333',
   },
   heading: {
-    fontSize: moderateScale(20, 0.6),
+    fontSize: moderateScale(30, 0.6),
     textTransform: "capitalize",
+    color: Color.blue,
+    textAlign: 'center',
     marginTop: moderateScale(30, 0.6),
-    color: Color.themeBlue
+    width: '80%'
+  },
+  text: {
+    fontSize: moderateScale(12, 0.6),
+    textAlign: 'center',
+    width: '90%',
+    color: Color.darkGray
   }
 });

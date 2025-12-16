@@ -56,6 +56,8 @@ import privateNavigator from './navigators/privateNavigator';
 import PaymentScreen from './Screens/PaymentScreen';
 import AddToFavourite from './Screens/AddToFavourite';
 import ConfirmPaymentScreen from './Screens/ConfirmPaymentScreen';
+import CompanyWelcome from './Screens/CompanyWelcome';
+import PricingAndFeature from './Screens/PricingAndFeature';
 
 
 enableScreens();
@@ -84,6 +86,7 @@ const AppNavigator = () => {
       <NavigationContainer ref={navigationService.navigationRef}>
         <RootNav.Navigator
           initialRouteName={firstScreen}
+          // initialRouteName='CompanyWelcome'
           screenOptions={{ headerShown: false }}>
           <RootNav.Screen name="MyDrawer" component={user_type === 'Company' ? CompanyNavigator : user_type === "Private" ? privateNavigator : EmployeeNavigator} />
           <RootNav.Screen
@@ -101,6 +104,7 @@ const AppNavigator = () => {
           <RootNav.Screen name="FinalBlogPost" component={FinalBlogPost} />
           <RootNav.Screen name="ChecklistForm" component={ChecklistForm} />
           <RootNav.Screen name="SurveyForm" component={SurvaryForm} />
+          <RootNav.Screen name="CompanyWelcome" component={CompanyWelcome} />
           <RootNav.Screen
             name="OnboardingScreen"
             component={OnboardingScreen}

@@ -66,6 +66,15 @@ const Drawer = React.memo((props) => {
     },
     {
       id: 4,
+      name: 'Pricing And Feature',
+      onPress: () => {
+        navigation.navigate('PricingAndFeature');
+      },
+      iconName: 'graph-horizontal',
+      iconType: Foundation
+    },
+    {
+      id: 4,
       name: 'Document',
       onPress: () => {
         navigation.navigate('Documents');
@@ -209,7 +218,7 @@ const Drawer = React.memo((props) => {
     // <ScreenBoiler
     //   statusBarBackgroundColor={Color.themeBlue}
     //   statusBarContentStyle={'dark-content'}>
-<>
+    <>
       <View style={styles.Profile}>
         <View style={{
           width: windowWidth * 0.3,
@@ -248,7 +257,7 @@ const Drawer = React.memo((props) => {
               style={{
                 width: windowWidth * 0.7,
                 borderColor: Color.black,
-                margin: moderateScale(16, 0.3),
+                margin: moderateScale(10, 0.3),
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'flex-start',
@@ -271,7 +280,7 @@ const Drawer = React.memo((props) => {
             // marginLeft: moderateScale(15, 0.3),
             justifyContent: 'space-between',
             alignItems: 'center',
-            paddingHorizontal: moderateScale(12,0.6)
+            paddingHorizontal: moderateScale(12, 0.6)
           }}>
           <Icon name="fingerprint" as={Entypo} size={6} color={'grey'} />
           <CustomText
@@ -315,7 +324,7 @@ const Drawer = React.memo((props) => {
           {'Logout'}
         </CustomText>
       </TouchableOpacity>
-</>
+    </>
 
     // </ScreenBoiler>
   );

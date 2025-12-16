@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -8,13 +8,13 @@ import {
   I18nManager,
   ActivityIndicator,
 } from 'react-native';
-import {Icon, Spinner} from 'native-base';
+import { Icon, Spinner } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
-import {moderateScale, scale} from 'react-native-size-matters';
+import { moderateScale, scale } from 'react-native-size-matters';
 import CustomText from './CustomText';
 import Color from '../Assets/Utilities/Color';
 import CustomImage from './CustomImage';
-import {windowWidth} from '../Utillity/utils';
+import { windowWidth } from '../Utillity/utils';
 
 const CustomButton = props => {
   const {
@@ -107,10 +107,10 @@ const CustomButton = props => {
             height: height,
             alignItems: 'center',
             justifyContent: 'center',
-            borderRadius: moderateScale(30, 0.3),
+            borderRadius: borderRadius ? borderRadius : moderateScale(10, 0.3),
           }}
-          start={{x: 1, y: 0.2}}
-          end={{x: 1, y: 1}}
+          start={{ x: 1, y: 0.2 }}
+          end={{ x: 1, y: 1 }}
           colors={bgColor}>
           {loader && (
             <ActivityIndicator
@@ -128,7 +128,7 @@ const CustomButton = props => {
               }}>
               <CustomImage
                 source={require('../Assets/Images/logo.png')}
-                style={{width: '100%', height: '100%'}}
+                style={{ width: '100%', height: '100%' }}
               />
             </View>
           )}
@@ -175,7 +175,7 @@ const CustomButton = props => {
               }}>
               <CustomImage
                 source={require('../Assets/Images/logo.png')}
-                style={{width: '100%', height: '100%', tintColor: 'black'}}
+                style={{ width: '100%', height: '100%', tintColor: 'black' }}
               />
             </View>
           )}

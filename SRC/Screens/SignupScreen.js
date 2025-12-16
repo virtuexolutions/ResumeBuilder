@@ -2,6 +2,7 @@ import { Icon } from 'native-base';
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
+  ImageBackground,
   ScrollView,
   StyleSheet,
   ToastAndroid,
@@ -61,50 +62,55 @@ const SignupScreen = ({ navigation, route }) => {
   }
 
   return (
-    <>
+    <ImageBackground source={require('../Assets/Images/background_image.png')}
+      style={styles.gradient}
+    >
       <CustomStatusBar
-        backgroundColor={Color.white}
+        backgroundColor={'transparent'}
         barStyle={'dark-content'}
       />
-      <ScrollView>
-        <View style={[styles.container, {
-          backgroundColor: Color.white
-        }]}>
-          <Icon
-            onPress={() => {
-              navigation.goBack();
-            }}
-            as={Ionicons}
-            name="arrow-back"
-            size={moderateScale(25, 0.3)}
-            color={user_type === 'Company' ? Color.white : Color.blue}
-            style={{
-              position: 'absolute',
-              top: moderateScale(20, 0.3),
-              left: moderateScale(10, 0.3),
-            }}
-          />
-          <View style={{
-            width: windowWidth * 0.6,
-            height: windowWidth * 0.35,
-          }}>
-            <CustomImage source={require('../Assets/Images/logo.png')} style={{
-              width: '100%',
-              height: '100%'
-            }} />
-          </View>
+      <ScrollView style={styles.scroll_view} contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Icon
+          onPress={() => {
+            navigation.goBack();
+          }}
+          as={Ionicons}
+          name="arrow-back"
+          size={moderateScale(25, 0.3)}
+          color={user_type === 'Company' ? Color.white : Color.blue}
+          style={{
+            position: 'absolute',
+            top: moderateScale(20, 0.3),
+            left: moderateScale(10, 0.3),
+          }}
+        />
+        <View style={{
+          width: windowWidth * 0.5,
+          height: windowWidth * 0.3,
+          alignSelf: 'center',
+        }}>
+          <CustomImage source={require('../Assets/Images/logo.png')} style={{
+            width: '100%',
+            height: '100%'
+          }} />
+        </View>
+        <View style={styles.container}>
+          <CustomText isBold style={styles.heading}>Create Your Account</CustomText>
+          <CustomText style={styles.text}>Sign up to unlock important resources, streamline your workflow, and stay connected wherever you are.</CustomText>
           <TextInputWithTitle
             iconName={'user'}
             iconType={FontAwesome}
             setText={setUserName}
             value={userName}
             placeholder={type === 'Company' ? 'Type your company' : 'Type your Name'}
-            viewWidth={0.75}
+            placeholderColor={Color.veryLightGray}
+            viewWidth={0.82}
+            backgroundColor={'rgba(211, 211, 211, 0.3) '}
+            borderRadius={moderateScale(10, 0.6)}
+            viewHeight={0.07}
+            marginTop={moderateScale(10, 0.3)}
             borderBottomWidth={2}
-            color={Color.blue}
-            placeholderColor={Color.grey}
             borderColor={Color.blue}
-            marginTop={moderateScale(30, 0.3)}
           />
           <TextInputWithTitle
             iconName={'mail'}
@@ -112,12 +118,14 @@ const SignupScreen = ({ navigation, route }) => {
             setText={setEmail}
             value={email}
             placeholder={'Type your Email'}
-            viewWidth={0.75}
+            placeholderColor={Color.veryLightGray}
+            viewWidth={0.82}
+            backgroundColor={'rgba(211, 211, 211, 0.3) '}
+            borderRadius={moderateScale(10, 0.6)}
+            viewHeight={0.07}
+            marginTop={moderateScale(10, 0.3)}
             borderBottomWidth={2}
-            color={Color.blue}
-            placeholderColor={Color.grey}
             borderColor={Color.blue}
-            marginTop={moderateScale(30, 0.3)}
           />
           <TextInputWithTitle
             iconSize={moderateScale(20, 0.3)}
@@ -127,12 +135,14 @@ const SignupScreen = ({ navigation, route }) => {
             setText={setPassword}
             value={password}
             placeholder={'Type your password'}
-            viewWidth={0.75}
+            placeholderColor={Color.veryLightGray}
+            viewWidth={0.82}
+            backgroundColor={'rgba(211, 211, 211, 0.3) '}
+            borderRadius={moderateScale(10, 0.6)}
+            viewHeight={0.07}
+            marginTop={moderateScale(10, 0.3)}
             borderBottomWidth={2}
-            color={Color.blue}
-            placeholderColor={Color.grey}
             borderColor={Color.blue}
-            marginTop={moderateScale(30, 0.3)}
           />
           <TextInputWithTitle
             iconSize={moderateScale(20, 0.3)}
@@ -142,28 +152,15 @@ const SignupScreen = ({ navigation, route }) => {
             setText={setConfirmPassword}
             value={confirmPassword}
             placeholder={'Confirm Your Password'}
-            viewWidth={0.75}
+            placeholderColor={Color.veryLightGray}
+            viewWidth={0.82}
+            backgroundColor={'rgba(211, 211, 211, 0.3) '}
+            borderRadius={moderateScale(10, 0.6)}
+            viewHeight={0.07}
+            marginTop={moderateScale(10, 0.3)}
             borderBottomWidth={2}
-            color={Color.blue}
-            placeholderColor={Color.grey}
             borderColor={Color.blue}
-            marginTop={moderateScale(30, 0.3)}
           />
-          {/* <CustomButton
-          text={isLoading ? <ActivityIndicator color={"white"} size={moderateScale(24, 0.2)} /> : 'Create Account'}
-          textColor={Color.white}
-          onPress={() => {
-            console.log("first");
-            signUp();
-          }}
-          style={{
-            width: windowWidth * 0.55,
-            height: moderateScale(45, 0.3),
-            borderRadius: moderateScale(20, 0.3),
-            backgroundColor: Color.themeBlue,
-            top: windowHeight * 0.055
-          }}
-        /> */}
           <CustomButton
             text={isLoading ? <ActivityIndicator color={'white'} size={moderateScale(12, 0.2)} /> : 'Create'}
             textColor={Color.white}
@@ -174,14 +171,15 @@ const SignupScreen = ({ navigation, route }) => {
             width={windowWidth * 0.7}
             height={windowHeight * 0.060}
             borderRadius={moderateScale(20, 0.3)}
-            bgColor={Color.themeBlue}
             marginTop={moderateScale(20, 0.6)}
+            bgColor={Color.themeBgColor}
+            isGradient
           />
           <CustomText style={{
-            fontSize: moderateScale(11, 0.3),
+            fontSize: moderateScale(13, 0.3),
             color: Color.darkbrown,
-            paddingTop: windowHeight * 0.09,
-
+            marginTop: moderateScale(10, 0.6),
+            textAlign: 'center'
           }}>Do You Have An Account ?</CustomText>
           <TouchableOpacity
             onPress={() => {
@@ -190,29 +188,41 @@ const SignupScreen = ({ navigation, route }) => {
             activeOpacity={0.8}>
             <CustomText
               isBold style={{
-                fontSize: moderateScale(18, 0.3),
-                color: Color.blue,
+                fontSize: moderateScale(20, 0.3),
+                color: Color.darkBlue,
+                textAlign: 'center'
               }}>Log in</CustomText>
           </TouchableOpacity>
-
         </View>
       </ScrollView >
-    </>
+    </ImageBackground>
   );
 };
 
 export default SignupScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  scroll_view: {
+    flex: 1,
+  },
+  gradient: {
     width: windowWidth,
     height: windowHeight,
-    backgroundColor: Color.white,
-    paddingHorizontal: moderateScale(15, 0.3),
-    // paddingVertical: moderateScale(20, 0.6),
     alignItems: 'center',
-    // paddingTop: windowHeight * 0.15,
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  container: {
+    paddingHorizontal: moderateScale(15, 0.3),
+    alignItems: 'center',
+    width: windowWidth * 0.92,
+    height: windowHeight * 0.65,
+    backgroundColor: " rgba(255, 255, 255, 0.4)",
+    borderRadius: moderateScale(20, 0.6),
+    alignSelf: "center",
+    marginTop: moderateScale(10, 0.6),
+    justifyContent: 'center',
+    borderTopWidth: 5,
+    borderTopColor: Color.darkBlue
   },
   welcomeText: {
     fontSize: moderateScale(40, 0.3),
@@ -222,4 +232,17 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(13, 0.3),
     color: '#333333',
   },
+  heading: {
+    fontSize: moderateScale(25, 0.6),
+    textTransform: "capitalize",
+    color: Color.blue,
+    textAlign: 'center',
+    marginTop: moderateScale(10, 0.6),
+  },
+  text: {
+    fontSize: moderateScale(12, 0.6),
+    textAlign: 'center',
+    width: '90%',
+    color: Color.darkGray
+  }
 });

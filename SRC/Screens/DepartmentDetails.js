@@ -1,4 +1,4 @@
-import 'dayjs/locale/en'; // or your preferred locale
+import 'dayjs/locale/en';
 import React, { useEffect, useState } from 'react';
 import {
     Alert,
@@ -10,7 +10,6 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale } from 'react-native-size-matters';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';

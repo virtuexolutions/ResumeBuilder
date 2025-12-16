@@ -15,6 +15,7 @@ import Setting from '../Screens/Setting';
 import Notification from '../Screens/Notification';
 import Documents from '../Screens/Documents';
 import EmployeeDetails from '../Screens/EmployeeDetails';
+import PricingAndFeature from '../Screens/PricingAndFeature';
 
 const DrawerNavigation = createDrawerNavigator();
 
@@ -37,6 +38,7 @@ const CompanyNavigator = () => {
             <DrawerNavigation.Screen name="Setting" component={Setting} />
             <DrawerNavigation.Screen name="Notification" component={Notification} />
             <DrawerNavigation.Screen name="AddEmployees" component={AddEmployees} />
+            <DrawerNavigation.Screen name="PricingAndFeature" component={PricingAndFeature} />
         </DrawerNavigation.Navigator>
     );
 };

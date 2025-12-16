@@ -38,7 +38,7 @@ export default Color = {
   btntextColor: '#2F2F37',
 
   //gradientColors
-  themeBgColor: ['#E9CB5800', '#E9CB58'],
+  themeBgColor: ['#006FDD', '#009CFF'],
   statusBarColor: ['#297FAD', '#297FAD'],
 };
 

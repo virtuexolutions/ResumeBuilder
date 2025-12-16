@@ -1,22 +1,15 @@
-import {
-    ImageBackground,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from 'react-native';
-import React from 'react';
-import { windowHeight, windowWidth } from '../Utillity/utils';
-import CustomText from '../Components/CustomText';
-import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
-import { Icon } from 'native-base';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Color from '../Assets/Utilities/Color';
-import Header from '../Components/Header';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import {
+    ScrollView,
+    View
+} from 'react-native';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import { useSelector } from 'react-redux';
+import Color from '../Assets/Utilities/Color';
+import CustomText from '../Components/CustomText';
+import Header from '../Components/Header';
+import { windowWidth } from '../Utillity/utils';
 
 const PrivacyPolicy = () => {
     const navigation = useNavigation();

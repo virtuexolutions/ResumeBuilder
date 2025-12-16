@@ -106,12 +106,14 @@ const VerifyNumber = props => {
 
 
   return (
-    <>
+    <ImageBackground source={require('../Assets/Images/background_image.png')}
+      style={styles.gradient}
+    >
       <CustomStatusBar
-        backgroundColor={Color.white}
+        backgroundColor={'transparent'}
         barStyle={'dark-content'}
       />
-      <View style={{ backgroundColor: Color.white, paddingHorizontal: moderateScale(20, 0.6) }}>
+      <View style={{ paddingHorizontal: moderateScale(20, 0.6) }}>
         <TouchableOpacity
           onPress={() => {
             navigationN.goBack();
@@ -183,7 +185,8 @@ const VerifyNumber = props => {
             onPress={() => {
               VerifyOTP()
             }}
-            bgColor={Color.themeBlue}
+            bgColor={Color.themeBgColor}
+            isGradient
           />
           <CustomButton
             text={'Resend Code'}
@@ -202,7 +205,7 @@ const VerifyNumber = props => {
           />
         </KeyboardAwareScrollView>
       </View>
-    </>
+    </ImageBackground>
   );
 };
 
@@ -246,9 +249,8 @@ const styles = ScaledSheet.create({
     height: moderateScale(60, 0.3),
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: Color.veryLightGray,
-    borderWidth: 2,
     borderRadius: moderateScale(5, 0.3),
+    backgroundColor: 'rgba(211, 211, 211, 0.4)'
   },
   focusCell: {
     borderColor: Color.themeBlue,

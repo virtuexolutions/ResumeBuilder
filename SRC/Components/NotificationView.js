@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { windowWidth } from '../Utillity/utils'
-import { moderateScale } from 'react-native-size-matters'
-import Color from '../Assets/Utilities/Color'
-import CustomImage from './CustomImage'
 import { Icon } from 'native-base'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { moderateScale } from 'react-native-size-matters'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Color from '../Assets/Utilities/Color'
+import { windowWidth } from '../Utillity/utils'
 import CustomText from './CustomText'
+
 const NotificationView = ({ data }) => {
     return (
         <View style={styles.main_view}>
@@ -21,7 +21,6 @@ const NotificationView = ({ data }) => {
                     width: windowWidth * 0.7,
                 }]}>12-12-20</CustomText>
             </View>
-
         </View>
     )
 }

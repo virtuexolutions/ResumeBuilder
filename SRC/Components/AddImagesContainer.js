@@ -199,6 +199,7 @@ const AddImagesContainer = ({
         numColumns={numberOfRows}
         nestedScrollEnabled={true}
         data={multiImages}
+        
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: moderateScale(20, 0.6),

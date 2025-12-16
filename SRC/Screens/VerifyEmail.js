@@ -56,9 +56,11 @@ const VerifyEmail = props => {
   };
 
   return (
-    <>
+    <ImageBackground source={require('../Assets/Images/background_image.png')}
+      style={styles.gradient}
+    >
       <CustomStatusBar
-        backgroundColor={Color.white}
+        backgroundColor={'transparent'}
         barStyle={'dark-content'}
       />
       <View style={styles.main_container}>
@@ -95,12 +97,14 @@ const VerifyEmail = props => {
             setText={setEmail}
             value={email}
             placeholder={'Type your Email'}
-            viewWidth={0.86}
-            border={1}
-            placeholderColor={Color.grey}
-            marginTop={moderateScale(20, 0.3)}
+            viewWidth={0.9}
+            placeholderColor={Color.veryLightGray}
+            backgroundColor={'rgba(211, 211, 211, 0.4)'}
             borderRadius={moderateScale(10, 0.6)}
-            backgroundColor={Color.lightGrey}
+            viewHeight={0.07}
+            marginTop={moderateScale(10, 0.3)}
+            borderBottomWidth={2}
+            borderColor={Color.blue}
           />
           <CustomButton
             text={isLoading ? <ActivityIndicator size={'small'} color={Color.white} /> : 'submit'}
@@ -110,26 +114,30 @@ const VerifyEmail = props => {
             marginTop={moderateScale(40, 0.3)}
             onPress={sendOTP}
             borderRadius={moderateScale(10, 0.6)}
-            bgColor={Color.themeBlue}
-          // bgColor={
-          //   user_type === 'Rider' ? Color.darkBlue : Color.themeBlack
-          // }
+            bgColor={Color.themeBgColor}
+            isGradient
           />
         </KeyboardAwareScrollView>
       </View>
-    </>
+    </ImageBackground>
   );
 };
 
 const styles = ScaledSheet.create({
+  gradient: {
+    width: windowWidth,
+    height: windowHeight,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   main_container: {
     height: windowHeight,
     width: windowWidth,
-    backgroundColor: Color.white,
     paddingHorizontal: moderateScale(20, 0.6),
+    marginTop: moderateScale(15, 0.6)
   },
   txt2: {
-    color: Color.themeBlue,
+    color: Color.blue,
     fontSize: moderateScale(24, 0.6),
     marginTop: moderateScale(20, 0.6)
   },
@@ -142,16 +150,13 @@ const styles = ScaledSheet.create({
     lineHeight: moderateScale(17, 0.3),
   },
   back: {
-    // position: 'absolute',
-    // top: moderateScale(20, 0.3),
-    // left: moderateScale(20, 0.3),
     height: moderateScale(30, 0.3),
     width: moderateScale(30, 0.3),
     borderRadius: moderateScale(5, 0.3),
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: Color.themeBlack,
     zIndex: 1,
+    marginTop: moderateScale(20, 0.6)
   },
   container: {
     paddingBottom: moderateScale(20, 0.3),

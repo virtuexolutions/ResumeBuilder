@@ -59,9 +59,11 @@ const ResetPassword = props => {
   };
 
   return (
-    <>
+    <ImageBackground source={require('../Assets/Images/background_image.png')}
+      style={styles.gradient}
+    >
       <CustomStatusBar
-        backgroundColor={Color.white}
+        backgroundColor={'transparent'}
         barStyle={'dark-content'}
       />
       <View style={styles.main_container}>
@@ -95,12 +97,14 @@ const ResetPassword = props => {
             setText={setPassword}
             value={password}
             placeholder={'Password'}
-            viewWidth={0.86}
-            border={1}
-            placeholderColor={Color.grey}
-            marginTop={moderateScale(20, 0.3)}
+            viewWidth={0.9}
+            placeholderColor={Color.veryLightGray}
+            backgroundColor={'rgba(211, 211, 211, 0.4)'}
             borderRadius={moderateScale(10, 0.6)}
-            backgroundColor={Color.lightGrey}
+            viewHeight={0.07}
+            marginTop={moderateScale(10, 0.3)}
+            borderBottomWidth={2}
+            borderColor={Color.blue}
           />
           <TextInputWithTitle
             iconSize={moderateScale(20, 0.3)}
@@ -111,12 +115,14 @@ const ResetPassword = props => {
             setText={setConfirmPassword}
             value={confirmPassword}
             placeholder={'Confirm New Password'}
-            viewWidth={0.86}
-            border={1}
-            placeholderColor={Color.grey}
-            marginTop={moderateScale(20, 0.3)}
+            viewWidth={0.9}
+            placeholderColor={Color.veryLightGray}
+            backgroundColor={'rgba(211, 211, 211, 0.4)'}
             borderRadius={moderateScale(10, 0.6)}
-            backgroundColor={Color.lightGrey}
+            viewHeight={0.07}
+            marginTop={moderateScale(10, 0.3)}
+            borderBottomWidth={2}
+            borderColor={Color.blue}
           />
 
           <CustomButton
@@ -133,11 +139,11 @@ const ResetPassword = props => {
             marginTop={moderateScale(40, 0.3)}
             onPress={resetPassword}
             borderRadius={moderateScale(10, 0.6)}
-            bgColor={Color.themeBlue}
-          />
+            bgColor={Color.themeBgColor}
+            isGradient />
         </KeyboardAwareScrollView>
       </View>
-    </>
+    </ImageBackground>
   );
 };
 
@@ -145,7 +151,6 @@ const styles = ScaledSheet.create({
   main_container: {
     height: windowHeight,
     width: windowWidth,
-    backgroundColor: Color.white,
     paddingHorizontal: moderateScale(20, 0.6)
   },
   txt2: {
@@ -153,7 +158,7 @@ const styles = ScaledSheet.create({
     fontSize: moderateScale(24, 0.6),
   },
   txt3: {
-    color: Color.veryLightGray,
+    color: Color.grey,
     fontSize: moderateScale(11, 0.6),
     textAlign: 'left',
     width: '90%',
