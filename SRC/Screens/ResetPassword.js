@@ -72,7 +72,7 @@ const ResetPassword = props => {
             name={'arrowleft'}
             as={AntDesign}
             size={moderateScale(30, 0.3)}
-            color={Color.themeBlue}
+            color={Color.darkBlue}
             onPress={() => {
               navigationN.goBack();
             }}
@@ -148,6 +148,11 @@ const ResetPassword = props => {
 };
 
 const styles = ScaledSheet.create({
+  gradient: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   main_container: {
     height: windowHeight,
     width: windowWidth,
@@ -169,6 +174,7 @@ const styles = ScaledSheet.create({
     height: moderateScale(30, 0.3),
     width: moderateScale(30, 0.3),
     borderRadius: moderateScale(5, 0.3),
+    marginTop: moderateScale(20, 0.6)
   },
   container: {
     alignItems: 'flex-start',

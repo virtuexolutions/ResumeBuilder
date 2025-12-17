@@ -14,7 +14,8 @@ const DropDown = ({
   data,
   labelKey = null,
   placeHolder,
-  width
+  width,
+  backgroundColor
 }) => {
   const [isOpened, setIsOpened] = useState(false);
   const isFocused = useIsFocused();
@@ -23,7 +24,7 @@ const DropDown = ({
     <View>
       <TouchableOpacity
         onPress={() => setIsOpened(!isOpened)}
-        style={[styles.mainContainer ,{width: width}]}>
+        style={[styles.mainContainer, { width: width, backgroundColor: backgroundColor ? backgroundColor : Color.white }]}>
         <CustomText style={styles.text}>
           {data ? (labelKey ? data?.[labelKey] : data) : placeHolder}
         </CustomText>

@@ -102,8 +102,9 @@ export default StartScreen;
 
 const styles = StyleSheet.create({
     gradient: {
-        width: windowWidth,
-        height: windowHeight,
+        // width: windowWidth,
+        // height: windowHeight,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },

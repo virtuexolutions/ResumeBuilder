@@ -54,20 +54,40 @@ const GlobalErrorModal = () => {
 
                     <CustomText isBold style={styles.title}>{error?.title}</CustomText>
                     <CustomText style={styles.message}>{error?.message}</CustomText>
-                    <CustomButton
-                        text={'Try Again'}
-                        width={windowWidth * 0.5}
-                        height={windowHeight * 0.050}
-                        borderRadius={moderateScale(10, 0.3)}
-                        textColor={Color.red}
-                        bgColor={Color.lightGrey}
-                        borderWidth={2}
-                        borderColor={Color.red}
-                        onPress={() => {
-                            dispatch(hideErrorModal())
-                            console.log('pressed')
-                        }}
-                    />
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: '90%'
+                    }}>
+                        <CustomButton
+                            text={'Try Again'}
+                            width={windowWidth * 0.35}
+                            height={windowHeight * 0.050}
+                            borderRadius={moderateScale(10, 0.3)}
+                            textColor={Color.red}
+                            bgColor={Color.lightGrey}
+                            borderWidth={2}
+                            borderColor={Color.red}
+                            onPress={() => {
+                                dispatch(hideErrorModal())
+                                console.log('pressed')
+                            }}
+                        />
+                        <CustomButton
+                            text={'Cancel'}
+                            width={windowWidth * 0.35}
+                            height={windowHeight * 0.050}
+                            borderRadius={moderateScale(10, 0.3)}
+                            textColor={Color.black}
+                            bgColor={Color.lightGrey}
+                            borderWidth={2}
+                            borderColor={Color.black}
+                            onPress={() => {
+                                dispatch(hideErrorModal())
+                            }}
+                        />
+                    </View>
                 </View>
             </View>
         </Modal>

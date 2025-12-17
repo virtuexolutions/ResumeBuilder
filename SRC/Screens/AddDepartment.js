@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { ActivityIndicator, Alert, Platform, StyleSheet, ToastAndroid, View } from 'react-native'
+import { ActivityIndicator, Alert, ImageBackground, Platform, StyleSheet, ToastAndroid, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -84,144 +84,141 @@ const AddDepartment = (props) => {
         }
     }
     return (
-        <View style={styles.container}>
-            <Header showBack hideUser={false} />
-            <View style={styles.main_view}>
-                <TextInputWithTitle
-                    title={"Enter Department Name : "}
-                    iconName={'building'}
-                    iconType={FontAwesome5}
-                    color={Color.veryLightGray}
-                    setText={setFullName}
-                    value={fullName}
-                    placeholder={'Department Name'}
-                    placeholderColor={Color.veryLightGray}
-                    viewWidth={0.9}
-                    viewHeight={0.060}
-                    border={1}
-                    borderRadius={moderateScale(10, 0.6)}
-                    borderColor={Color.themeBlue}
-                />
-                <TextInputWithTitle
-                    title={"Enter Department Type : "}
-                    iconName={'building'}
-                    iconType={FontAwesome5}
-                    color={Color.veryLightGray}
-                    setText={setDepartmentType}
-                    value={department_type}
-                    placeholder={'Department Type'}
-                    placeholderColor={Color.veryLightGray}
-                    viewWidth={0.9}
-                    viewHeight={0.060}
-                    border={1}
-                    borderRadius={moderateScale(10, 0.6)}
-                    borderColor={Color.themeBlue}
-                />
-                <TextInputWithTitle
-                    title={"Enter Lead Name : "}
-                    iconName={'person'}
-                    iconType={Ionicons}
-                    color={Color.veryLightGray}
-                    setText={setLeadName}
-                    value={lead_name}
-                    placeholder={'Lead Name'}
-                    placeholderColor={Color.veryLightGray}
-                    viewWidth={0.9}
-                    viewHeight={0.060}
-                    border={1}
-                    borderRadius={moderateScale(10, 0.6)}
-                    borderColor={Color.themeBlue}
-                />
+        <ImageBackground source={require('../Assets/Images/background_image.png')}
+            style={styles.gradient}
+        >
+            <View style={styles.container}>
+                <Header showBack hideUser={false} />
+                <View style={styles.main_view}>
+                    <TextInputWithTitle
+                        title={"Enter Department Name : "}
+                        iconName={'building'}
+                        iconType={FontAwesome5}
+                        color={Color.veryLightGray}
+                        setText={setFullName}
+                        value={fullName}
+                        placeholder={'Department Name'}
+                        placeholderColor={Color.veryLightGray}
+                        viewWidth={0.9}
+                        viewHeight={0.060}
+                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                        borderRadius={moderateScale(10, 0.6)}
+                    />
+                    <TextInputWithTitle
+                        title={"Enter Department Type : "}
+                        iconName={'building'}
+                        iconType={FontAwesome5}
+                        color={Color.veryLightGray}
+                        setText={setDepartmentType}
+                        value={department_type}
+                        placeholder={'Department Type'}
+                        placeholderColor={Color.veryLightGray}
+                        viewWidth={0.9}
+                        viewHeight={0.060}
+                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                        borderRadius={moderateScale(10, 0.6)}
+                    />
+                    <TextInputWithTitle
+                        title={"Enter Lead Name : "}
+                        iconName={'person'}
+                        iconType={Ionicons}
+                        color={Color.veryLightGray}
+                        setText={setLeadName}
+                        value={lead_name}
+                        placeholder={'Lead Name'}
+                        placeholderColor={Color.veryLightGray}
+                        viewWidth={0.9}
+                        viewHeight={0.060}
+                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                        borderRadius={moderateScale(10, 0.6)}
+                    />
 
-                <TextInputWithTitle
-                    title={"Enter Lead Email Address :"}
-                    iconName={'mail'}
-                    iconType={Ionicons}
-                    color={Color.veryLightGray}
-                    setText={setEmail}
-                    value={email}
-                    placeholder={'lead email address'}
-                    placeholderColor={Color.veryLightGray}
-                    viewWidth={0.9}
-                    viewHeight={0.060}
-                    border={1}
-                    borderRadius={moderateScale(10, 0.6)}
-                    borderColor={Color.themeBlue}
-                />
+                    <TextInputWithTitle
+                        title={"Enter Lead Email Address :"}
+                        iconName={'mail'}
+                        iconType={Ionicons}
+                        color={Color.veryLightGray}
+                        setText={setEmail}
+                        value={email}
+                        placeholder={'lead email address'}
+                        placeholderColor={Color.veryLightGray}
+                        viewWidth={0.9}
+                        viewHeight={0.060}
+                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                        borderRadius={moderateScale(10, 0.6)}
+                    />
 
-                <TextInputWithTitle
-                    title={"Enter Lead Phone Number : "}
-                    iconName={'phone'}
-                    iconType={Feather}
-                    color={Color.veryLightGray}
-                    setText={setPhone1}
-                    value={phone1}
-                    placeholder={'Phone Number'}
-                    placeholderColor={Color.veryLightGray}
-                    viewWidth={0.9}
-                    viewHeight={0.060}
-                    border={1}
-                    borderRadius={moderateScale(10, 0.6)}
-                    borderColor={Color.themeBlue}
-                />
+                    <TextInputWithTitle
+                        title={"Enter Lead Phone Number : "}
+                        iconName={'phone'}
+                        iconType={Feather}
+                        color={Color.veryLightGray}
+                        setText={setPhone1}
+                        value={phone1}
+                        placeholder={'Phone Number'}
+                        placeholderColor={Color.veryLightGray}
+                        viewWidth={0.9}
+                        viewHeight={0.060}
+                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                        borderRadius={moderateScale(10, 0.6)}
+                    />
 
-                <TextInputWithTitle
-                    title={"Enter Number of Employee in Depart"}
-                    iconName={'person'}
-                    iconType={Ionicons}
-                    color={Color.veryLightGray}
-                    value={numberOfEmployee}
-                    setText={setNumberOfEmployee}
-                    placeholder={'number of employee'}
-                    placeholderColor={Color.veryLightGray}
-                    viewWidth={0.9}
-                    viewHeight={0.060}
-                    border={1}
-                    borderRadius={moderateScale(10, 0.6)}
-                    borderColor={Color.themeBlue}
-                />
-                <CustomButton
-                    text={loading ? <ActivityIndicator style={styles.indicatorStyle}
-                        size="small"
-                        color={Color.white} /> : isDepartment ? 'Update' : 'Submit'}
-                    width={windowWidth * 0.9}
-                    height={windowHeight * 0.055}
-                    borderRadius={moderateScale(10, 0.3)}
-                    textColor={Color.white}
-                    bgColor={Color.themeBlue}
-                    style={{
-                        position: 'absolute',
-                        bottom: windowWidth * 0.2,
-                    }}
-                    onPress={() => {
-                        isDepartment ? onPressUpdate() :
-                            onPressSubmit()
-                    }}
-                />
+                    <TextInputWithTitle
+                        title={"Enter Number of Employee in Depart"}
+                        iconName={'person'}
+                        iconType={Ionicons}
+                        color={Color.veryLightGray}
+                        value={numberOfEmployee}
+                        setText={setNumberOfEmployee}
+                        placeholder={'number of employee'}
+                        placeholderColor={Color.veryLightGray}
+                        viewWidth={0.9}
+                        viewHeight={0.060}
+                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                        borderRadius={moderateScale(10, 0.6)}
+                    />
+                    <CustomButton
+                        text={loading ? <ActivityIndicator style={styles.indicatorStyle}
+                            size="small"
+                            color={Color.white} /> : isDepartment ? 'Update' : 'Submit'}
+                        width={windowWidth * 0.9}
+                        height={windowHeight * 0.055}
+                        borderRadius={moderateScale(10, 0.3)}
+                        textColor={Color.white}
+                        bgColor={Color.themeBlue}
+                        style={{
+                            position: 'absolute',
+                            bottom: windowWidth * 0.2,
+                        }}
+                        onPress={() => {
+                            isDepartment ? onPressUpdate() :
+                                onPressSubmit()
+                        }}
+                    />
+                </View>
             </View>
-        </View>
+        </ImageBackground>
     )
 }
 
 export default AddDepartment
 
 const styles = StyleSheet.create({
+    gradient: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     container: {
-        width: windowWidth,
-        height: windowHeight,
-        backgroundColor: '#F9F9F9',
+        flex: 1,
         paddingHorizontal: moderateScale(15, 0.3),
-        // paddingVertical: moderateScale(20, 0.6),
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),
-        // justifyContent : 'center'
     },
     main_view: {
         paddingVertical: moderateScale(10, 0.6),
         paddingHorizontal: moderateScale(15, 0.6),
-        width: windowWidth,
-        height: windowHeight,
-        backgroundColor: Color.white
+        flex: 1
     },
     search_bar_view: {
         width: windowWidth * 0.94,

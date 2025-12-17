@@ -1,16 +1,10 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
+import { StripeProvider } from '@stripe/stripe-react-native';
 import { NativeBaseProvider } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import GlobalErrorModal from './SRC/Components/ErrorModal';
 import SplashScreen from './SRC/Screens/SplashScreen';
 import { persistor, store } from './SRC/Store/index';
 import {
@@ -18,12 +12,7 @@ import {
   requestWritePermission,
 } from './SRC/Utillity/utils';
 import AppNavigator from './SRC/appNavigation';
-import { StripeProvider } from '@stripe/stripe-react-native';
-import GlobalErrorModal from './SRC/Components/ErrorModal';
 
-// import { LogBox } from 'react-native';
-
-// LogBox.ignoreAllLogs();
 
 const App = () => {
   return (
@@ -52,6 +41,7 @@ const MainContainer = () => {
     GetPermission();
 
   }, []);
+  
   console.log("Platform Version:", Platform.Version);
 
   const [isloading] = useloader(true);
@@ -59,7 +49,6 @@ const MainContainer = () => {
     return <SplashScreen />;
   }
   return <AppNavigator />;
-  // return <ResetPassword/>;
 };
 
 const useloader = value => {

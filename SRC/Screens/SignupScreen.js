@@ -77,7 +77,7 @@ const SignupScreen = ({ navigation, route }) => {
           as={Ionicons}
           name="arrow-back"
           size={moderateScale(25, 0.3)}
-          color={user_type === 'Company' ? Color.white : Color.blue}
+          color={Color.darkBlue}
           style={{
             position: 'absolute',
             top: moderateScale(20, 0.3),
@@ -206,8 +206,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   gradient: {
-    width: windowWidth,
-    height: windowHeight,
+    // width: windowWidth,
+    // height: windowHeight,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

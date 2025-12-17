@@ -121,7 +121,6 @@ const VerifyNumber = props => {
           activeOpacity={0.8}
           style={{
             position: 'absolute',
-            // top: moderateScale(20, 0.3),
             left: moderateScale(20, 0.3),
             height: moderateScale(30, 0.3),
             width: moderateScale(30, 0.3),
@@ -129,12 +128,13 @@ const VerifyNumber = props => {
             justifyContent: 'center',
             alignItems: 'center',
             zIndex: 1,
+            marginTop: moderateScale(20, 0.6)
           }}>
           <Icon
             name={'arrowleft'}
             as={AntDesign}
             size={moderateScale(24, 0.3)}
-            color={Color.themeBlue}
+            color={Color.darkBlue}
             onPress={() => {
               navigationN.goBack();
             }}
@@ -210,6 +210,11 @@ const VerifyNumber = props => {
 };
 
 const styles = ScaledSheet.create({
+  gradient: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   txt2: {
     color: Color.black,
     fontSize: moderateScale(25, 0.6),

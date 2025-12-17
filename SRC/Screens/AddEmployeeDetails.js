@@ -2,7 +2,7 @@ import { useIsFocused } from '@react-navigation/core'
 import moment from 'moment'
 import { Icon } from 'native-base'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Alert, I18nManager, Platform, ScrollView, StyleSheet, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, I18nManager, ImageBackground, Platform, ScrollView, StyleSheet, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import { moderateScale } from 'react-native-size-matters'
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -110,188 +110,193 @@ const AddEmployeeDetails = (props) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Header showBack hideUser={false} title={'Add Employee'} />
-            <ScrollView style={
-                styles.scrollView
-            }>
-                <View style={styles.main_view}>
-                    <FormWrapper>
-                        <TextInputWithTitle
-                            title={"Enter Employee's Full Name : "}
-                            iconName={'person'}
-                            iconType={Ionicons}
-                            color={Color.veryLightGray}
-                            setText={setFullName}
-                            value={fullName}
-                            placeholder={'Full Name'}
-                            placeholderColor={Color.veryLightGray}
-                            viewWidth={0.9}
-                            viewHeight={0.060}
-                            border={1}
-                            borderRadius={moderateScale(10, 0.6)}
-                            borderColor={Color.themeBlue}
+        <ImageBackground source={require('../Assets/Images/background_image.png')}
+            style={styles.gradient}
+        >
+            <View style={styles.container}>
+                <Header showBack hideUser={false} title={'Add Employee'} />
+                <ScrollView style={
+                    styles.scrollView
+                }>
+                    <View style={styles.main_view}>
+                        <FormWrapper>
+                            <TextInputWithTitle
+                                title={"Enter Employee's Full Name : "}
+                                iconName={'person'}
+                                iconType={Ionicons}
+                                color={Color.veryLightGray}
+                                setText={setFullName}
+                                value={fullName}
+                                placeholder={'Full Name'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            // borderBottomWidth={2}
+                            // borderColor={Color.blue}
+                            />
+                            <TextInputWithTitle
+                                title={"Enter Employee's Email Address : "}
+                                iconName={'mail'}
+                                iconType={Ionicons}
+                                color={Color.veryLightGray}
+                                setText={setEmail}
+                                value={email}
+                                placeholder={'Email Address'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <TextInputWithTitle
+                                title={"Enter Employee's Password : "}
+                                iconName={'lock'}
+                                iconType={Feather}
+                                color={Color.veryLightGray}
+                                setText={setPassword}
+                                value={password}
+                                placeholder={'password'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <TextInputWithTitle
+                                title={"Enter Employee's Phone Number : "}
+                                iconName={'phone'}
+                                iconType={Feather}
+                                color={Color.veryLightGray}
+                                setText={setPhone1}
+                                value={phone1}
+                                placeholder={'Phone Number'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <TextInputWithTitle
+                                title={"Enter Employee's Salary : "}
+                                iconName={'money'}
+                                iconType={FontAwesome}
+                                color={Color.veryLightGray}
+                                setText={setSalary}
+                                value={salary}
+                                placeholder={'salary'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <CustomText isBold style={{
+                                fontSize: moderateScale(15, 0.3),
+                                marginBottom: moderateScale(5, 0.3),
+                                width: windowWidth * props.viewWidth,
+                                paddingHorizontal: moderateScale(10, 0.6),
+                                marginTop: moderateScale(10, 0.3),
+                                textAlign: 'left'
+                            }}>Choose Joining Date</CustomText>
+                            <TouchableOpacity onPress={() => setOpen(true)} style={{
+                                width: windowWidth * 0.9,
+                                height: windowHeight * 0.060,
+                                borderRadius: moderateScale(10, 0.6),
+                                // borderWidth: 1,
+                                // borderColor: Color.themeBlue,
+                                flexDirection: 'row',
+                                justifyContent: "flex-start",
+                                alignItems: 'center',
+                                paddingHorizontal: moderateScale(15, 0.6),
+                                backgroundColor: 'rgba(211, 211, 211, 0.5) '
+                            }}>
+                                <Icon name='calendar' as={Entypo} size={moderateScale(17, 0.3)} color={Color.veryLightGray} />
+                                <CustomText style={{
+                                    marginLeft: moderateScale(15, 0.6),
+                                    color: Color.veryLightGray
+                                }}>{date ? moment(date).format('DD MMM YYYY') : 'Choose Date'}</CustomText>
+                            </TouchableOpacity>
+                            <TextInputWithTitle
+                                title={"Enter Designation Name : "}
+                                iconName={'work'}
+                                iconType={MaterialIcons}
+                                color={Color.veryLightGray}
+                                setText={setDesignation}
+                                value={designation}
+                                placeholder={'Designation Name'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <CustomText isBold
+                                style={[
+                                    {
+                                        color: Color.black,
+                                        fontSize: moderateScale(15, 0.3),
+                                        marginBottom: moderateScale(5, 0.3),
+                                        width: windowWidth,
+                                        paddingHorizontal: moderateScale(10, 0.6),
+                                        marginTop: moderateScale(10, 0.3),
+                                        textAlign: 'left'
+                                    },
+                                ]}>
+                                select department
+                            </CustomText>
+                        </FormWrapper>
+                        <DropDown
+                            array={departments}
+                            data={selectedCabCategory}
+                            setData={setSelectedCabCategory}
+                            placeHolder="Select Department"
+                            labelKey="department_name"
                         />
-                        <TextInputWithTitle
-                            title={"Enter Employee's Email Address : "}
-                            iconName={'mail'}
-                            iconType={Ionicons}
-                            color={Color.veryLightGray}
-                            setText={setEmail}
-                            value={email}
-                            placeholder={'Email Address'}
-                            placeholderColor={Color.veryLightGray}
-                            viewWidth={0.9}
-                            viewHeight={0.060}
-                            border={1}
-                            borderRadius={moderateScale(10, 0.6)}
-                            borderColor={Color.themeBlue}
+                        <CustomButton
+                            text={loading ? <ActivityIndicator style={styles.indicatorStyle}
+                                size="small"
+                                color={Color.white} /> : isDetails ? 'Update' : 'Submit'}
+                            width={windowWidth * 0.9}
+                            height={windowHeight * 0.055}
+                            borderRadius={moderateScale(10, 0.3)}
+                            textColor={Color.white}
+                            bgColor={Color.themeBlue}
+                            marginTop={moderateScale(40, 0.6)}
+                            onPress={() => {
+                                isDetails ? onPressUpdate() :
+                                    onPressSubmit()
+                            }}
                         />
-                        <TextInputWithTitle
-                            title={"Enter Employee's Password : "}
-                            iconName={'lock'}
-                            iconType={Feather}
-                            color={Color.veryLightGray}
-                            setText={setPassword}
-                            value={password}
-                            placeholder={'password'}
-                            placeholderColor={Color.veryLightGray}
-                            viewWidth={0.9}
-                            viewHeight={0.060}
-                            border={1}
-                            borderRadius={moderateScale(10, 0.6)}
-                            borderColor={Color.themeBlue}
-                        />
-                        <TextInputWithTitle
-                            title={"Enter Employee's Phone Number : "}
-                            iconName={'phone'}
-                            iconType={Feather}
-                            color={Color.veryLightGray}
-                            setText={setPhone1}
-                            value={phone1}
-                            placeholder={'Phone Number'}
-                            placeholderColor={Color.veryLightGray}
-                            viewWidth={0.9}
-                            viewHeight={0.060}
-                            border={1}
-                            borderRadius={moderateScale(10, 0.6)}
-                            borderColor={Color.themeBlue}
-                        />
-                        <TextInputWithTitle
-                            title={"Enter Employee's Salary : "}
-                            iconName={'money'}
-                            iconType={FontAwesome}
-                            color={Color.veryLightGray}
-                            setText={setSalary}
-                            value={salary}
-                            placeholder={'salary'}
-                            placeholderColor={Color.veryLightGray}
-                            viewWidth={0.9}
-                            viewHeight={0.060}
-                            border={1}
-                            borderRadius={moderateScale(10, 0.6)}
-                            borderColor={Color.themeBlue}
-                        />
-                        <CustomText isBold style={{
-                            fontSize: moderateScale(15, 0.3),
-                            marginBottom: moderateScale(5, 0.3),
-                            width: windowWidth * props.viewWidth,
-                            paddingHorizontal: moderateScale(10, 0.6),
-                            marginTop: moderateScale(10, 0.3),
-                            textAlign: 'left'
-                        }}>Choose Joining Date</CustomText>
-                        <TouchableOpacity onPress={() => setOpen(true)} style={{
-                            width: windowWidth * 0.9,
-                            height: windowHeight * 0.060,
-                            borderRadius: moderateScale(10, 0.6),
-                            // borderWidth: 1,
-                            // borderColor: Color.themeBlue,
-                            flexDirection: 'row',
-                            justifyContent: "flex-start",
-                            alignItems: 'center',
-                            paddingHorizontal: moderateScale(15, 0.6),
-                            backgroundColor: Color.lightGrey
-                        }}>
-                            <Icon name='calendar' as={Entypo} size={moderateScale(17, 0.3)} color={Color.veryLightGray} />
-                            <CustomText style={{
-                                marginLeft: moderateScale(15, 0.6),
-                                color: Color.veryLightGray
-                            }}>{date ? moment(date).format('DD MMM YYYY') : 'Choose Date'}</CustomText>
-                        </TouchableOpacity>
-                        <TextInputWithTitle
-                            title={"Enter Designation Name : "}
-                            iconName={'work'}
-                            iconType={MaterialIcons}
-                            color={Color.veryLightGray}
-                            setText={setDesignation}
-                            value={designation}
-                            placeholder={'Designation Name'}
-                            placeholderColor={Color.veryLightGray}
-                            viewWidth={0.9}
-                            viewHeight={0.060}
-                            border={1}
-                            borderRadius={moderateScale(10, 0.6)}
-                            borderColor={Color.themeBlue}
-                        />
-                        <CustomText isBold
-                            style={[
-                                {
-                                    color: Color.black,
-                                    fontSize: moderateScale(15, 0.3),
-                                    marginBottom: moderateScale(5, 0.3),
-                                    width: windowWidth,
-                                    paddingHorizontal: moderateScale(10, 0.6),
-                                    marginTop: moderateScale(10, 0.3),
-                                    textAlign: 'left'
-                                },
-                            ]}>
-                            select department
-                        </CustomText>
-                    </FormWrapper>
-                    <DropDown
-                        array={departments}
-                        data={selectedCabCategory}
-                        setData={setSelectedCabCategory}
-                        placeHolder="Select Department"
-                        labelKey="department_name"
-                    />
-                    <CustomButton
-                        text={loading ? <ActivityIndicator style={styles.indicatorStyle}
-                            size="small"
-                            color={Color.white} /> : isDetails ? 'Update' : 'Submit'}
-                        width={windowWidth * 0.9}
-                        height={windowHeight * 0.055}
-                        borderRadius={moderateScale(10, 0.3)}
-                        textColor={Color.white}
-                        bgColor={Color.themeBlue}
-                        marginTop={moderateScale(40, 0.6)}
-                        onPress={() => {
-                            isDetails ? onPressUpdate() :
-                                onPressSubmit()
+                    </View>
+                    <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        onConfirm={date => {
+                            setOpen(false);
+                            setDate(date);
+                        }}
+                        mode="date"
+                        onCancel={() => {
+                            setOpen(false);
                         }}
                     />
-                </View>
-                <DatePicker
-                    modal
-                    open={open}
-                    date={date}
-                    onConfirm={date => {
-                        setOpen(false);
-                        setDate(date);
-                    }}
-                    mode="date"
-                    onCancel={() => {
-                        setOpen(false);
-                    }}
-                />
-            </ScrollView>
-        </View>
+                </ScrollView>
+            </View>
+        </ImageBackground>
     )
 }
 
 export default AddEmployeeDetails
 
 const styles = StyleSheet.create({
+    gradient: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     scrollView: {
         width: windowWidth,
         height: windowHeight
@@ -299,7 +304,7 @@ const styles = StyleSheet.create({
     container: {
         width: windowWidth,
         height: windowHeight,
-        backgroundColor: '#F9F9F9',
+        // backgroundColor: '#F9F9F9',
         paddingHorizontal: moderateScale(15, 0.3),
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),

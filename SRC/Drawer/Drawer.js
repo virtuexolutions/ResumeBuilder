@@ -277,10 +277,10 @@ const Drawer = React.memo((props) => {
         <View
           style={{
             flexDirection: 'row',
-            // marginLeft: moderateScale(15, 0.3),
             justifyContent: 'space-between',
             alignItems: 'center',
-            paddingHorizontal: moderateScale(12, 0.6)
+            paddingHorizontal: moderateScale(12, 0.6),
+            marginTop: moderateScale(15, 0.6)
           }}>
           <Icon name="fingerprint" as={Entypo} size={6} color={'grey'} />
           <CustomText
@@ -298,6 +298,29 @@ const Drawer = React.memo((props) => {
             onThumbColor={enabler ? Color.themeColor : '#f4f3f4'}
           />
         </View>
+        {/* <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: moderateScale(12, 0.6),
+            marginTop: moderateScale(15, 0.6)
+          }}>
+          <CustomText
+            style={{
+              color: Color.darkGray,
+              width: windowWidth * 0.32,
+            }}>
+            Change Theme
+          </CustomText>
+          <Switch
+            isChecked={enabler}
+            onToggle={toggleSwitch}
+            offTrackColor="gray.400"
+            onTrackColor={Color.themeBlue}
+            onThumbColor={enabler ? Color.themeColor : '#f4f3f4'}
+          />
+        </View> */}
       </View>
       <TouchableOpacity
         onPress={() => dispatch(setUserLogoutAuth())

@@ -74,7 +74,7 @@ const VerifyEmail = props => {
             name={'arrowleft'}
             as={AntDesign}
             size={moderateScale(24, 0.3)}
-            color={Color.themeBlue}
+            color={Color.darkBlue}
             onPress={() => {
               navigationN.goBack();
             }}
@@ -125,8 +125,9 @@ const VerifyEmail = props => {
 
 const styles = ScaledSheet.create({
   gradient: {
-    width: windowWidth,
-    height: windowHeight,
+    // width: windowWidth,
+    // height: windowHeight,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

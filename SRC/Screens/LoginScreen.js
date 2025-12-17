@@ -78,7 +78,7 @@ const LoginScreen = ({ navigation, route }) => {
         as={Ionicons}
         name="arrow-back"
         size={moderateScale(30, 0.3)}
-        color={Color.blue}
+        color={Color.darkBlue}
         style={{
           position: 'absolute',
           top: moderateScale(30, 0.3),
@@ -193,8 +193,7 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   gradient: {
-    width: windowWidth,
-    height: windowHeight,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
