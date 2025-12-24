@@ -7,11 +7,11 @@ import { windowHeight, windowWidth } from '../Utillity/utils'
 import CustomButton from './CustomButton'
 import { moderateScale } from 'react-native-size-matters'
 
-const BottomSheet = ({Rbref ,setRbRef  ,text}) => {
+const BottomSheet = ({ Rbref, setRbRef, text }) => {
   return (
-   
-<RBSheet
-    // closeOnDragDown={true}
+
+    <RBSheet
+      // closeOnDragDown={true}
       ref={ref => setRbRef(ref)}
       height={450}
       dragFromTopOnly={true}
@@ -23,12 +23,12 @@ const BottomSheet = ({Rbref ,setRbRef  ,text}) => {
           borderTopLeftRadius: 25,
           height: windowHeight * 0.65,
         },
-    }}>
+      }}>
       <View
         style={{
-            alignItems: 'center',
-            backgroundColor: Color.white,
-            backgroundColor :'red'
+          alignItems: 'center',
+          backgroundColor: Color.white,
+          backgroundColor: 'red'
         }}>
         <View
           style={{
@@ -47,7 +47,7 @@ const BottomSheet = ({Rbref ,setRbRef  ,text}) => {
           }}>
           Please share your opinion about the product
         </CustomText>
-  
+
 
         <CustomButton
           text={'send review'}
@@ -55,7 +55,7 @@ const BottomSheet = ({Rbref ,setRbRef  ,text}) => {
           width={windowWidth * 0.55}
           height={windowHeight * 0.08}
           marginTop={moderateScale(15, 0.3)}
-          onPress={() => {}}
+          onPress={() => { }}
           bgColor={Color.themeColor}
           borderRadius={moderateScale(30, 0.3)}
           fontSize={moderateScale(15, 0.3)}

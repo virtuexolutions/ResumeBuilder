@@ -35,7 +35,6 @@ import PdfContainer from '../Components/PdfContainer';
 import PDFView from '../Components/PDFView';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
 import LoggedInScreen from './LoggedInScreen';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Ewallet = () => {
     const isFocused = useIsFocused();

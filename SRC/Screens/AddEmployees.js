@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, FlatList, ImageBackground, StyleSheet, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useSelector } from 'react-redux'
@@ -53,67 +53,76 @@ const AddEmployees = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails', { data: {}, isDetails: false })} />
-      <View style={styles.main_view}>
-        <View style={styles.search_bar_view}>
-          <TextInputWithTitle
-            iconName={'search1'}
-            iconType={AntDesign}
-            color={Color.veryLightGray}
-            setText={setSearch}
-            value={search}
-            placeholder={'Search Employees'}
-            placeholderColor={Color.veryLightGray}
-            viewWidth={0.7}
-            viewHeight={0.055}
-            border={1}
-            borderRadius={moderateScale(10, 0.6)}
-            borderColor={Color.veryLightGray}
-          />
-          <CustomButton
-            text={'Search'}
-            width={windowWidth * 0.22}
-            height={windowHeight * 0.055}
-            borderRadius={moderateScale(10, 0.3)}
-            textColor={Color.white}
-            bgColor={Color.themeBlue}
-            onPress={handleSearch}
-          />
-        </View>
-        {
-          loading ? <ActivityIndicator size="small"
-            color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> :
-            <FlatList
-              data={employee}
-              keyExtractor={(item) => item?.id}
-              ListEmptyComponent={<ListEmphtyComponent />}
-              renderItem={(({ item }) => {
-                const nameInitial = (item?.detail?.full_name || ' ')[0]?.toUpperCase() || '?';
-                return (
-                  <CardComponent data={item}
-                    image={nameInitial}
-                    name={item?.full_name}
-                    text={item?.designation}
-                    onPress={() => navigationService.navigate('EmployeeDetails', { data: item, isDetails: true })}
-                  />
-                )
-              })}
+    <ImageBackground source={require('../Assets/Images/background_image.png')}
+      style={styles.gradient}
+    >
+      <View style={styles.container}>
+        <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails', { data: {}, isDetails: false })} />
+        <View style={styles.main_view}>
+          <View style={styles.search_bar_view}>
+            <TextInputWithTitle
+              iconName={'search1'}
+              iconType={AntDesign}
+              color={Color.veryLightGray}
+              setText={setSearch}
+              value={search}
+              placeholder={'Search Employees'}
+              placeholderColor={Color.veryLightGray}
+              viewWidth={0.7}
+              viewHeight={0.055}
+              border={1}
+              borderRadius={moderateScale(10, 0.6)}
+              borderColor={Color.veryLightGray}
             />
-        }
+            <CustomButton
+              text={'Search'}
+              width={windowWidth * 0.22}
+              height={windowHeight * 0.055}
+              borderRadius={moderateScale(10, 0.3)}
+              textColor={Color.white}
+              bgColor={Color.themeBlue}
+              onPress={handleSearch}
+            />
+          </View>
+          {
+            loading ? <ActivityIndicator size="small"
+              color={Color.themeBlue} style={{ marginTop: moderateScale(20, 0.6) }} /> :
+              <FlatList
+                data={employee}
+                keyExtractor={(item) => item?.id}
+                ListEmptyComponent={<ListEmphtyComponent />}
+                renderItem={(({ item }) => {
+                  const nameInitial = (item?.detail?.full_name || ' ')[0]?.toUpperCase() || '?';
+                  return (
+                    <CardComponent data={item}
+                      image={nameInitial}
+                      name={item?.full_name}
+                      text={item?.designation}
+                      onPress={() => navigationService.navigate('EmployeeDetails', { data: item, isDetails: true })}
+                    />
+                  )
+                })}
+              />
+          }
 
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   )
 }
 
 export default AddEmployees
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   container: {
     width: windowWidth,
     height: windowHeight,
-    backgroundColor: '#F9F9F9',
+    // backgroundColor: '#F9F9F9',
     paddingHorizontal: moderateScale(15, 0.3),
     alignItems: 'center',
     paddingTop: moderateScale(10, 0.6),
@@ -123,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(15, 0.6),
     width: windowWidth,
     height: windowHeight,
-    backgroundColor: Color.white
+    // backgroundColor: Color.white
   },
   search_bar_view: {
     width: windowWidth * 0.94,

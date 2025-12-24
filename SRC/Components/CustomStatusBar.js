@@ -40,6 +40,8 @@ export default function CustomStatusBar(props) {
           <SafeAreaView edges={["top"]} />
           <StatusBar
             translucent
+            showHideTransition="slide"
+            animated
             backgroundColor={
               Platform.OS === "android"
                 ? backgroundColor

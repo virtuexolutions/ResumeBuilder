@@ -131,10 +131,8 @@ const AddEmployeeDetails = (props) => {
                                 placeholderColor={Color.veryLightGray}
                                 viewWidth={0.9}
                                 viewHeight={0.060}
-                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
                                 borderRadius={moderateScale(10, 0.6)}
-                            // borderBottomWidth={2}
-                            // borderColor={Color.blue}
                             />
                             <TextInputWithTitle
                                 title={"Enter Employee's Email Address : "}
@@ -147,7 +145,7 @@ const AddEmployeeDetails = (props) => {
                                 placeholderColor={Color.veryLightGray}
                                 viewWidth={0.9}
                                 viewHeight={0.060}
-                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
                                 borderRadius={moderateScale(10, 0.6)}
                             />
                             <TextInputWithTitle
@@ -161,7 +159,7 @@ const AddEmployeeDetails = (props) => {
                                 placeholderColor={Color.veryLightGray}
                                 viewWidth={0.9}
                                 viewHeight={0.060}
-                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
                                 borderRadius={moderateScale(10, 0.6)}
                             />
                             <TextInputWithTitle
@@ -175,7 +173,7 @@ const AddEmployeeDetails = (props) => {
                                 placeholderColor={Color.veryLightGray}
                                 viewWidth={0.9}
                                 viewHeight={0.060}
-                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
                                 borderRadius={moderateScale(10, 0.6)}
                             />
                             <TextInputWithTitle
@@ -189,7 +187,7 @@ const AddEmployeeDetails = (props) => {
                                 placeholderColor={Color.veryLightGray}
                                 viewWidth={0.9}
                                 viewHeight={0.060}
-                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
                                 borderRadius={moderateScale(10, 0.6)}
                             />
                             <CustomText isBold style={{
@@ -210,7 +208,7 @@ const AddEmployeeDetails = (props) => {
                                 justifyContent: "flex-start",
                                 alignItems: 'center',
                                 paddingHorizontal: moderateScale(15, 0.6),
-                                backgroundColor: 'rgba(211, 211, 211, 0.5) '
+                                backgroundColor: 'rgba(255, 255, 255, 0.6) '
                             }}>
                                 <Icon name='calendar' as={Entypo} size={moderateScale(17, 0.3)} color={Color.veryLightGray} />
                                 <CustomText style={{
@@ -229,7 +227,7 @@ const AddEmployeeDetails = (props) => {
                                 placeholderColor={Color.veryLightGray}
                                 viewWidth={0.9}
                                 viewHeight={0.060}
-                                backgroundColor={'rgba(211, 211, 211, 0.5) '}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
                                 borderRadius={moderateScale(10, 0.6)}
                             />
                             <CustomText isBold

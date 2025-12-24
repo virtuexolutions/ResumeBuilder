@@ -17,13 +17,13 @@ import Color from '../Assets/Utilities/Color';
 import { Post } from '../Axios/AxiosInterceptorFunction';
 import CustomButton from '../Components/CustomButton';
 import CustomImage from '../Components/CustomImage';
+import CustomStatusBar from '../Components/CustomStatusBar';
 import CustomText from '../Components/CustomText';
+import FormWrapper from '../Components/FormWrapper';
 import TextInputWithTitle from '../Components/TextInputWithTitle';
 import { SetUserRole, setUserToken } from '../Store/slices/auth';
 import { setUserData } from '../Store/slices/common';
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils';
-import CustomStatusBar from '../Components/CustomStatusBar';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignupScreen = ({ navigation, route }) => {
   const type = route?.params?.type;
@@ -76,7 +76,7 @@ const SignupScreen = ({ navigation, route }) => {
           }}
           as={Ionicons}
           name="arrow-back"
-          size={moderateScale(25, 0.3)}
+          size={moderateScale(30, 0.3)}
           color={Color.darkBlue}
           style={{
             position: 'absolute',
@@ -97,70 +97,73 @@ const SignupScreen = ({ navigation, route }) => {
         <View style={styles.container}>
           <CustomText isBold style={styles.heading}>Create Your Account</CustomText>
           <CustomText style={styles.text}>Sign up to unlock important resources, streamline your workflow, and stay connected wherever you are.</CustomText>
-          <TextInputWithTitle
-            iconName={'user'}
-            iconType={FontAwesome}
-            setText={setUserName}
-            value={userName}
-            placeholder={type === 'Company' ? 'Type your company' : 'Type your Name'}
-            placeholderColor={Color.veryLightGray}
-            viewWidth={0.82}
-            backgroundColor={'rgba(211, 211, 211, 0.3) '}
-            borderRadius={moderateScale(10, 0.6)}
-            viewHeight={0.07}
-            marginTop={moderateScale(10, 0.3)}
-            borderBottomWidth={2}
-            borderColor={Color.blue}
-          />
-          <TextInputWithTitle
-            iconName={'mail'}
-            iconType={Ionicons}
-            setText={setEmail}
-            value={email}
-            placeholder={'Type your Email'}
-            placeholderColor={Color.veryLightGray}
-            viewWidth={0.82}
-            backgroundColor={'rgba(211, 211, 211, 0.3) '}
-            borderRadius={moderateScale(10, 0.6)}
-            viewHeight={0.07}
-            marginTop={moderateScale(10, 0.3)}
-            borderBottomWidth={2}
-            borderColor={Color.blue}
-          />
-          <TextInputWithTitle
-            iconSize={moderateScale(20, 0.3)}
-            iconName={'key'}
-            iconType={Ionicons}
-            secureText={true}
-            setText={setPassword}
-            value={password}
-            placeholder={'Type your password'}
-            placeholderColor={Color.veryLightGray}
-            viewWidth={0.82}
-            backgroundColor={'rgba(211, 211, 211, 0.3) '}
-            borderRadius={moderateScale(10, 0.6)}
-            viewHeight={0.07}
-            marginTop={moderateScale(10, 0.3)}
-            borderBottomWidth={2}
-            borderColor={Color.blue}
-          />
-          <TextInputWithTitle
-            iconSize={moderateScale(20, 0.3)}
-            iconName={'key'}
-            iconType={Ionicons}
-            secureText={true}
-            setText={setConfirmPassword}
-            value={confirmPassword}
-            placeholder={'Confirm Your Password'}
-            placeholderColor={Color.veryLightGray}
-            viewWidth={0.82}
-            backgroundColor={'rgba(211, 211, 211, 0.3) '}
-            borderRadius={moderateScale(10, 0.6)}
-            viewHeight={0.07}
-            marginTop={moderateScale(10, 0.3)}
-            borderBottomWidth={2}
-            borderColor={Color.blue}
-          />
+          <FormWrapper
+          >
+            <TextInputWithTitle
+              iconName={'user'}
+              iconType={FontAwesome}
+              setText={setUserName}
+              value={userName}
+              placeholder={type === 'Company' ? 'Type your company' : 'Type your Name'}
+              placeholderColor={Color.veryLightGray}
+              viewWidth={0.82}
+              backgroundColor={'rgba(211, 211, 211, 0.3) '}
+              borderRadius={moderateScale(10, 0.6)}
+              viewHeight={0.07}
+              marginTop={moderateScale(10, 0.3)}
+              borderBottomWidth={2}
+              borderColor={Color.blue}
+            />
+            <TextInputWithTitle
+              iconName={'mail'}
+              iconType={Ionicons}
+              setText={setEmail}
+              value={email}
+              placeholder={'Type your Email'}
+              placeholderColor={Color.veryLightGray}
+              viewWidth={0.82}
+              backgroundColor={'rgba(211, 211, 211, 0.3) '}
+              borderRadius={moderateScale(10, 0.6)}
+              viewHeight={0.07}
+              marginTop={moderateScale(10, 0.3)}
+              borderBottomWidth={2}
+              borderColor={Color.blue}
+            />
+            <TextInputWithTitle
+              iconSize={moderateScale(20, 0.3)}
+              iconName={'key'}
+              iconType={Ionicons}
+              secureText={true}
+              setText={setPassword}
+              value={password}
+              placeholder={'Type your password'}
+              placeholderColor={Color.veryLightGray}
+              viewWidth={0.82}
+              backgroundColor={'rgba(211, 211, 211, 0.3) '}
+              borderRadius={moderateScale(10, 0.6)}
+              viewHeight={0.07}
+              marginTop={moderateScale(10, 0.3)}
+              borderBottomWidth={2}
+              borderColor={Color.blue}
+            />
+            <TextInputWithTitle
+              iconSize={moderateScale(20, 0.3)}
+              iconName={'key'}
+              iconType={Ionicons}
+              secureText={true}
+              setText={setConfirmPassword}
+              value={confirmPassword}
+              placeholder={'Confirm Your Password'}
+              placeholderColor={Color.veryLightGray}
+              viewWidth={0.82}
+              backgroundColor={'rgba(211, 211, 211, 0.3) '}
+              borderRadius={moderateScale(10, 0.6)}
+              viewHeight={0.07}
+              marginTop={moderateScale(10, 0.3)}
+              borderBottomWidth={2}
+              borderColor={Color.blue}
+            />
+          </FormWrapper>
           <CustomButton
             text={isLoading ? <ActivityIndicator color={'white'} size={moderateScale(12, 0.2)} /> : 'Create'}
             textColor={Color.white}
@@ -171,7 +174,7 @@ const SignupScreen = ({ navigation, route }) => {
             width={windowWidth * 0.7}
             height={windowHeight * 0.060}
             borderRadius={moderateScale(20, 0.3)}
-            marginTop={moderateScale(20, 0.6)}
+            marginTop={moderateScale(10, 0.6)}
             bgColor={Color.themeBgColor}
             isGradient
           />
@@ -216,14 +219,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(15, 0.3),
     alignItems: 'center',
     width: windowWidth * 0.92,
-    height: windowHeight * 0.65,
+    height: windowHeight * 0.6,
     backgroundColor: " rgba(255, 255, 255, 0.4)",
     borderRadius: moderateScale(20, 0.6),
     alignSelf: "center",
     marginTop: moderateScale(10, 0.6),
     justifyContent: 'center',
     borderTopWidth: 5,
-    borderTopColor: Color.darkBlue
+    borderTopColor: Color.darkBlue,
+    paddingVertical: moderateScale(10, 0.6)
   },
   welcomeText: {
     fontSize: moderateScale(40, 0.3),

@@ -1,11 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { windowHeight, windowWidth } from '../Utillity/utils'
-import Color from '../Assets/Utilities/Color'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
+import Color from '../Assets/Utilities/Color'
+import { windowWidth } from '../Utillity/utils'
 import CustomText from './CustomText'
-import { Icon } from 'native-base'
-import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const CardComponent = ({ data, image, name, text, onPress }) => {
     return (
@@ -29,11 +27,10 @@ const styles = StyleSheet.create({
     main_view: {
         width: windowWidth * 0.95,
         height: windowWidth * 0.17,
-        backgroundColor: '#ECECEC',
+        backgroundColor: 'rgba(255, 255, 255, 0.6) ',
         marginTop: moderateScale(10, 0.6),
         borderRadius: moderateScale(10, 0.6),
         padding: moderateScale(10, 0.6),
-        // alignItems:'center',
         justifyContent: 'center'
     },
     row_view: {

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { ActivityIndicator, Alert, ImageBackground, Platform, StyleSheet, ToastAndroid, View } from 'react-native'
+import { ActivityIndicator, Alert, ImageBackground, Platform, ScrollView, StyleSheet, ToastAndroid, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -13,6 +13,7 @@ import Header from '../Components/Header'
 import TextInputWithTitle from '../Components/TextInputWithTitle'
 import navigationService from '../navigationService'
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
+import FormWrapper from '../Components/FormWrapper'
 
 const AddDepartment = (props) => {
     const { isDepartment, data } = props?.route?.params;
@@ -84,120 +85,166 @@ const AddDepartment = (props) => {
         }
     }
     return (
-        <ImageBackground source={require('../Assets/Images/background_image.png')}
-            style={styles.gradient}
-        >
-            <View style={styles.container}>
-                <Header showBack hideUser={false} />
-                <View style={styles.main_view}>
-                    <TextInputWithTitle
-                        title={"Enter Department Name : "}
-                        iconName={'building'}
-                        iconType={FontAwesome5}
-                        color={Color.veryLightGray}
-                        setText={setFullName}
-                        value={fullName}
-                        placeholder={'Department Name'}
-                        placeholderColor={Color.veryLightGray}
-                        viewWidth={0.9}
-                        viewHeight={0.060}
-                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
-                        borderRadius={moderateScale(10, 0.6)}
-                    />
-                    <TextInputWithTitle
-                        title={"Enter Department Type : "}
-                        iconName={'building'}
-                        iconType={FontAwesome5}
-                        color={Color.veryLightGray}
-                        setText={setDepartmentType}
-                        value={department_type}
-                        placeholder={'Department Type'}
-                        placeholderColor={Color.veryLightGray}
-                        viewWidth={0.9}
-                        viewHeight={0.060}
-                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
-                        borderRadius={moderateScale(10, 0.6)}
-                    />
-                    <TextInputWithTitle
-                        title={"Enter Lead Name : "}
-                        iconName={'person'}
-                        iconType={Ionicons}
-                        color={Color.veryLightGray}
-                        setText={setLeadName}
-                        value={lead_name}
-                        placeholder={'Lead Name'}
-                        placeholderColor={Color.veryLightGray}
-                        viewWidth={0.9}
-                        viewHeight={0.060}
-                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
-                        borderRadius={moderateScale(10, 0.6)}
-                    />
+        <ScrollView style={{ flex: 1, width: windowWidth, height: windowHeight, backgroundColor: "red" }} contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ImageBackground source={require('../Assets/Images/background_image.png')}
+                style={styles.gradient}
+            >
+                <View style={styles.container}>
+                    <Header showBack hideUser={false} />
+                    <View style={styles.main_view}>
+                        <FormWrapper>
+                            <TextInputWithTitle
+                                title={"Enter Department Name : "}
+                                iconName={'building'}
+                                iconType={FontAwesome5}
+                                color={Color.veryLightGray}
+                                setText={setFullName}
+                                value={fullName}
+                                placeholder={'Department Name'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <TextInputWithTitle
+                                title={"Enter Department Type : "}
+                                iconName={'building'}
+                                iconType={FontAwesome5}
+                                color={Color.veryLightGray}
+                                setText={setDepartmentType}
+                                value={department_type}
+                                placeholder={'Department Type'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <TextInputWithTitle
+                                title={"Enter Lead Name : "}
+                                iconName={'person'}
+                                iconType={Ionicons}
+                                color={Color.veryLightGray}
+                                setText={setLeadName}
+                                value={lead_name}
+                                placeholder={'Manager Name'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
 
-                    <TextInputWithTitle
-                        title={"Enter Lead Email Address :"}
-                        iconName={'mail'}
-                        iconType={Ionicons}
-                        color={Color.veryLightGray}
-                        setText={setEmail}
-                        value={email}
-                        placeholder={'lead email address'}
-                        placeholderColor={Color.veryLightGray}
-                        viewWidth={0.9}
-                        viewHeight={0.060}
-                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
-                        borderRadius={moderateScale(10, 0.6)}
-                    />
+                            <TextInputWithTitle
+                                title={"Enter Manager Email Address :"}
+                                iconName={'mail'}
+                                iconType={Ionicons}
+                                color={Color.veryLightGray}
+                                setText={setEmail}
+                                value={email}
+                                placeholder={'lead email address'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
 
-                    <TextInputWithTitle
-                        title={"Enter Lead Phone Number : "}
-                        iconName={'phone'}
-                        iconType={Feather}
-                        color={Color.veryLightGray}
-                        setText={setPhone1}
-                        value={phone1}
-                        placeholder={'Phone Number'}
-                        placeholderColor={Color.veryLightGray}
-                        viewWidth={0.9}
-                        viewHeight={0.060}
-                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
-                        borderRadius={moderateScale(10, 0.6)}
-                    />
+                            <TextInputWithTitle
+                                title={"Enter Manager Phone Number : "}
+                                iconName={'phone'}
+                                iconType={Feather}
+                                color={Color.veryLightGray}
+                                setText={setPhone1}
+                                value={phone1}
+                                placeholder={'Phone Number'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
 
-                    <TextInputWithTitle
-                        title={"Enter Number of Employee in Depart"}
-                        iconName={'person'}
-                        iconType={Ionicons}
-                        color={Color.veryLightGray}
-                        value={numberOfEmployee}
-                        setText={setNumberOfEmployee}
-                        placeholder={'number of employee'}
-                        placeholderColor={Color.veryLightGray}
-                        viewWidth={0.9}
-                        viewHeight={0.060}
-                        backgroundColor={'rgba(211, 211, 211, 0.5) '}
-                        borderRadius={moderateScale(10, 0.6)}
-                    />
-                    <CustomButton
-                        text={loading ? <ActivityIndicator style={styles.indicatorStyle}
-                            size="small"
-                            color={Color.white} /> : isDepartment ? 'Update' : 'Submit'}
-                        width={windowWidth * 0.9}
-                        height={windowHeight * 0.055}
-                        borderRadius={moderateScale(10, 0.3)}
-                        textColor={Color.white}
-                        bgColor={Color.themeBlue}
-                        style={{
-                            position: 'absolute',
-                            bottom: windowWidth * 0.2,
-                        }}
-                        onPress={() => {
-                            isDepartment ? onPressUpdate() :
-                                onPressSubmit()
-                        }}
-                    />
+                            <TextInputWithTitle
+                                title={"Enter Supervisor Name : "}
+                                iconName={'person'}
+                                iconType={Ionicons}
+                                color={Color.veryLightGray}
+                                setText={setPhone1}
+                                value={phone1}
+                                placeholder={'Supervisor Name '}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <TextInputWithTitle
+                                title={"Enter Supervisor Email Address : "}
+                                iconName={'mail'}
+                                iconType={Ionicons}
+                                color={Color.veryLightGray}
+                                setText={setPhone1}
+                                value={phone1}
+                                placeholder={'Supervisor Name '}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <TextInputWithTitle
+                                title={"Enter Supervisor Phone Number : "}
+                                iconName={'mail'}
+                                iconType={Ionicons}
+                                color={Color.veryLightGray}
+                                setText={setPhone1}
+                                value={phone1}
+                                placeholder={'Supervisor Name '}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+
+                            <TextInputWithTitle
+                                title={"Enter Number of Employee in Depart"}
+                                iconName={'person'}
+                                iconType={Ionicons}
+                                color={Color.veryLightGray}
+                                value={numberOfEmployee}
+                                setText={setNumberOfEmployee}
+                                placeholder={'number of employee'}
+                                placeholderColor={Color.veryLightGray}
+                                viewWidth={0.9}
+                                viewHeight={0.060}
+                                backgroundColor={'rgba(255, 255, 255, 0.6) '}
+                                borderRadius={moderateScale(10, 0.6)}
+                            />
+                            <CustomButton
+                                text={loading ? <ActivityIndicator style={styles.indicatorStyle}
+                                    size="small"
+                                    color={Color.white} /> : isDepartment ? 'Update' : 'Submit'}
+                                width={windowWidth * 0.9}
+                                height={windowHeight * 0.058}
+                                borderRadius={moderateScale(10, 0.3)}
+                                textColor={Color.white}
+                                bgColor={Color.themeBgColor}
+                                isGradient
+                                marginTop={moderateScale(20, 0.6)}
+                                marginBottom={moderateScale(20, 0.6)}
+                                onPress={() => {
+                                    isDepartment ? onPressUpdate() :
+                                        onPressSubmit()
+                                }}
+                            />
+                        </FormWrapper>
+                    </View>
                 </View>
-            </View>
-        </ImageBackground>
+            </ImageBackground>
+        </ScrollView>
     )
 }
 
@@ -211,7 +258,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingHorizontal: moderateScale(15, 0.3),
+        // paddingHorizontal: moderateScale(10, 0.3),
         alignItems: 'center',
         paddingTop: moderateScale(10, 0.6),
     },
