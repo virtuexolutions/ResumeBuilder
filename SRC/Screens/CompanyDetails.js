@@ -111,6 +111,8 @@ const CompanyDetails = () => {
                         />
                         <TextInputWithTitle
                             title={"Enter Bussiness Type: "}
+                            // iconName={'mail'}
+                            // iconType={Ionicons}
                             iconName={'work'}
                             iconType={MaterialIcons}
                             color={Color.veryLightGray}
@@ -134,6 +136,7 @@ const CompanyDetails = () => {
                             placeholder={userData?.company_detail?.industry ? userData?.company_detail?.industry : 'industry'}
                             placeholderColor={Color.veryLightGray}
                             viewWidth={0.85}
+
                             viewHeight={0.060}
                             border={1}
                             borderRadius={moderateScale(10, 0.6)}

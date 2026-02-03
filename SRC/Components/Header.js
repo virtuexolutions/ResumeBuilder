@@ -42,6 +42,7 @@ const Header = props => {
     hideUser,
     height,
     style,
+    menu_color,
     onPressPlus,
     isRight,
     isShadow = true,
@@ -128,7 +129,7 @@ const Header = props => {
                 name={'menu'}
                 as={Feather}
                 size={moderateScale(25, 0.3)}
-                color={headerColor ? Color.white : Color.themeBlue}
+                color={menu_color ? Color.white : Color.themeBlue}
                 onPress={() => {
                   navigationN.toggleDrawer();
                   // navigationN.dispatch(DrawerActions.toggleDrawer())

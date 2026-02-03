@@ -1,27 +1,27 @@
+import { useIsFocused } from '@react-navigation/core';
 import { Icon } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
-  SafeAreaView,
+  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { PieChart } from 'react-native-gifted-charts';
+import LinearGradient from 'react-native-linear-gradient';
 import { moderateScale } from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Foundation from 'react-native-vector-icons/Foundation';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
+import { Get } from '../Axios/AxiosInterceptorFunction';
 import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import navigationService from '../navigationService';
 import { windowHeight, windowWidth } from '../Utillity/utils';
-import { Get, Post } from '../Axios/AxiosInterceptorFunction';
-import { useIsFocused } from '@react-navigation/core';
 
 const Dashboard = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -34,14 +34,44 @@ const Dashboard = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState('Dashboard');
   const userData = useSelector(state => state.commonReducer.userData);
+  console.log('userData', userData)
   const token = useSelector(state => state.authReducer.token);
 
   const pieData = [
     { value: numberOfEmployees, color: '#6366F1', text: numberOfEmployees },
     { value: numberOfDepartment, color: '#2DD4BF', text: numberOfDepartment },
-    { value: numberOfDocuments, color: '#D1D5DB', text: numberOfEmployees },
-    { value: numberOfDocuments, color: '#D946EF', text: numberOfDocuments },
   ];
+
+  const setupSteps = [
+    { title: 'Company Details', completed: true },
+    { title: 'Departments Added', completed: true },
+    { title: 'Employees Uploaded', completed: false },
+    { title: 'Notifications Set', completed: true },
+    { title: 'Workflows Created', completed: true },
+    { title: 'Document Categories Set', completed: true },
+    { title: 'Permissions & Roles', completed: true },
+  ];
+
+  const progress_data = [
+    {
+      title: 'Employees', value: `${numberOfEmployees} added yet`, color: '#31C3BB', iconName: 'people', as: Ionicons,
+      onPress: () => navigationService.navigate('AddEmployees')
+    },
+    {
+      title: 'Departments', value: `${numberOfDepartment} added yet`, color: '#557AFF', iconName: 'building-o', as: FontAwesome,
+      onPress: () => navigationService.navigate('Department')
+    },
+    {
+      title: 'Documents', value: `${numberOfDocuments} added yet`, color: '#C131C3', iconName: 'documents', as: Ionicons,
+      onPress: () => navigationService.navigate('Documents')
+    },
+    {
+      title: 'Categories', value: `${1} added yet`, color: '#F59E0B', iconName: 'category', as: MaterialIcons,
+      onPress: () => navigationService.navigate('MyDrawer', {
+        screen: 'Tamplates',
+      })
+    },
+  ]
 
   useEffect(() => {
     getDetails();
@@ -59,255 +89,130 @@ const Dashboard = ({ navigation, route }) => {
     }
   };
 
+  const CompanySetup = () => {
+    return (
+      <View style={styles.progress_bar_view}>
+        <CustomText isBold style={styles.progress_heading_text}> Company Setup Progress</CustomText>
+        <View style={styles.progress_bar_subview}>
+          <PieChart data={pieData}
+            donut
+            radius={45}
+            innerRadius={35}
+            centerLabelComponent={() => {
+              return <Text style={{ fontSize: 30 }}>70%</Text>;
+            }}
+          />
+          <View style={{
+            width: windowWidth * 0.53,
+          }}>
+            <FlatList data={setupSteps} renderItem={({ item, index }) => {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 2 }}
+                >
+                  <Icon name={item?.completed ? 'check' : 'cross'} as={Entypo} size={moderateScale(16, 0.6)} color={item?.completed ? Color.themeBlue : Color.red} />
+                  <CustomText style={{ fontSize: moderateScale(12, 0.6), marginLeft: moderateScale(10, 0.6) }}>{item.title}</CustomText>
+                </TouchableOpacity>
+              )
+            }}
+            />
+          </View>
+        </View>
+      </View>
+    )
+  }
+
+  const ProgressTrackerView = () => {
+    return (
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: moderateScale(30, 0.6)
+      }}>
+        <FlatList
+          data={progress_data}
+          numColumns={2}
+          columnWrapperStyle={{ justifyContent: 'space-between', marginBottom: moderateScale(10, 0.6) }}
+          renderItem={(({ item, index }) => {
+            return (
+              <TouchableOpacity style={[styles.progress_bar, {
+                backgroundColor: item.color
+              }]} onPress={item?.onPress}>
+                <View>
+                  <Icon name={item?.iconName} as={item?.as} size={moderateScale(30, 0.6)} color={Color.white} />
+                  <CustomText isBold style={styles.progress_text}>{item?.title}</CustomText>
+                  <CustomText isBold style={styles.progress_value}>{item?.value}</CustomText>
+                </View>
+              </TouchableOpacity>
+            )
+          })}
+        />
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
-      <Header hideUser={false} showBack={false} />
-      <View style={styles.main_view}>
+      <LinearGradient
+        start={{ x: 0.2, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        colors={Color.themeBgColor}
+        style={{
+          width: windowWidth,
+          height: windowHeight * 0.2,
+        }}
+      >
+        <Header hideUser={false} showBack={false} menu_color />
+        <CustomText isBold style={styles.heading_text}>{'Hello, ' + userData?.name}</CustomText>
+        <CustomText style={styles.company_type_text}>{userData?.company_detail?.business_type}</CustomText>
         <View style={styles.tab_view}>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={() => setStatus('Dashboard')}
             style={[
               styles.tab_sub_view,
               {
-                borderBottomWidth: 2,
-                borderBottomColor:
-                  status === 'Dashboard'
-                    ? Color.themeBlue
-                    : Color.veryLightGray,
+                backgroundColor: status === 'Dashboard' ? Color.darkBlue : Color.white,
+                width: status === 'Dashboard' ? windowWidth * 0.5 : windowWidth * 0.45,
               },
             ]}>
             <Icon
               name="document-text"
               as={Ionicons}
-              size={moderateScale(40, 0.6)}
-              color={Color.themeBlue}
+              size={moderateScale(20, 0.6)}
+              color={status === 'Dashboard' ? Color.white : Color.themeBlue}
             />
-            <CustomText style={styles.subtextStyle}>Dashboard</CustomText>
+            <CustomText style={[styles.subtextStyle, { color: status === 'Dashboard' ? Color.white : Color.themeBlue }]}>Dashboard</CustomText>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setStatus('Status')}
             style={[
               styles.tab_sub_view,
               {
-                borderBottomWidth: 2,
-                borderBottomColor:
-                  status === 'Status' ? Color.themeBlue : Color.veryLightGray,
+                backgroundColor: status === 'Status' ? Color.darkBlue : Color.white,
+                width: status === 'Status' ? windowWidth * 0.5 : windowWidth * 0.45,
               },
             ]}>
             <Icon
               name="circular-graph"
               as={Entypo}
-              size={moderateScale(40, 0.6)}
-              color={Color.themeBlue}
+              size={moderateScale(20, 0.6)}
+              color={status === 'Status' ? Color.white : Color.themeBlue}
             />
-            <CustomText style={styles.subtextStyle}>Status</CustomText>
+            <CustomText style={[styles.subtextStyle, { color: status === 'Status' ? Color.white : Color.themeBlue }]}>Status</CustomText>
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            width: windowWidth,
-            height: 2,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.23,
-            shadowRadius: 2.62,
-            elevation: 4,
-            marginTop: moderateScale(10, 0.6),
-          }}
-        />
-        <View
-          style={{
-            paddingHorizontal: moderateScale(10, 0.6),
-          }}>
-          {status === 'Dashboard' ? (
-            <>
-              <View style={styles.sub_view}>
-                <TouchableOpacity
-                  onPress={() => navigationService.navigate('AddEmployees')}
-                  style={styles.btn_view}>
-                  <CustomText isBold style={styles.heading}>
-                    {numberOfEmployees}
-                  </CustomText>
-                  <CustomText style={styles.text}>Employees</CustomText>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigationService.navigate('Department')}
-                  style={[
-                    styles.btn_view,
-                    {
-                      backgroundColor: '#31C3BB',
-                    },
-                  ]}>
-                  <CustomText isBold style={styles.heading}>
-                    {numberOfDepartment}
-                  </CustomText>
-                  <CustomText style={styles.text}>Department</CustomText>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={[
-                  styles.sub_view,
-                  {
-                    marginTop: moderateScale(15, 0.6),
-                  },
-                ]}>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigationService.navigate('MyDrawer', {
-                      screen: 'Tamplates',
-                    })
-                  }
-                  style={[
-                    styles.btn_view,
-                    {
-                      backgroundColor: '#557AFF',
-                    },
-                  ]}>
-                  <CustomText isBold style={styles.heading}>
-                    {1}
-                  </CustomText>
-                  <CustomText style={styles.text}>categories</CustomText>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigationService.navigate('Documents')}
-                  style={[
-                    styles.btn_view,
-                    {
-                      backgroundColor: '#C131C3',
-                    },
-                  ]}>
-                  <CustomText isBold style={styles.heading}>
-                    {numberOfDocuments}
-                  </CustomText>
-                  <CustomText style={styles.text}>document</CustomText>
-                </TouchableOpacity>
-              </View>
-            </>
-          ) : (
-            <>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: moderateScale(40, 0.6),
-                }}>
-                <PieChart
-                  data={pieData}
-                  donut
-                  showText
-                  textColor="white"
-                  innerRadius={70}
-                  radius={160}
-                />
-              </View>
-              <View
-                style={[
-                  styles.row_view,
-                  {
-                    marginTop: moderateScale(30, 0.6),
-                  },
-                ]}>
-                <Icon
-                  name="team"
-                  as={AntDesign}
-                  size={moderateScale(30, 0.6)}
-                  color={'#6366F1'}
-                />
-                <CustomText
-                  style={[
-                    styles.graph_text,
-                    {
-                      color: '#6366F1',
-                      marginTop: moderateScale(10, 0.6),
-                      marginLeft: moderateScale(10, 0.6),
-                    },
-                  ]}>
-                  Number of Employees
-                </CustomText>
-              </View>
-              <View
-                style={[
-                  styles.row_view,
-                  {
-                    marginTop: moderateScale(10, 0.6),
-                  },
-                ]}>
-                <Icon
-                  name="building"
-                  as={FontAwesome5}
-                  size={moderateScale(30, 0.6)}
-                  color={'#2DD4BF'}
-                />
-                <CustomText
-                  style={[
-                    styles.graph_text,
-                    {
-                      color: '#2DD4BF',
-                      marginTop: moderateScale(10, 0.6),
-                      marginLeft: moderateScale(10, 0.6),
-                    },
-                  ]}>
-                  Number of Department
-                </CustomText>
-              </View>
-              <View
-                style={[
-                  styles.row_view,
-                  {
-                    marginTop: moderateScale(10, 0.6),
-                  },
-                ]}>
-                <Icon
-                  name="folder1"
-                  as={AntDesign}
-                  size={moderateScale(30, 0.6)}
-                  color={'#D1D5DB'}
-                />
-                <CustomText
-                  style={[
-                    styles.graph_text,
-                    {
-                      color: '#D1D5DB',
-                      marginTop: moderateScale(10, 0.6),
-                      marginLeft: moderateScale(10, 0.6),
-                    },
-                  ]}>
-                  Number of categories
-                </CustomText>
-              </View>
-              <View
-                style={[
-                  styles.row_view,
-                  {
-                    marginTop: moderateScale(10, 0.6),
-                  },
-                ]}>
-                <Icon
-                  name="page-doc"
-                  as={Foundation}
-                  size={moderateScale(30, 0.6)}
-                  color={'#D946EF'}
-                />
-                <CustomText
-                  style={[
-                    styles.graph_text,
-                    {
-                      color: '#D946EF',
-                      marginTop: moderateScale(10, 0.6),
-                      marginLeft: moderateScale(10, 0.6),
-                    },
-                  ]}>
-                  Number of documents
-                </CustomText>
-              </View>
-            </>
-          )}
-        </View>
+      </LinearGradient>
+      <View style={styles.main_view}>
+        {status === "Dashboard" ?
+          <View style={{ flex: 1 }}>
+            <CompanySetup />
+            <ProgressTrackerView />
+          </View> : <></>
+        }
       </View>
-    </View>
+    </View >
   );
 };
 
@@ -316,16 +221,13 @@ export default Dashboard;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Color.white,
-    paddingHorizontal: moderateScale(15, 0.3),
-    // paddingVertical: moderateScale(20, 0.6),
     alignItems: 'center',
-    // justifyContent : 'center'
   },
   main_view: {
-    paddingVertical: moderateScale(10, 0.6),
+    paddingVertical: moderateScale(20, 0.6),
     paddingHorizontal: moderateScale(15, 0.6),
     height: windowHeight,
-    backgroundColor: Color.white
+    top: 10
   },
   welcomeText: {
     fontSize: moderateScale(40, 0.3),
@@ -334,37 +236,95 @@ const styles = StyleSheet.create({
   subtextStyle: {
     fontSize: moderateScale(16, 0.3),
     color: Color.themeBlue,
+    marginLeft: moderateScale(10, 0.6)
   },
-  tab_view: {
-    width: windowWidth * 0.95,
-    height: windowWidth * 0.2,
-    // backgroundColor: "red",
+  header_view: {
+    width: windowWidth * 0.9,
+    paddingVertical: moderateScale(12, 0.3),
+    backgroundColor: Color.white,
+    paddingHorizontal: moderateScale(15, 0.6),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: moderateScale(10, 0.6),
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    marginBottom: moderateScale(10, 0.6)
+  },
+  heading_text: {
+    fontSize: moderateScale(20, 0.6),
+    color: Color.white,
+    marginLeft: moderateScale(15, 0.6)
+  },
+  progress_bar_view: {
+    width: windowWidth * 0.9,
+    // height: windowHeight * 0.2,
+    paddingVertical: moderateScale(10, 0.6),
+    backgroundColor: Color.white,
+    paddingHorizontal: moderateScale(15, 0.6),
+    top: 10,
+    borderRadius: moderateScale(15, 0.6),
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 11,
+    borderBottomColor: Color.darkBlue,
+    borderBottomWidth: 5
+  },
+  progress_heading_text: {
+    fontSize: moderateScale(14, 0.6),
+    color: Color.black
+  },
+  progress_bar_subview: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //     width: 0,
-    //     height: 4,
-    // },
-    // shadowOpacity: 0.30,
-    // shadowRadius: 4.65,
-    // elevation: 8,
-    // borderBottomColor: Color.ver,
-    // borderBottomWidth: 1
+    marginTop: moderateScale(10, 0.6),
+  },
+  tab_view: {
+    width: windowWidth * 0.94,
+    height: windowWidth * 0.15,
+    backgroundColor: Color.white,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    top: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 11,
+    borderRadius: windowWidth * 0.2,
   },
   tab_sub_view: {
-    width: '55%',
+    width: windowWidth * 0.45,
     height: '100%',
     // backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: moderateScale(20, 0.6),
+    borderRadius: windowWidth * 0.2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   sub_view: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: moderateScale(40, 0.6),
+    marginTop: moderateScale(60, 0.6),
     paddingHorizontal: moderateScale(15, 0.6),
   },
   btn_view: {
@@ -398,6 +358,37 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   graph_text: {
-    fontSize: moderateScale(15, 0.6),
+    fontSize: moderateScale(15, 0.6)
   },
+  company_type_text: {
+    fontSize: moderateScale(14, 0.6),
+    marginLeft: moderateScale(15, 0.6),
+    color: Color.lightGrey
+  },
+  progress_text: {
+    fontSize: moderateScale(16, 0.6),
+    color: Color.white,
+    marginTop: moderateScale(10, 0.6)
+  },
+  progress_value: {
+    fontSize: moderateScale(12, 0.6),
+    color: Color.lightGrey,
+  },
+  progress_bar: {
+    width: windowWidth * 0.43,
+    height: windowHeight * 0.15,
+    borderRadius: moderateScale(10, 0.6),
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    paddingHorizontal: moderateScale(15, 0.6),
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
+  }
 });

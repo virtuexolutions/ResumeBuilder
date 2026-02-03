@@ -37,8 +37,6 @@ const LoginScreen = ({ navigation, route }) => {
   const modalMessage = useSelector(state => state.commonReducer.modalMessage);
   console.log("🚀 ~ LoginScreen ~ modalVisible:", modalVisible, modalMessage)
 
-
-
   const Login = async () => {
     const url = "login";
     const body = {
@@ -52,6 +50,7 @@ const LoginScreen = ({ navigation, route }) => {
     }
     setIsLoading(true);
     const response = await Post(url, body, apiHeader());
+    console.log(response?.data, '=======================>')
     setIsLoading(false);
     const user = response?.data?.user_info;
     console.log("🚀 ~ Login ~ response:", user);
