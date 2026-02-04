@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { stat } from 'react-native-fs';
 
 const initialState = {
   userData: {},
@@ -23,7 +24,7 @@ const initialState = {
     visible: false,
     title: '',
     message: ''
-  }
+  },
 };
 
 const CommonSlice = createSlice({
@@ -235,7 +236,7 @@ const CommonSlice = createSlice({
       console.log(state.fingerPrintEnabled)
     },
     showErrorModal(state, action) {
-      console.log( state.error, ' state.error')
+      console.log(state.error, ' state.error')
       state.error = {
         visible: true,
         title: action.payload?.title || "Error",

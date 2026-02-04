@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         color: Color.darkBlue
     },
     price: {
-        fontSize: moderateScale(30, 0.6)
+        fontSize: moderateScale(22, 0.6)
     },
     row: {
         flexDirection: 'row',

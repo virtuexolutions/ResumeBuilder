@@ -73,7 +73,7 @@ const HomeScreen = ({ navigation, route }) => {
         <View style={styles.container}>
             <View>
                 <View style={styles.header_view}>
-                    <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} />
+                    <Header isShadow={false} hideUser={false} showBack={false} menu_color={Color.white} />
                     <View style={styles.main_view}>
                         <CustomText style={styles.welcomeText}>{user_type === 'Private' ? `Hello ${userData?.name}` : `Hello ${userData?.employee_detail?.full_name}`}</CustomText>
                         {user_type === 'Private' ? <></> :

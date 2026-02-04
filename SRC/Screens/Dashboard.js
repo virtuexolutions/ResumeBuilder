@@ -14,6 +14,7 @@ import { moderateScale } from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
@@ -22,6 +23,7 @@ import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import navigationService from '../navigationService';
 import { windowHeight, windowWidth } from '../Utillity/utils';
+import { AddToCart } from '../Store/slices/common';
 
 const Dashboard = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -34,7 +36,8 @@ const Dashboard = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState('Dashboard');
   const userData = useSelector(state => state.commonReducer.userData);
-  console.log('userData', userData)
+  const CartData = useSelector(state => state.commonReducer.cart);
+  console.log('CartData', CartData)
   const token = useSelector(state => state.authReducer.token);
 
   const pieData = [
@@ -72,6 +75,27 @@ const Dashboard = ({ navigation, route }) => {
       })
     },
   ]
+
+  const quickActions = [
+    { id: 1, title: "Add Employee", icon: "user-plus", as: FontAwesome },
+    { id: 2, title: "Add Department", icon: "building", as: FontAwesome },
+    { id: 3, title: "Initiate Onboarding", icon: "flag", as: Entypo },
+    { id: 4, title: "Upload Document", icon: "upload", as: Entypo }
+  ];
+
+  const onboardingStats = [
+    { id: 1, label: "New Hires Onboarding Today", value: 2 },
+    { id: 2, label: "Overdue Item", value: 1 },
+    { id: 3, label: "Pending Tasks", value: 4 },
+    { id: 4, label: "Forms Awaiting Signature", value: 6 }
+  ];
+
+  const organizationSummary = [
+    { id: 1, label: "Employees", value: 125, icon: "users", as: Entypo },
+    { id: 2, label: "Departments", value: 8, icon: "grid", as: Entypo },
+    { id: 3, label: "Document Categories", value: null, icon: "folder", as: Entypo },
+    { id: 4, label: "Company Documents", value: null, icon: "file-text", as: FontAwesome }
+  ];
 
   useEffect(() => {
     getDetails();
@@ -153,6 +177,53 @@ const Dashboard = ({ navigation, route }) => {
     )
   }
 
+
+  const QuickActiosView = () => {
+    return (
+      <View style={{
+        height: windowHeight * 0.2,
+      }}>
+        <CustomText isBold style={styles.quick_actions_text}>Quick Actions : </CustomText>
+        <FlatList
+          data={quickActions}
+          scrollEnabled={false}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={(({ item }) => {
+            return (
+              <TouchableOpacity style={styles.quick_actions_view}>
+                <Icon name={item?.icon} as={item?.as} size={moderateScale(20, 0.6)} color={Color.veryLightGray} />
+                <CustomText isBold style={styles.actione_text}>{item?.title}</CustomText>
+              </TouchableOpacity>
+            )
+          })}
+        />
+      </View>
+    )
+  }
+
+  const OnboardingStatsView = () => {
+    return (
+      <View style={styles.onboarding_view}>
+        <FlatList
+          numColumns={2}
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          data={onboardingStats}
+          columnWrapperStyle={{ justifyContent: 'space-between', }}
+          renderItem={(({ item }) => {
+            return (
+              <View style={{ height: moderateScale(30, 0.6), flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
+                <CustomText isBold style={{ fontSize: moderateScale(13, 0.6) }}>{item?.value + " : "}</CustomText>
+                <CustomText style={{ fontSize: moderateScale(13, 0.6) }}>{item?.label}</CustomText>
+              </View>
+            )
+          })}
+        />
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -209,7 +280,34 @@ const Dashboard = ({ navigation, route }) => {
           <View style={{ flex: 1 }}>
             <CompanySetup />
             <ProgressTrackerView />
-          </View> : <></>
+          </View> :
+          <>
+            <CompanySetup />
+            <QuickActiosView />
+            <CustomText isBold style={[styles.quick_actions_text, {
+              marginTop: moderateScale(0, 0.6)
+            }]}>Onboarding At a Glance</CustomText>
+            <OnboardingStatsView />
+            <FlatList
+              data={organizationSummary}
+              scrollEnabled={false}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={(({ item }) => {
+                return (
+                  <TouchableOpacity style={[styles.quick_actions_view,]}>
+                    <Icon name={item?.icon} as={item?.as} size={moderateScale(22, 0.6)} color={Color.veryLightGray} style={{ marginTop: moderateScale(10, 0.6), }} />
+                    {item?.value &&
+                      <CustomText isBold style={styles.actione_tittle}>{item?.value}</CustomText>
+                    }
+                    <CustomText style={[styles.actione_text, {
+                      fontSize: moderateScale(10, 0.6),
+                    }]}>{item?.label}</CustomText>
+                  </TouchableOpacity>
+                )
+              })}
+            />
+          </>
         }
       </View>
     </View >
@@ -390,5 +488,58 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
 
     elevation: 3,
+  },
+  quick_actions_view: {
+    width: windowWidth * 0.22,
+    height: windowWidth * 0.22,
+    backgroundColor: Color.lightGrey,
+    marginRight: moderateScale(4, 0.6),
+    marginTop: moderateScale(10, 0.6),
+    borderRadius: moderateScale(10, 0.6),
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: moderateScale(10, 0.8),
+    borderTopWidth: 3,
+    borderTopColor: Color.darkBlue,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  quick_actions_text: {
+    fontSize: moderateScale(15, 0.7),
+    marginTop: moderateScale(20, 0.6),
+    color: Color.black
+  },
+  actione_text: {
+    fontSize: moderateScale(11, 0.6),
+    textAlign: 'center',
+    // marginTop: moderateScale(5, 0.6),
+    color: Color.darkGray
+  },
+  onboarding_view: {
+    height: windowHeight * 0.09,
+    backgroundColor: Color.white,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderRadius: moderateScale(10, 0.6),
+    paddingHorizontal: moderateScale(10, 0.6),
+    paddingVertical: moderateScale(5, 0.6),
+    marginTop: moderateScale(10, 0.6),
+    borderTopColor: Color.darkBlue,
+    borderTopWidth: 3
+  },
+  actione_tittle: {
+    fontSize: moderateScale(15, 0.6),
   }
 });

@@ -58,7 +58,7 @@ const ProfileDetails = () => {
 
     return (
         <View style={styles.container}>
-            <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} backgroundColor={Color.themeBlue} />
+            <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} menu_color={Color.white} backgroundColor={Color.themeBlue} />
             <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
                 <View style={styles.header_view}>
                     <View style={styles.header_subview}>

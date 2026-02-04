@@ -52,7 +52,7 @@ const Profile = () => {
                 flexGrow: 1,
                 backgroundColor: Color.white
             }}>
-                <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} backgroundColor={Color.themeBlue} />
+                <Header isShadow={false} hideUser={false} showBack={false} headerColor={Color.themeBlue} menu_color={Color.white} backgroundColor={Color.themeBlue} />
                 <View style={styles.main_view}>
 
                     <View style={styles.header_view}>
@@ -135,6 +135,7 @@ const Profile = () => {
         </View>
     );
 };
+
 
 export default Profile;
 

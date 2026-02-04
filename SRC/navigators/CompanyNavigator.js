@@ -16,6 +16,8 @@ import Notification from '../Screens/Notification';
 import Documents from '../Screens/Documents';
 import EmployeeDetails from '../Screens/EmployeeDetails';
 import PricingAndFeature from '../Screens/PricingAndFeature';
+import OnboardingScreen from '../Screens/OnboardingScreen';
+import OnboardingTask from '../Screens/OnboardingTask';
 
 const DrawerNavigation = createDrawerNavigator();
 
@@ -23,10 +25,10 @@ const CompanyNavigator = () => {
     return (
         <DrawerNavigation.Navigator
             drawerContent={props => <Drawer {...props} />}
-            initialRouteName="Dashboard"
+            initialRouteName="OnboardingTask"
             screenOptions={{
                 headerShown: false,
-                drawerStyle: { width: '70%' },
+                drawerStyle: { width: '100%' },
             }}>
             <DrawerNavigation.Screen name="Dashboard" component={Dashboard} />
             <DrawerNavigation.Screen name="Department" component={Department} />
@@ -39,6 +41,8 @@ const CompanyNavigator = () => {
             <DrawerNavigation.Screen name="Notification" component={Notification} />
             <DrawerNavigation.Screen name="AddEmployees" component={AddEmployees} />
             <DrawerNavigation.Screen name="PricingAndFeature" component={PricingAndFeature} />
+            <DrawerNavigation.Screen name="OnboardingScreen" component={OnboardingScreen} />
+            <DrawerNavigation.Screen name="OnboardingTask" component={OnboardingTask} />
         </DrawerNavigation.Navigator>
     );
 };

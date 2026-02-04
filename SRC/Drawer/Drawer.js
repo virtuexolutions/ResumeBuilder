@@ -1,6 +1,6 @@
 import { Icon, Switch } from 'native-base';
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -215,141 +215,130 @@ const Drawer = React.memo((props) => {
   };
 
   return (
-    // <ScreenBoiler
-    //   statusBarBackgroundColor={Color.themeBlue}
-    //   statusBarContentStyle={'dark-content'}>
-    <>
-      <View style={styles.Profile}>
-        <View style={{
-          width: windowWidth * 0.3,
-          height: windowWidth * 0.3,
-          backgroundColor: 'red',
-          borderRadius: windowWidth,
-          marginTop: moderateScale(16, 0.6)
-        }}>
-          <CustomImage
-            source={
-              user_type === 'Company'
-                ? userData?.company_detail?.company_logo != null
-                  ? { uri: `${baseUrl}${userData.company_detail.company_logo}` }
-                  : require('../Assets/Images/no_image.jpg')
-                : userData?.employee_detail?.photo != null
-                  ? { uri: `${baseUrl}/${userData.employee_detail.photo}` }
-                  : require('../Assets/Images/no_image.jpg')
-            }
-            style={styles.image}
-          />
-        </View>
-        <CustomText isBold style={styles.heading_text}>{userData?.name || userData?.employee_detail?.full_name}</CustomText>
-        <CustomText style={styles.heading_text}>{userData?.email || userData?.employee_detail?.employee_email}</CustomText>
-      </View>
+    <ImageBackground source={user_type === 'Company' ? require('../Assets/Images/drawer_image.png') : require('../Assets/Images/drawer_image2.png')} style={{ flex: 1 }} resizeMethod='cover'>
+      <View style={{
+        width: windowWidth,
+        flex: 1,
+        paddingHorizontal: moderateScale(15, 0.6),
+        paddingVertical: moderateScale(20, 0.6),
+      }}>
+        <Icon as={Entypo} name='cross' size={moderateScale(30, 0.6)} color={Color.black} style={{ alignSelf: "flex-end", marginTop: moderateScale(15, 0.7) }} onPress={() => navigation.toggleDrawer()} />
 
-      <View
-        style={{
-          height: '60%',
-          marginTop: moderateScale(30, 0.6)
-        }}>
-        {(user_type === 'Company' ? adminData : user_type === 'Private' ? privateWallet : employeeDrawerData).map((item, index) => (
-          <>
-            <TouchableOpacity
-              key={item.id}
-              onPress={item.onPress}
+        <View style={styles.Profile}>
+          <View style={{
+            width: windowWidth * 0.3,
+            height: windowWidth * 0.3,
+            borderRadius: windowWidth / 2,
+            borderColor: Color.darkBlue,
+            borderWidth: 6,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <View style={{
+              width: windowWidth * 0.25,
+              height: windowWidth * 0.25,
+              borderRadius: windowWidth * 0.125,
+            }}>
+              <CustomImage
+                source={
+                  user_type === 'Company'
+                    ? userData?.company_detail?.company_logo != null
+                      ? { uri: `${baseUrl}${userData.company_detail.company_logo}` }
+                      : require('../Assets/Images/no_image.jpg')
+                    : userData?.employee_detail?.photo != null
+                      ? { uri: `${baseUrl}/${userData.employee_detail.photo}` }
+                      : require('../Assets/Images/no_image.jpg')
+                }
+                style={styles.image}
+              />
+            </View>
+          </View>
+          <CustomText isBold style={styles.heading_title}>{userData?.name || userData?.employee_detail?.full_name}</CustomText>
+          <CustomText style={styles.heading_text}>{userData?.email || userData?.employee_detail?.employee_email}</CustomText>
+          <View
+            style={{
+              height: '60%',
+              marginTop: moderateScale(15, 0.6)
+            }}>
+            {(user_type === 'Company' ? adminData : user_type === 'Private' ? privateWallet : employeeDrawerData).map((item, index) => (
+              <>
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={item.onPress}
+                  style={{
+                    width: windowWidth * 0.7,
+                    borderColor: Color.black,
+                    margin: moderateScale(10, 0.3),
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                  }}>
+                  <Icon name={item?.iconName} as={item?.iconType} size={moderateScale(20, 0.6)} color={Color.veryLightGray} />
+                  <CustomText
+                    style={{
+                      fontSize: moderateScale(14, 0.6),
+                      color: Color.grey,
+                      marginLeft: moderateScale(10, 0.6)
+                    }}>
+                    {item.name}
+                  </CustomText>
+                </TouchableOpacity>
+              </>
+            ))}
+            <View
               style={{
-                width: windowWidth * 0.7,
-                borderColor: Color.black,
-                margin: moderateScale(10, 0.3),
                 flexDirection: 'row',
-                alignItems: 'center',
                 justifyContent: 'flex-start',
+                alignItems: 'center',
+                paddingHorizontal: moderateScale(12, 0.6),
+                marginTop: moderateScale(15, 0.6)
               }}>
-              <Icon name={item?.iconName} as={item?.iconType} size={moderateScale(20, 0.6)} color={Color.themeBlue} />
+              <Icon name="fingerprint" as={Entypo} size={6} color={'grey'} />
               <CustomText
                 style={{
-                  fontSize: moderateScale(14, 0.6),
-                  color: Color.grey,
-                  marginLeft: moderateScale(10, 0.6)
+                  color: Color.darkGray,
+                  width: windowWidth * 0.32,
+                  marginLeft: moderateScale(5, 0.6)
                 }}>
-                {item.name}
+                Enable fingerPrint
               </CustomText>
-            </TouchableOpacity>
-          </>
-        ))}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingHorizontal: moderateScale(12, 0.6),
-            marginTop: moderateScale(15, 0.6)
-          }}>
-          <Icon name="fingerprint" as={Entypo} size={6} color={'grey'} />
-          <CustomText
+              <Switch
+                isChecked={enabler}
+                onToggle={toggleSwitch}
+                offTrackColor="gray.400"
+                onTrackColor={Color.themeBlue}
+                onThumbColor={enabler ? Color.themeBgColor : '#f4f3f4'}
+              />
+            </View>
+          </View>
+          <TouchableOpacity
+            onPress={() => dispatch(setUserLogoutAuth())
+            }
             style={{
-              color: Color.darkGray,
-              width: windowWidth * 0.32,
+              width: windowWidth * 0.7,
+              borderColor: Color.black,
+              margin: moderateScale(15, 0.3),
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
             }}>
-            Enable fingerPrint
-          </CustomText>
-          <Switch
-            isChecked={enabler}
-            onToggle={toggleSwitch}
-            offTrackColor="gray.400"
-            onTrackColor={Color.themeBlue}
-            onThumbColor={enabler ? Color.themeColor : '#f4f3f4'}
-          />
+            <Icon name={"logout"}
+              as={MaterialCommunityIcons}
+              size={moderateScale(20, 0.6)}
+              color={Color.veryLightGray}
+            />
+            <CustomText
+              style={{
+                fontSize: moderateScale(14, 0.6),
+                color: Color.grey,
+                marginLeft: moderateScale(10, 0.6)
+              }}>
+              {'Logout'}
+            </CustomText>
+          </TouchableOpacity>
         </View>
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingHorizontal: moderateScale(12, 0.6),
-            marginTop: moderateScale(15, 0.6)
-          }}>
-          <CustomText
-            style={{
-              color: Color.darkGray,
-              width: windowWidth * 0.32,
-            }}>
-            Change Theme
-          </CustomText>
-          <Switch
-            isChecked={enabler}
-            onToggle={toggleSwitch}
-            offTrackColor="gray.400"
-            onTrackColor={Color.themeBlue}
-            onThumbColor={enabler ? Color.themeColor : '#f4f3f4'}
-          />
-        </View> */}
       </View>
-      <TouchableOpacity
-        onPress={() => dispatch(setUserLogoutAuth())
-        }
-        style={{
-          width: windowWidth * 0.7,
-          borderColor: Color.black,
-          margin: moderateScale(16, 0.3),
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-        }}>
-        <Icon name={"logout"}
-          as={MaterialCommunityIcons}
-          size={moderateScale(20, 0.6)}
-          color={Color.themeBlue}
-        />
-        <CustomText
-          style={{
-            fontSize: moderateScale(14, 0.6),
-            color: Color.grey,
-            marginLeft: moderateScale(10, 0.6)
-          }}>
-          {'Logout'}
-        </CustomText>
-      </TouchableOpacity>
-    </>
-
-    // </ScreenBoiler>
+    </ImageBackground >
   );
 });
 
@@ -358,11 +347,8 @@ export default Drawer;
 const styles = StyleSheet.create({
   Profile: {
     width: '100%',
-    height: windowWidth * 0.6,
-    // borderRadius: (windowWidth * 0.2) / 1,
-    backgroundColor: Color.themeBlue,
     justifyContent: 'center',
-    alignItems: 'center', paddingHorizontal: moderateScale(10, 0.6)
+    alignItems: 'flex-start',
   },
   menu_text: {
     color: Color.darkGray,
@@ -382,10 +368,17 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: windowHeight,
   },
+  heading_title: {
+    fontSize: moderateScale(18, 0.6),
+    color: Color.black,
+    marginTop: moderateScale(7, 0.6),
+    marginLeft: moderateScale(10, 0.6)
+  },
   heading_text: {
-    fontSize: moderateScale(15, 0.6),
-    // textTransform: 'uppercase',
-    color: Color.white
+    fontSize: moderateScale(12, 0.6),
+    textTransform: 'lowercase',
+    color: Color.black,
+    marginLeft: moderateScale(10, 0.6)
   },
   text: {
     fontSize: moderateScale(11, 0.6),

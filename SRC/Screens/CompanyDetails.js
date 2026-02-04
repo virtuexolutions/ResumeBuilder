@@ -82,7 +82,7 @@ const CompanyDetails = () => {
                             width: windowWidth * 0.6,
                             height: windowWidth * 0.3,
                             borderWidth: 1.5,
-                            borderColor: Color.themeBlue,
+                            borderColor: Color.darkGray,
                         }}>
                             <CustomImage
                                 onPress={() => setShowModal(true)}

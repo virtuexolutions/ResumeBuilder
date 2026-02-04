@@ -24,7 +24,7 @@ export default Color = {
   boxgrey: '#0000004F',
   purple: '#0D668E',
   darkbrown: '#333333',
-  themeBlue: "#24BBF5",
+  themeBlue: '#1877F2',
   // theme colors
   grey: "#5D5D5D",
   cartheme: ['#79B9F6', '#00309E',],
