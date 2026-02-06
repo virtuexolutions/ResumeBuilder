@@ -90,7 +90,7 @@ const AddDepartment = (props) => {
                 style={styles.gradient}
             >
                 <View style={styles.container}>
-                    <Header showBack hideUser={false} />
+                    <Header  showBack hideUser={false} />
                     <View style={styles.main_view}>
                         <FormWrapper>
                             <TextInputWithTitle
@@ -122,7 +122,7 @@ const AddDepartment = (props) => {
                                 borderRadius={moderateScale(10, 0.6)}
                             />
                             <TextInputWithTitle
-                                title={"Enter Lead Name : "}
+                                title={"Enter Manager Name : "}
                                 iconName={'person'}
                                 iconType={Ionicons}
                                 color={Color.veryLightGray}

@@ -25,13 +25,15 @@ export default CardComponent
 
 const styles = StyleSheet.create({
     main_view: {
-        width: windowWidth * 0.95,
+        width: windowWidth * 0.92,
         height: windowWidth * 0.17,
-        backgroundColor: 'rgba(255, 255, 255, 0.6) ',
+        backgroundColor: 'rgba(24, 119, 242, 0.15)',
         marginTop: moderateScale(10, 0.6),
         borderRadius: moderateScale(10, 0.6),
         padding: moderateScale(10, 0.6),
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderTopColor: Color.darkBlue,
+        borderTopWidth: 3
     },
     row_view: {
         flexDirection: "row",

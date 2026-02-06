@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, ImageBackground, StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { apiHeader, windowHeight, windowWidth } from '../Utillity/utils'
@@ -58,23 +58,23 @@ const Department = () => {
 
 
     return (
-        <View style={styles.container}>
-            <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddDepartment', { data: {} })} rightText={'Add Department'} />
+        <ImageBackground source={require('../Assets/Images/drawer_image2.png')} style={styles.container}>
+            <Header menu_color={Color.white} hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddDepartment', { data: {} })} rightText={'Add Department'} />
             <View style={styles.main_view}>
                 <View style={styles.search_bar_view}>
                     <TextInputWithTitle
                         iconName={'search1'}
                         iconType={AntDesign}
-                        color={Color.veryLightGray}
+                        color={Color.white}
                         setText={setSearch}
                         value={search}
                         placeholder={'Search Department'}
-                        placeholderColor={Color.veryLightGray}
+                        placeholderColor={Color.white}
                         viewWidth={0.7}
                         viewHeight={0.055}
-                        border={1}
+                        border={2}
                         borderRadius={moderateScale(10, 0.6)}
-                        borderColor={Color.veryLightGray}
+                        borderColor={Color.white}
                     />
                     <CustomButton
                         text={'Search'}
@@ -107,7 +107,7 @@ const Department = () => {
                     />
                 }
             </View>
-        </View>
+        </ImageBackground>
     )
 }
 
@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: moderateScale(15, 0.6),
         width: windowWidth,
         height: windowHeight,
-        backgroundColor: Color.white
     },
     search_bar_view: {
         width: windowWidth * 0.94,

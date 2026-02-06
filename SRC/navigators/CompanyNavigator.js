@@ -18,6 +18,7 @@ import EmployeeDetails from '../Screens/EmployeeDetails';
 import PricingAndFeature from '../Screens/PricingAndFeature';
 import OnboardingScreen from '../Screens/OnboardingScreen';
 import OnboardingTask from '../Screens/OnboardingTask';
+import TaskDetail from '../Screens/TaskDetail';
 
 const DrawerNavigation = createDrawerNavigator();
 
@@ -43,6 +44,7 @@ const CompanyNavigator = () => {
             <DrawerNavigation.Screen name="PricingAndFeature" component={PricingAndFeature} />
             <DrawerNavigation.Screen name="OnboardingScreen" component={OnboardingScreen} />
             <DrawerNavigation.Screen name="OnboardingTask" component={OnboardingTask} />
+            <DrawerNavigation.Screen name="TaskDetail" component={TaskDetail} />
         </DrawerNavigation.Navigator>
     );
 };

@@ -53,26 +53,26 @@ const AddEmployees = () => {
   };
 
   return (
-    <ImageBackground source={require('../Assets/Images/background_image.png')}
+    <ImageBackground source={require('../Assets/Images/drawer_image2.png')}
       style={styles.gradient}
     >
       <View style={styles.container}>
-        <Header hideUser={false} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails', { data: {}, isDetails: false })} />
+        <Header hideUser={false} menu_color={Color.white} showBack={false} isRight onPressPlus={() => navigationService.navigate('AddEmployeeDetails', { data: {}, isDetails: false })} />
         <View style={styles.main_view}>
           <View style={styles.search_bar_view}>
             <TextInputWithTitle
               iconName={'search1'}
               iconType={AntDesign}
-              color={Color.veryLightGray}
+              color={Color.white}
               setText={setSearch}
               value={search}
               placeholder={'Search Employees'}
-              placeholderColor={Color.veryLightGray}
+              placeholderColor={Color.white}
               viewWidth={0.7}
               viewHeight={0.055}
               border={1}
               borderRadius={moderateScale(10, 0.6)}
-              borderColor={Color.veryLightGray}
+              borderColor={Color.white}
             />
             <CustomButton
               text={'Search'}
@@ -92,7 +92,7 @@ const AddEmployees = () => {
                 keyExtractor={(item) => item?.id}
                 ListEmptyComponent={<ListEmphtyComponent />}
                 renderItem={(({ item }) => {
-                  const nameInitial = (item?.detail?.full_name || ' ')[0]?.toUpperCase() || '?';
+                  const nameInitial = (item?.full_name || ' ')[0]?.toUpperCase() || '?';
                   return (
                     <CardComponent data={item}
                       image={nameInitial}

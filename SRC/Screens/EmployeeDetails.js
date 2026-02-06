@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
     Alert,
     FlatList,
+    ImageBackground,
     Platform,
     // SafeAreaView,
     ScrollView,
@@ -66,9 +67,9 @@ const EmployeeDetails = (props) => {
     const skillsArray = data?.skills ? JSON.parse(data.skills) : [];
 
     return (
-        <View style={styles.container}>
-            <Header isShadow={false} hideUser={false} showBack={true} headerColor={Color.white} />
-            <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99, backgroundColor: Color.white }}>
+        <ImageBackground source={require('../Assets/Images/drawer_image2.png')} style={styles.container}>
+            <Header isShadow={false} hideUser={false} showBack={true} />
+            <ScrollView style={{ width: windowWidth, height: windowHeight * 0.99 }}>
                 <View style={styles.main_view}>
                     <View style={styles.profile_view}>
                         <View style={{
@@ -168,7 +169,7 @@ const EmployeeDetails = (props) => {
                 </View>
             </ScrollView>
             <CustomLoading show={showModal} setShow={setShowModal} />
-        </View>
+        </ImageBackground>
     );
 };
 
@@ -278,7 +279,6 @@ const styles = StyleSheet.create({
     profile_view: {
         width: windowWidth,
         height: windowWidth * 0.5,
-        backgroundColor: Color.themeBlue,
         alignSelf: 'center',
         alignItems: "center",
         justifyContent: "center",
@@ -296,10 +296,20 @@ const styles = StyleSheet.create({
     icon_view: {
         width: moderateScale(40, 0.6),
         height: moderateScale(40, 0.6),
-        backgroundColor: Color.lightGrey,
+        backgroundColor: Color.white,
         borderRadius: windowWidth,
         alignItems: "center",
         justifyContent: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+        borderWidth: 2,
+        borderColor: Color.darkBlue
     },
     icon: {
         width: windowWidth * 0.12,

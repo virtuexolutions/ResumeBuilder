@@ -163,13 +163,13 @@ const Header = props => {
             <CustomText style={{
               fontSize: moderateScale(12, 0.6),
               marginRight: moderateScale(12, 0.6),
-              color: Color.darkGray
+              color: Color.white
             }}>{rightText}</CustomText>
             <Icon
               name={"plus"}
               as={Foundation}
               size={moderateScale(24, 0.2)}
-              color={Color.themeBlue}
+              color={Color.white}
               // style={{ right: -135, top: 2 }}
               onPress={props.onPressPlus}
             />
