@@ -10,6 +10,7 @@ import MeetingCard from '../Components/MeetingCard'
 import WeeklyDateCard from '../Components/WeeklyDateCard'
 import { windowWidth } from '../Utillity/utils'
 import navigationService from '../navigationService'
+import TimelineItem from '../Components/TimeLineCard'
 
 const OnboardingTask = () => {
     const [selected_category, setSelectedCategory] = useState('Meetings')
@@ -40,18 +41,55 @@ const OnboardingTask = () => {
             subtasks: {
                 completed: 6,
                 total: 8,
+                list: [
+                    { id: "st1", title: "Define color palette", isDone: true },
+                    { id: "st2", title: "Typography styles", isDone: true },
+                    { id: "st3", title: "Button components", isDone: true },
+                    { id: "st4", title: "Input fields", isDone: true },
+                    { id: "st5", title: "Cards & Modals", isDone: true },
+                    { id: "st6", title: "Icons integration", isDone: true },
+                    { id: "st7", title: "Dark mode support", isDone: false },
+                    { id: "st8", title: "Final review", isDone: false },
+                ],
             },
             progress: 75,
             dueDate: "28-9-2025",
             tags: ["Design", "Frontend", "UI/UX"],
             assignees: [
-                { id: "u1", name: "User 1", avatar: require('../Assets/Images/dummyman5.png') },
-                { id: "u2", name: "User 2", avatar: require('../Assets/Images/no_user_image.png') },
-                { id: "u3", name: "User 3", avatar: require('../Assets/Images/dummyman5.png') },
+                { id: "u1", name: "User 1", avatar: require("../Assets/Images/dummyman5.png") },
+                { id: "u2", name: "User 2", avatar: require("../Assets/Images/no_user_image.png") },
+                { id: "u3", name: "User 3", avatar: require("../Assets/Images/dummyman5.png") },
             ],
             extraAssigneesCount: 2,
             attachmentsCount: 3,
-            commentsCount: 8,
+            commentsCount: 3,
+            attachment: [
+                {
+                    id: 1,
+                    name: "Review_Report.docx",
+                    type: "docx",
+                },
+            ],
+            comments: [
+                {
+                    id: "c1",
+                    user: "User 1",
+                    message: "Color palette looks good, proceed with typography.",
+                    time: "2 hours ago",
+                },
+                {
+                    id: "c2",
+                    user: "User 2",
+                    message: "Buttons need hover and disabled states.",
+                    time: "1 hour ago",
+                },
+                {
+                    id: "c3",
+                    user: "User 3",
+                    message: "Dark mode pending, will start tomorrow.",
+                    time: "30 mins ago",
+                },
+            ],
         },
         {
             id: "2",
@@ -63,17 +101,50 @@ const OnboardingTask = () => {
             subtasks: {
                 completed: 5,
                 total: 10,
+                list: [
+                    { id: "st1", title: "Authentication section", isDone: true },
+                    { id: "st2", title: "User APIs", isDone: true },
+                    { id: "st3", title: "Task APIs", isDone: true },
+                    { id: "st4", title: "Error codes", isDone: true },
+                    { id: "st5", title: "Request examples", isDone: true },
+                    { id: "st6", title: "Response examples", isDone: false },
+                    { id: "st7", title: "Pagination docs", isDone: false },
+                    { id: "st8", title: "Rate limiting", isDone: false },
+                    { id: "st9", title: "Versioning info", isDone: false },
+                    { id: "st10", title: "Final review", isDone: false },
+                ],
             },
             progress: 50,
             dueDate: "28-9-2025",
             tags: ["Documentation", "API"],
             assignees: [
-                { id: "u4", name: "User 4", avatar: require('../Assets/Images/dummyman5.png') },
-                { id: "u5", name: "User 5", avatar: require('../Assets/Images/no_user_image.png') },
+                { id: "u4", name: "User 4", avatar: require("../Assets/Images/dummyman5.png") },
+                { id: "u5", name: "User 5", avatar: require("../Assets/Images/no_user_image.png") },
             ],
             extraAssigneesCount: 2,
-            attachmentsCount: 8,
-            commentsCount: 15,
+            attachmentsCount: 1,
+            attachment: [
+                {
+                    id: 1,
+                    name: "Review_Report.pdf",
+                    type: "pdf",
+                },
+            ],
+            commentsCount: 2,
+            comments: [
+                {
+                    id: "c1",
+                    user: "User 4",
+                    message: "Authentication docs completed.",
+                    time: "3 hours ago",
+                },
+                {
+                    id: "c2",
+                    user: "User 5",
+                    message: "Please add response examples for error cases.",
+                    time: "1 hour ago",
+                },
+            ],
         },
     ];
 
@@ -115,6 +186,50 @@ const OnboardingTask = () => {
         },
     ]
 
+    const checklists = [
+        {
+            id: 101,
+            title: "Website Deployment Checklist",
+            taskId: 5001,
+            taskName: "Deploy Client Website",
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+            assignedTo: 4,
+            assignedToName: "Web Development",
+            createdBy: 1,
+            createdByRole: "Admin",
+            dueDate: "2026-02-15",
+            status: "In Progress",
+            visibleToRoles: ["Admin", "HR", "Manager", "Employee"],
+            editableByRoles: ["Admin", "HR", "Manager"],
+            items: [
+                { id: 1, text: "Design Approved", isDone: true },
+                { id: 2, text: "Content Uploaded", isDone: true },
+                { id: 3, text: "Testing", isDone: false },
+                { id: 4, text: "Final Approval", isDone: false }
+            ]
+        },
+        {
+            id: 102,
+            title: "New Employee Onboarding",
+            taskId: 5002,
+            taskName: "HR Onboarding Process",
+            assignedTo: 4,
+            assignedToName: "Human Resource Manager",
+            createdBy: 2,
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+            createdByRole: "HR",
+            dueDate: "2026-02-10",
+            status: "Pending",
+            visibleToRoles: ["Admin", "HR", "Employee"],
+            editableByRoles: ["Admin", "HR"],
+            items: [
+                { id: 1, text: "Offer Letter Signed", isDone: true },
+                { id: 2, text: "Documents Collected", isDone: false },
+                { id: 3, text: "System Access Given", isDone: false }
+            ]
+        }
+    ];
+
     return (
         <ImageBackground source={require('../Assets/Images/drawer_image2.png')} style={{ flex: 1 }} resizeMethod='cover'>
             <Header title={'Onboarding Task'} color={Color.white} hideUser={false} showBack={true} backBtnStyle={Color.white} />
@@ -151,15 +266,32 @@ const OnboardingTask = () => {
                     })}
                 />
                 <FlatList
-                    data={selected_category === 'Assign Tasks' ? tasksData : meetingData}
-                    renderItem={(({ item }) => {
-                        return (
-                            <>
-                                {selected_category === 'Assign Tasks' ? <AssignTaskCard item={item} onPress={() => navigationService.navigate('TaskDetail', { data: item })} /> : <MeetingCard item={item} />
-                                }
-                            </>
-                        )
-                    })}
+                    data={
+                        selected_category === 'Assign Tasks'
+                            ? tasksData
+                            : selected_category === 'Meetings'
+                                ? meetingData
+                                : checklists
+                    }
+                    renderItem={({ item }) => {
+                        if (selected_category === 'Assign Tasks') {
+                            return (
+                                <AssignTaskCard
+                                    item={item}
+                                    onPress={() =>
+                                        navigationService.navigate('TaskDetail', { data: item })
+                                    }
+                                />
+                            );
+                        }
+
+                        if (selected_category === 'Meetings') {
+                            return <MeetingCard item={item} />;
+                        }
+
+                        return <TimelineItem item={item} />;
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
         </ImageBackground>

@@ -77,10 +77,10 @@ const Dashboard = ({ navigation, route }) => {
   ]
 
   const quickActions = [
-    { id: 1, title: "Add Employee", icon: "user-plus", as: FontAwesome },
-    { id: 2, title: "Add Department", icon: "building", as: FontAwesome },
-    { id: 3, title: "Initiate Onboarding", icon: "flag", as: Entypo },
-    { id: 4, title: "Upload Document", icon: "upload", as: Entypo }
+    { id: 1, title: "Add Employee", icon: "user-plus", as: FontAwesome, onPress: null },
+    { id: 2, title: "Add Department", icon: "building", as: FontAwesome, onPress: null },
+    { id: 3, title: "Initiate Onboarding", icon: "flag", as: Entypo, onPress: () => navigationService.navigate('OnboardingTask') },
+    { id: 4, title: "Upload Document", icon: "upload", as: Entypo, onPress: null }
   ];
 
   const onboardingStats = [
@@ -191,7 +191,7 @@ const Dashboard = ({ navigation, route }) => {
           showsHorizontalScrollIndicator={false}
           renderItem={(({ item }) => {
             return (
-              <TouchableOpacity style={styles.quick_actions_view}>
+              <TouchableOpacity style={styles.quick_actions_view} onPress={item?.onPress}>
                 <Icon name={item?.icon} as={item?.as} size={moderateScale(20, 0.6)} color={Color.veryLightGray} />
                 <CustomText isBold style={styles.actione_text}>{item?.title}</CustomText>
               </TouchableOpacity>

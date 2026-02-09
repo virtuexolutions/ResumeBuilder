@@ -26,7 +26,7 @@ const CompanyNavigator = () => {
     return (
         <DrawerNavigation.Navigator
             drawerContent={props => <Drawer {...props} />}
-            initialRouteName="OnboardingTask"
+            initialRouteName="Dashboard"
             screenOptions={{
                 headerShown: false,
                 drawerStyle: { width: '100%' },
