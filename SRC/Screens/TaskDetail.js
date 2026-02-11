@@ -4,21 +4,19 @@ import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import Color from '../Assets/Utilities/Color'
 import AttachmentsCard from '../Components/AttachmentsCard'
 import AvatarGroup from '../Components/AvaterGroup'
+import CommentItem from '../Components/CardItem'
 import CustomText from '../Components/CustomText'
 import Header from '../Components/Header'
-import { windowWidth } from '../Utillity/utils'
 import SubTaskCard from '../Components/SubTaskCard'
-import CustomImage from '../Components/CustomImage'
-import CommentItem from '../Components/CardItem'
+import { windowWidth } from '../Utillity/utils'
 
 const TaskDetail = ({ route }) => {
     const data = route?.params?.data;
-    console.log(data, '============================>')
     return (
         <ImageBackground source={require('../Assets/Images/drawer_image2.png')} style={{ flex: 1 }} resizeMethod='cover'>
             <Header title={'Onboarding Task'} color={Color.white} hideUser={false} showBack={true} backBtnStyle={Color.white} />

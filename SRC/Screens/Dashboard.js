@@ -28,17 +28,17 @@ import { AddToCart } from '../Store/slices/common';
 const Dashboard = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-
   const fromSignup = route?.params?.fromSignup;
+
+  const userData = useSelector(state => state.commonReducer.userData);
+  const CartData = useSelector(state => state.commonReducer.cart);
+  const token = useSelector(state => state.authReducer.token);
+
   const [numberOfEmployees, setnumberOfEmployees] = useState(0);
   const [numberOfDepartment, setnumberOfDepartment] = useState(0);
   const [numberOfDocuments, setnumberOfDocuments] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState('Dashboard');
-  const userData = useSelector(state => state.commonReducer.userData);
-  const CartData = useSelector(state => state.commonReducer.cart);
-  console.log('CartData', CartData)
-  const token = useSelector(state => state.authReducer.token);
 
   const pieData = [
     { value: numberOfEmployees, color: '#6366F1', text: numberOfEmployees },
@@ -96,10 +96,6 @@ const Dashboard = ({ navigation, route }) => {
     { id: 3, label: "Document Categories", value: null, icon: "folder", as: Entypo },
     { id: 4, label: "Company Documents", value: null, icon: "file-text", as: FontAwesome }
   ];
-
-  useEffect(() => {
-    getDetails();
-  }, [isFocused]);
 
   const getDetails = async () => {
     const url = 'auth/company_detail';
@@ -223,6 +219,10 @@ const Dashboard = ({ navigation, route }) => {
       </View>
     )
   }
+
+  useEffect(() => {
+    getDetails();
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>

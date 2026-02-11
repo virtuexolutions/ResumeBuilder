@@ -11,7 +11,6 @@ import { windowHeight, windowWidth } from '../Utillity/utils'
 
 const ChecklistDetail = ({ route }) => {
     const data = route?.params?.data;
-    console.log(data, '============================>')
     return (
         <ImageBackground source={require('../Assets/Images/drawer_image2.png')} style={{ width: windowWidth, height: windowHeight }} resizeMethod='cover'>
             <Header color={Color.white} hideUser={false} showBack={true} backBtnStyle={Color.darkBlue} />
