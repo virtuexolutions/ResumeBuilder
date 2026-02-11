@@ -13,9 +13,12 @@ import CustomText from '../Components/CustomText'
 import Header from '../Components/Header'
 import { windowWidth } from '../Utillity/utils'
 import SubTaskCard from '../Components/SubTaskCard'
+import CustomImage from '../Components/CustomImage'
+import CommentItem from '../Components/CardItem'
 
 const TaskDetail = ({ route }) => {
     const data = route?.params?.data;
+    console.log(data, '============================>')
     return (
         <ImageBackground source={require('../Assets/Images/drawer_image2.png')} style={{ flex: 1 }} resizeMethod='cover'>
             <Header title={'Onboarding Task'} color={Color.white} hideUser={false} showBack={true} backBtnStyle={Color.white} />
@@ -262,11 +265,8 @@ const TaskDetail = ({ route }) => {
                     </View>
                     <FlatList
                         data={data?.comments}
-                        renderItem={(({ item }) => {
-                            return (
-                                <View></View>
-                            )
-                        })}
+                        renderItem={({ item }) => <CommentItem item={item} />}
+                        keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
             </ScrollView>

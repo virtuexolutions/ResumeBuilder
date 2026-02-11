@@ -58,6 +58,9 @@ import AddToFavourite from './Screens/AddToFavourite';
 import ConfirmPaymentScreen from './Screens/ConfirmPaymentScreen';
 import CompanyWelcome from './Screens/CompanyWelcome';
 import PricingAndFeature from './Screens/PricingAndFeature';
+import TaskDetail from './Screens/TaskDetail';
+import MeetingDetails from './Screens/MeetingDetails';
+import ChecklistDetail from './Screens/ChecklistDetail';
 
 
 enableScreens();
@@ -150,6 +153,9 @@ const AppNavigator = () => {
           <RootNav.Screen name="PaymentScreen" component={PaymentScreen} />
           <RootNav.Screen name="AddToFavourite" component={AddToFavourite} />
           <RootNav.Screen name="ConfirmPaymentScreen" component={ConfirmPaymentScreen} />
+          <RootNav.Screen name="TaskDetail" component={TaskDetail} />
+          <RootNav.Screen name="MeetingDetails" component={MeetingDetails} />
+          <RootNav.Screen name="ChecklistDetail" component={ChecklistDetail} />
           <RootNav.Screen
             name="FinalCoverLetter"
             component={FinalCoverLetter}

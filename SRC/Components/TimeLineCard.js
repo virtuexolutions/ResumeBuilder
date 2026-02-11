@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { windowWidth } from "../Utillity/utils";
 import CustomText from "./CustomText";
@@ -10,9 +10,9 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-const TimelineItem = ({ item, isLast }) => {
+const TimelineItem = ({ item, isLast, onPress }) => {
     return (
-        <View style={styles.row}>
+        <TouchableOpacity style={styles.row} onPress={onPress}>
             <View style={styles.timeline}>
                 <LinearGradient
                     colors={['#1877F2', '#00C6FF', '#2AF598']}
@@ -74,7 +74,7 @@ const TimelineItem = ({ item, isLast }) => {
                     </View>
                 </View>
             </LinearGradient>
-        </View >
+        </TouchableOpacity >
     );
 };
 

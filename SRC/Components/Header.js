@@ -124,6 +124,7 @@ const Header = props => {
                   height: windowHeight * 0.05,
                   width: windowHeight * 0.05,
                   borderRadius: (windowHeight * 0.05) / 2,
+                  borderRadius: (windowHeight * 0.05) / 2,
                   paddingTop: moderateScale(6.6),
                 }}
                 name={'menu'}

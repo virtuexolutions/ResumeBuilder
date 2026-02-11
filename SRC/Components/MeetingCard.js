@@ -1,6 +1,6 @@
 import { FlatList, Icon } from 'native-base'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 import Entypo from 'react-native-vector-icons/Entypo'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -10,9 +10,9 @@ import AvatarGroup from '../Components/AvaterGroup'
 import CustomText from '../Components/CustomText'
 import { windowWidth } from '../Utillity/utils'
 
-const MeetingCard = ({ item }) => {
+const MeetingCard = ({ item, onPress }) => {
     return (
-        <View style={{
+        <TouchableOpacity onPress={onPress} style={{
             backgroundColor: 'rgba(24, 119, 242, 0.1)',
             flex: 1,
             borderRadius: moderateScale(10, 0.6),
@@ -117,7 +117,7 @@ const MeetingCard = ({ item }) => {
                 />
 
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

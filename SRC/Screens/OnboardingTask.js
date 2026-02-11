@@ -11,6 +11,7 @@ import WeeklyDateCard from '../Components/WeeklyDateCard'
 import { windowWidth } from '../Utillity/utils'
 import navigationService from '../navigationService'
 import TimelineItem from '../Components/TimeLineCard'
+import { date } from 'yup'
 
 const OnboardingTask = () => {
     const [selected_category, setSelectedCategory] = useState('Meetings')
@@ -152,38 +153,70 @@ const OnboardingTask = () => {
         {
             id: 1,
             name: 'Meeting with James Brown',
-            time: '8 : 00 Am  - 9 : 00 Am',
-            agenda: 'New Project Discussions ',
-            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-            members: [
-                { id: "u1", name: "User 1", avatar: require('../Assets/Images/dummyman5.png') },
-                { id: "u2", name: "User 2", avatar: require('../Assets/Images/no_user_image.png') },
-                { id: "u3", name: "User 3", avatar: require('../Assets/Images/dummyman5.png') },
-            ],
+
+            date: '12 Feb 2026',
+            time: '8:00 AM - 9:00 AM',
+            duration: '1 Hour',
+
             platform: 'Zoom',
+            meetingLink: 'https://zoom.us/xxxx',
+            meetingId: '897 2345 1234',
+
+            agenda: 'New Project Discussions',
+
+            summary: 'Discussion about upcoming project scope, timelines, and responsibilities between teams.',
+
+            objectives: [
+                'Understand project requirements',
+                'Finalize project timeline',
+                'Assign roles and responsibilities',
+            ],
+
+            topics: [
+                'Project overview',
+                'Design & development flow',
+                'Marketing strategy',
+                'Deadlines & milestones',
+            ],
+
+            description:
+                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+
+            members: [
+                { id: 'u1', name: 'User 1', role: 'Designer', avatar: require('../Assets/Images/dummyman5.png') },
+                { id: 'u2', name: 'User 2', role: 'Developer', avatar: require('../Assets/Images/no_user_image.png') },
+                { id: 'u3', name: 'User 3', role: 'Marketing Lead', avatar: require('../Assets/Images/dummyman5.png') },
+            ],
+
             department: [
                 'Designing',
                 'Marketing',
             ],
-        },
-        {
-            id: 2,
-            name: 'Meeting with Chirs Michel',
-            time: '8 : 00 Am  - 9 : 00 Am',
-            agenda: 'Present Plan',
-            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-            members: [
-                { id: "u1", name: "User 1", avatar: require('../Assets/Images/dummyman5.png') },
-                { id: "u2", name: "User 2", avatar: require('../Assets/Images/no_user_image.png') },
-                { id: "u3", name: "User 3", avatar: require('../Assets/Images/dummyman5.png') },
+
+            host: 'James Brown',
+
+            status: 'Scheduled',
+
+            priority: 'High',
+
+            reminders: [
+                '30 minutes before',
+                '10 minutes before',
             ],
-            platform: 'Zoom',
-            department: [
-                'Designing',
-                'Marketing',
-                'Project Management'
+
+            attachments: [
+                {
+                    name: 'Project Brief.pdf',
+                    type: 'pdf',
+                    size: '2.4 MB',
+                },
             ],
-        },
+
+            notes: '',
+
+            createdAt: '2026-02-10T08:00:00Z',
+        }
+
     ]
 
     const checklists = [
@@ -286,10 +319,10 @@ const OnboardingTask = () => {
                         }
 
                         if (selected_category === 'Meetings') {
-                            return <MeetingCard item={item} />;
+                            return <MeetingCard item={item} onPress={() => navigationService.navigate('MeetingDetails', { data: item })} />;
                         }
 
-                        return <TimelineItem item={item} />;
+                        return <TimelineItem item={item} onPress={() => navigationService.navigate('ChecklistDetail', { data: item })} />;
                     }}
                     keyExtractor={(item, index) => index.toString()}
                 />

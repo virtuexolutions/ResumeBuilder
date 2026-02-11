@@ -44,7 +44,6 @@ const CompanyNavigator = () => {
             <DrawerNavigation.Screen name="PricingAndFeature" component={PricingAndFeature} />
             <DrawerNavigation.Screen name="OnboardingScreen" component={OnboardingScreen} />
             <DrawerNavigation.Screen name="OnboardingTask" component={OnboardingTask} />
-            <DrawerNavigation.Screen name="TaskDetail" component={TaskDetail} />
         </DrawerNavigation.Navigator>
     );
 };
