@@ -84,7 +84,6 @@ const ChecklistForm = props => {
     // }
   };
 
-
   return (
     <ImageBackground
       style={styles.bg_container}
@@ -511,6 +510,7 @@ const ChecklistForm = props => {
         setFileObject={setImage}
       />
     </ImageBackground>
+
   );
 };
 

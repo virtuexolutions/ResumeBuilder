@@ -6,7 +6,6 @@ import {
     StyleSheet,
     View
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale } from 'react-native-size-matters';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -24,8 +23,6 @@ const Profile = () => {
     const dispatch = useDispatch();
     const userData = useSelector(state => state.commonReducer.userData);
     const token = useSelector(state => state.authReducer.token);
-
-
 
 
     const PointsView = ({ name, index }) => {
@@ -46,6 +43,7 @@ const Profile = () => {
             </View>
         )
     }
+
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false} style={{

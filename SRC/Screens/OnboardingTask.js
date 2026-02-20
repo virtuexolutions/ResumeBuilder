@@ -322,7 +322,7 @@ const OnboardingTask = () => {
                             return <MeetingCard item={item} onPress={() => navigationService.navigate('MeetingDetails', { data: item })} />;
                         }
 
-                        return <TimelineItem item={item} onPress={() => navigationService.navigate('ChecklistDetail', { data: item })} />;
+                        return <TimelineItem item={item} />
                     }}
                     keyExtractor={(item, index) => index.toString()}
                 />

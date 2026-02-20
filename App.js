@@ -41,7 +41,7 @@ const MainContainer = () => {
     GetPermission();
 
   }, []);
-  
+
   console.log("Platform Version:", Platform.Version);
 
   const [isloading] = useloader(true);
@@ -60,3 +60,4 @@ const useloader = value => {
   return [isloading];
 };
 export default App;
+
