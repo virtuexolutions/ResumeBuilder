@@ -9,6 +9,7 @@ import SplashScreen from './SRC/Screens/SplashScreen';
 import { persistor, store } from './SRC/Store/index';
 import {
   requestCameraPermission,
+  requestLocationPermission,
   requestWritePermission,
 } from './SRC/Utillity/utils';
 import AppNavigator from './SRC/appNavigation';
@@ -37,6 +38,7 @@ const MainContainer = () => {
     async function GetPermission() {
       await requestCameraPermission();
       await requestWritePermission();
+      await requestLocationPermission()
     }
     GetPermission();
 

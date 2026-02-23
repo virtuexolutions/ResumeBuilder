@@ -14,7 +14,6 @@ import { moderateScale } from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from '../Assets/Utilities/Color';
@@ -23,7 +22,6 @@ import CustomText from '../Components/CustomText';
 import Header from '../Components/Header';
 import navigationService from '../navigationService';
 import { windowHeight, windowWidth } from '../Utillity/utils';
-import { AddToCart } from '../Store/slices/common';
 
 const Dashboard = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -325,7 +323,7 @@ const styles = StyleSheet.create({
     paddingVertical: moderateScale(20, 0.6),
     paddingHorizontal: moderateScale(15, 0.6),
     height: windowHeight,
-    top: 10
+    top: 20
   },
   welcomeText: {
     fontSize: moderateScale(40, 0.3),
@@ -397,7 +395,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     justifyContent: 'space-between',
-    top: 20,
+    top: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
